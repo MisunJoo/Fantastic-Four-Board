@@ -8,7 +8,7 @@
 create database ffboard;
 use ffboard;
 ```
-
+#
 
 
 ## create table
