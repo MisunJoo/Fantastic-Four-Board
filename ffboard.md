@@ -60,14 +60,52 @@ CREATE TABLE comment (
 
 
 
-* 권한
+
+- 게시판
 
 ```mysql
-CREATE TABLE auth (
-)
+CREATE TABLE category (
+	category_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, 
+	category_name VARCHAR(255) NOT NULL,
+	PRIMARY KEY(category_id));
 ```
 
 
 
+- 페이지
+
+```mysql
+CREATE TABLE page (
+	category_id INT(10),
+	page_count INT(10));
+```
+
+
+
+
+
+- 권한
+
+```mysql
+CREATE TABLE auth (
+    auth_id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+    auth_name VARCHAR(50) NOT NULL,
+    auth_level INT(10),
+    category_id INT(10),
+    PRIMARY KEY(auth_id)
+);
+```
+
+
+
+- 내용
+
+```mysql
+CREATE TABLE content (
+	article_id BIGINT,
+	content VARCHAR(255),
+	image_url varchar(255),
+	PRIMARY KEY(article_id));
+```
 
 
