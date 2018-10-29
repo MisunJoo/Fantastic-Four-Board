@@ -79,20 +79,38 @@ public class ArticleDao {
     }
 
     public ArticleContent getArticleContent(Long id) {
-        String sql = "SELECT article_id,content FROM article_content WHERE article_id=:article_id";
-        try{
-            RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
-            Map<String, ?> params = Collections.singletonMap("article_id", id);
-            return jdbc.queryForObject(sql, params, rowMapper);
-        }catch(Exception ex){
-            return null;
-        }
+        String sql = "SELECT article_id, content FROM article_content WHERE article_id=:articleId";
+
+        RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
+        Map<String, Long> params = Collections.singletonMap("articleId", id);
+        return jdbc.queryForObject(sql, params, rowMapper);
     }
 
 
-    public JdbcTemplate getOriginJdbc() {
-        return originJdbc;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public ArticleContent getArticleContent(Long id) {
+//        String sql = "SELECT article_id,content FROM article_content WHERE article_id=:articleId";
+//        try{
+//            RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
+//            Map<String, Long> params = Collections.singletonMap("articleId", id);
+//            return jdbc.queryForObject(sql, params, rowMapper);
+//        }catch(Exception ex){
+//            return null;
+//        }
+//    }
+
 
 /*    public List<Article> getArticleList() {
 

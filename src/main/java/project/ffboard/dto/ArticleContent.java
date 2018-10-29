@@ -1,20 +1,23 @@
 package project.ffboard.dto;
 
 public class ArticleContent {
-    private Long article_id;
+    private Long articleId;
     private String content;
 
+    public ArticleContent() {
+    }
+
     public ArticleContent(Long article_id, String content) {
-        this.article_id = article_id;
+        this.articleId = article_id;
         this.content = content;
     }
 
-    public Long getArticle_id() {
-        return article_id;
+    public Long getArticleId() {
+        return articleId;
     }
 
-    public void setArticle_id(Long article_id) {
-        this.article_id = article_id;
+    public void setArticleId(Long articleId) {
+        this.articleId = articleId;
     }
 
     public String getContent() {
