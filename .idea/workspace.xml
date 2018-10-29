@@ -321,7 +321,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540800804422" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540800997463" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -342,7 +342,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ArticleDaoTest.addArticleContent">
+  <component name="RunManager" selected="JUnit.ArticleDaoTest.updateCount">
     <configuration name="DBConnTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="project.ffboard.main.DBConnTest" />
       <module name="Fantastic-Four-Board" />
@@ -404,7 +404,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ArticleDaoTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ArticleDaoTest.updateCount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Fantastic-Four-Board" />
       <extension name="coverage">
         <pattern>
@@ -414,7 +414,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="project.ffboard.dao" />
       <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="METHOD_NAME" value="updateCount" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -496,17 +496,17 @@
       <item itemvalue="Tomcat Server.server" />
       <item itemvalue="Application.DBConnTest" />
       <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
-      <item itemvalue="JUnit.ArticleDaoTest.test" />
       <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
       <item itemvalue="JUnit.ArticleDaoTest.addArticleContent" />
+      <item itemvalue="JUnit.ArticleDaoTest.updateCount" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ArticleDaoTest.updateCount" />
         <item itemvalue="JUnit.ArticleDaoTest.addArticleContent" />
         <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
         <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
         <item itemvalue="Application.DBConnTest" />
-        <item itemvalue="JUnit.ArticleDaoTest.test" />
       </list>
     </recent_temporary>
   </component>

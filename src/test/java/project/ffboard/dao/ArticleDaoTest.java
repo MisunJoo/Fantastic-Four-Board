@@ -52,8 +52,10 @@ public class ArticleDaoTest {
     @Test
     public void getArticle() throws Exception {
         Assert.assertEquals(articleDao.getArticle(1L).getCategoryId(),1);
-
     }
 
-
+    @Test
+    public void updateCount() {
+        Assert.assertEquals(articleDao.updateCount(1L), 1);
+    }
 }
