@@ -1,5 +1,6 @@
 package project.ffboard.dao;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +14,8 @@ import project.ffboard.dto.ArticleContent;
 
 import javax.sql.DataSource;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -73,7 +76,7 @@ public class ArticleDao {
             RowMapper<Article> rowMapper = BeanPropertyRowMapper.newInstance(Article.class);
             Map<String, Long> params = Collections.singletonMap("id", id);
             return jdbc.queryForObject(sql, params, rowMapper);
-        }catch(Exception ex){
+        }catch(DataAccessException e){
             return null;
         }
     }
@@ -81,44 +84,35 @@ public class ArticleDao {
     public ArticleContent getArticleContent(Long id) {
         String sql = "SELECT article_id, content FROM article_content WHERE article_id=:articleId";
 
-        RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
-        Map<String, Long> params = Collections.singletonMap("articleId", id);
-        return jdbc.queryForObject(sql, params, rowMapper);
+        try {
+            RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
+            Map<String, Long> params = Collections.singletonMap("articleId", id);
+            return jdbc.queryForObject(sql, params, rowMapper);
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
 
+    public List<Article> getArticleList(int categoryId, int start, int limit) {
+        String sql = "SELECT * FROM article WHERE category_id=:categoryId ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
+        RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
 
 
-
-
-
-
-
-
-
-
-
-
-
-//    public ArticleContent getArticleContent(Long id) {
-//        String sql = "SELECT article_id,content FROM article_content WHERE article_id=:articleId";
-//        try{
-//            RowMapper<ArticleContent> rowMapper = BeanPropertyRowMapper.newInstance(ArticleContent.class);
-//            Map<String, Long> params = Collections.singletonMap("articleId", id);
-//            return jdbc.queryForObject(sql, params, rowMapper);
-//        }catch(Exception ex){
-//            return null;
-//        }
-//    }
-
-
-/*    public List<Article> getArticleList() {
-
-
+        Map<String, Integer> params = new HashMap<String, Integer>();
+        params.put("categoryId", categoryId);
+        params.put("start", start);
+        params.put("limit", limit);
+        try {
+            return jdbc.query(sql, rowMapper, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     //검색용.
     public List<Article> getArticleLsit() {
-
-    }*/
+        return null;
+    }
 }

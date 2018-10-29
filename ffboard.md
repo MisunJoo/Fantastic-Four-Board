@@ -31,7 +31,7 @@ CREATE TABLE member (
 
 ```mysql
 CREATE TABLE article (
-	article_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	articleId BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	title VARCHAR(255) NOT NULL,
     hit int(10) DEFAULT 0,
     name VARCHAR(20) NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE article (
     depth_level INT(5),
     regdate DATE,
     category_id INT(10) NOT NULL,
-    PRIMARY KEY(article_id)
+    PRIMARY KEY(articleId)
 	);
 ```
 
@@ -50,7 +50,7 @@ CREATE TABLE article (
 ```mysql
 CREATE TABLE comment (
 	comment_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	article_id BIGINT NOT NULL,
+	articleId BIGINT NOT NULL,
 	name VARCHAR(20) not null,
 	content VARCHAR(255),
 	group_id BIGINT NOT NULL,
