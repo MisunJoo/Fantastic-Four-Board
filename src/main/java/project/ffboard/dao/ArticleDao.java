@@ -28,7 +28,7 @@ public class ArticleDao {
     public Long addArticle(Article article) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
-        
+
         return insertAction.executeAndReturnKey(params).longValue();
     }
 
