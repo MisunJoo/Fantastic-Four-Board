@@ -1,6 +1,5 @@
 package project.ffboard.dao;
 
-import org.mariadb.jdbc.BasePrepareStatement;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -88,11 +87,15 @@ public class ArticleDao {
         }
     }
 
+<<<<<<< Updated upstream
     public JdbcTemplate getOriginJdbc() {
         return originJdbc;
     }
 
     /*    public List<Article> getArticleList() {
+=======
+/*    public List<Article> getArticleList() {
+>>>>>>> Stashed changes
 
     }
 

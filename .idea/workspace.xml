@@ -7,12 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db2f6dfe-ae2f-483c-aa8c-163814116446" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/config/ApplicationConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/config/WebMvcContextConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/config/WebMvcContextConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/dto/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/dto/Article.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -49,31 +46,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="18" />
-          <entry key="sql" value="3" />
+          <entry key="java" value="23" />
+          <entry key="sql" value="5" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="18" />
-          <entry key="SQL" value="2" />
+          <entry key="JAVA" value="23" />
+          <entry key="SQL" value="4" />
           <entry key="Scratch" value="1" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2635" />
-          <entry key="sql" value="4" />
+          <entry key="java" value="2800" />
+          <entry key="sql" value="8" />
           <entry key="txt" value="11" />
           <entry key="xml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2635" />
+          <entry key="JAVA" value="2800" />
           <entry key="PLAIN_TEXT" value="11" />
+          <entry key="SQL" value="4" />
           <entry key="Scratch" value="4" />
           <entry key="XML" value="6" />
         </counts>
@@ -82,108 +80,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1150#1151#0" expanded="true" />
-                <element signature="e#1209#1210#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/config/ApplicationConfig.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/config/WebMvcContextConfiguration.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7d434bb4-26ee-4600-afcb-48e7b08c07e3/console.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="205" selection-start-line="205" selection-end-line="205" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="133">
+              <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#652#653#0" expanded="true" />
                 <element signature="e#694#695#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dto/Article.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="40" column="5" lean-forward="true" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/support/AbstractFallbackSQLExceptionTranslator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/core/JdbcTemplate.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="648" selection-start-line="648" selection-end-line="648" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jdbc/4.3.5.RELEASE/spring-jdbc-4.3.5.RELEASE-sources.jar!/org/springframework/jdbc/support/SQLErrorCodeSQLExceptionTranslator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="111">
-              <caret line="230" selection-start-line="230" selection-end-line="230" />
             </state>
           </provider>
         </entry>
@@ -197,6 +103,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>update</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -207,13 +118,14 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/main/DBConnTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/dto/ArticleContent.java" />
-        <option value="$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/7d434bb4-26ee-4600-afcb-48e7b08c07e3/console.sql" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/dto/Article.java" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/config/WebMvcContextConfiguration.java" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/config/ApplicationConfig.java" />
-        <option value="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/schema.sql" />
         <option value="$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java" />
+        <option value="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" />
       </list>
     </option>
   </component>
@@ -357,7 +269,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540793548793" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540798674363" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -377,7 +289,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ArticleDaoTest.test">
+  <component name="RunManager" selected="JUnit.ArticleDaoTest.addArticle">
     <configuration name="DBConnTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="project.ffboard.main.DBConnTest" />
       <module name="Fantastic-Four-Board" />
@@ -402,6 +314,22 @@
       <option name="PACKAGE_NAME" value="project.ffboard.dao" />
       <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
       <option name="METHOD_NAME" value="addArticle" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArticleDaoTest.getArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Fantastic-Four-Board" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project.ffboard.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="project.ffboard.dao" />
+      <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
+      <option name="METHOD_NAME" value="getArticle" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -517,13 +445,15 @@
       <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
       <item itemvalue="JUnit.ArticleDaoTest.init" />
       <item itemvalue="JUnit.ArticleDaoTest.test" />
+      <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
+        <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
+        <item itemvalue="Application.DBConnTest" />
         <item itemvalue="JUnit.ArticleDaoTest.test" />
         <item itemvalue="JUnit.ArticleDaoTest.init" />
-        <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
-        <item itemvalue="Application.DBConnTest" />
       </list>
     </recent_temporary>
   </component>
@@ -543,33 +473,45 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ArticleDaoTest_addArticle - 2018.10.29 at 13h 59m 45s.xml">
-      <configuration name="ArticleDaoTest.addArticle" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_addArticle - 2018.10.29 at 14h 00m 38s.xml">
-      <configuration name="ArticleDaoTest.addArticle" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_addArticle - 2018.10.29 at 14h 59m 50s.xml">
-      <configuration name="ArticleDaoTest.addArticle" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_init - 2018.10.29 at 15h 01m 30s.xml">
-      <configuration name="ArticleDaoTest.init" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ArticleDaoTest_test - 2018.10.29 at 15h 05m 09s.xml">
       <configuration name="ArticleDaoTest.test" configurationId="JUnit" />
     </history-entry>
     <history-entry file="ArticleDaoTest_test - 2018.10.29 at 15h 05m 48s.xml">
       <configuration name="ArticleDaoTest.test" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ArticleDaoTest_addArticle - 2018.10.29 at 15h 15m 40s.xml">
+      <configuration name="ArticleDaoTest.addArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_test - 2018.10.29 at 15h 41m 53s.xml">
+      <configuration name="ArticleDaoTest.test" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 15h 53m 26s.xml">
+      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 15h 54m 13s.xml">
+      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 16h 03m 17s.xml">
+      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 16h 07m 13s.xml">
+      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 16h 07m 46s.xml">
+      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_addArticle - 2018.10.29 at 16h 14m 31s.xml">
+      <configuration name="ArticleDaoTest.addArticle" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14857000" />
+    <option name="totallyTimeSpent" value="19791000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22547974" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15991472" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -579,7 +521,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3004535" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40929705" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -645,16 +587,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/main/DBConnTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dto/ArticleFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -683,25 +615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/schema.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7d434bb4-26ee-4600-afcb-48e7b08c07e3/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
           <caret line="205" selection-start-line="205" selection-end-line="205" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1150#1151#0" expanded="true" />
-            <element signature="e#1209#1210#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -750,24 +667,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/main/DBConnTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="272">
+          <caret line="16" column="17" lean-forward="true" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#652#653#0" expanded="true" />
-            <element signature="e#694#695#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/schema.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="98" lean-forward="true" selection-start-line="98" selection-end-line="98" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/config/DBConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="18" column="61" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="36" column="32" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+        <state relative-caret-position="231">
+          <caret line="31" column="66" selection-start-line="31" selection-start-column="66" selection-end-line="31" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/local/jdk1.8.0_181/src.zip!/java/lang/Number.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="71" column="25" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#652#653#0" expanded="true" />
+            <element signature="e#694#695#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -43,6 +43,10 @@ public class ArticleDaoTest {
 
     @Test
     public void getArticle() throws Exception {
+<<<<<<< Updated upstream
         Assert.assertEquals(articleDao.getArticle(1L).getCategoryId(),1);
+=======
+        System.out.println(articleDao.getArticle(1L).getTitle());
+>>>>>>> Stashed changes
     }
 }
