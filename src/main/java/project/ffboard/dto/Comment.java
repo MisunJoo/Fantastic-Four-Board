@@ -11,7 +11,7 @@ public class Comment {
     private int depthLevel;
     private int groupSeq;
     private String regdate;
-    private String update;
+    private String upddate;
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
@@ -19,17 +19,6 @@ public class Comment {
     public Comment() {
     }
 
-    public Comment(Long articleId, String nickName, String content, Long groupId, int depthLevel, int groupSeq, Date regdate, String ipAddress, Long memberId) {
-        this.articleId = articleId;
-        this.nickName = nickName;
-        this.content = content;
-        this.groupId = groupId;
-        this.depthLevel = depthLevel;
-        this.groupSeq = groupSeq;
-        this.regdate = regdate;
-        this.ipAddress = ipAddress;
-        this.memberId = memberId;
-    }
 
     public Long getId() {
         return id;
@@ -120,12 +109,12 @@ public class Comment {
         this.regdate = regdate;
     }
 
-    public String getUpdate() {
-        return update;
+    public String getUpddate() {
+        return upddate;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    public void setUpddate(String upddate) {
+        this.upddate = upddate;
     }
 
     public Boolean getDeleted() {
