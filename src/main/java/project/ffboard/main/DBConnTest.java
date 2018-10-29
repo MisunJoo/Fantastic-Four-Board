@@ -12,7 +12,7 @@ public class DBConnTest {
 
     public static void main(String[] args) {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        DataSource ds = ac.getBean(DataSource.class);
+        DataSource ds = ac.getBean(DataSource.class);   
         Connection conn = null;
         try {
             conn = ds.getConnection();
