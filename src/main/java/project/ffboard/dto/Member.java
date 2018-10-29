@@ -1,13 +1,13 @@
 package project.ffboard.dto;
 
-import java.util.List;
+import java.util.Map;
 
 public class Member {
     private Long id;
     private String nickName;
     private String password;
     private String email;
-    private List<MemberPermission> permList;
+    private Map<String, String> permMap;
 
     public Member() {
     }

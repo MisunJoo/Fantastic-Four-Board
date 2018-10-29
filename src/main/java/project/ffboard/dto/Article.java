@@ -10,16 +10,17 @@ public class Article {
     private int depthLevel;
     private int groupSeq;
     private Date regdate;
-    private Date update;
+    private Date upddate;
     private int categoryId;
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
+    private String content;
 
     public Article() {
     }
 
-    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId) {
+    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId, String content) {
         this.title = title;
         this.nickName = nickName;
         this.groupId = groupId;
@@ -29,6 +30,7 @@ public class Article {
         this.categoryId = categoryId;
         this.ipAddress = ipAddress;
         this.memberId = memberId;
+        this.content = content;
     }
 
     public Long getId() {
@@ -87,12 +89,12 @@ public class Article {
         this.regdate = regdate;
     }
 
-    public Date getUpdate() {
-        return update;
+    public Date getUpddate() {
+        return upddate;
     }
 
-    public void setUpdate(Date update) {
-        this.update = update;
+    public void setUpddate(Date upddate) {
+        this.upddate = upddate;
     }
 
     public int getCategoryId() {
@@ -125,6 +127,14 @@ public class Article {
 
     public void setDeleted(Boolean deleted) {
         isDeleted = deleted;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
 

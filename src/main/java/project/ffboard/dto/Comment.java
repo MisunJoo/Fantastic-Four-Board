@@ -11,7 +11,7 @@ public class Comment {
     private int depthLevel;
     private int groupSeq;
     private Date regdate;
-    private Date update;
+    private Date upddate;
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
@@ -95,12 +95,12 @@ public class Comment {
         this.regdate = regdate;
     }
 
-    public Date getUpdate() {
-        return update;
+    public Date getUpddate() {
+        return upddate;
     }
 
-    public void setUpdate(Date update) {
-        this.update = update;
+    public void setUpddate(Date upddate) {
+        this.upddate = upddate;
     }
 
     public String getIpAddress() {
