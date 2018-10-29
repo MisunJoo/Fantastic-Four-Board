@@ -34,7 +34,7 @@ public class ArticleDaoTest {
         article.setIpAddress("192.168.0.1");
         article.setMemberId(1L);
         article.setNickName("유어스토리");
-        article.setTitle("333자바게시판인가요?");
+        article.setTitle("제이름은 뭘까요?");
         article.setHit(0);
         article.setRegdate(new Date());
         article.setIsDeleted(false);
@@ -44,7 +44,7 @@ public class ArticleDaoTest {
 
     @Test
     public void addArticleContent() throws Exception {
-        ArticleContent articleContent = new ArticleContent(10L, "자바로취업하고싶어요!");
+        ArticleContent articleContent = new ArticleContent(25L, "사실 정시윤입니다.");
 
         Assert.assertEquals(articleDao.addArticleContent(articleContent), 1);
     }
@@ -90,6 +90,50 @@ public class ArticleDaoTest {
         Assert.assertEquals(articleList.size(),5);
         for (Article article : articleList) {
             System.out.println(article.getTitle());
+        }
+    }
+
+    /*검색용*/
+    //제목
+    @Test
+    public void getArticleListSearchTitle() {
+        List<Article> articleList = articleDao.getArticleList(1, 0, 5,"제목","자바");
+        //Assert.assertEquals(articleList.size(),5);
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle());
+        }
+    }
+    //내용
+    @Test
+    public void getArticleListSearchContent() {
+        List<Article> articleList = articleDao.getArticleList(1, 0, 5,"내용","수정된");
+        //Assert.assertEquals(articleList.size(),5);
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle());
+        }
+    }
+
+    //이름
+    @Test
+    public void getArticleListSearchNickName() {
+        List<Article> articleList = articleDao.getArticleList(1, 0, 5,"이름","어스");
+        //Assert.assertEquals(articleList.size(),5);
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle() + article.getNickName());
+        }
+    }
+
+    //제목+내용
+    @Test
+    public void getArticleListSearchTitleNContent() {
+        List<Article> articleList = articleDao.getArticleList(1, 0, 5,"제목+내용","정시윤");
+        //Assert.assertEquals(articleList.size(),5);
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle() + article.getNickName());
         }
     }
 

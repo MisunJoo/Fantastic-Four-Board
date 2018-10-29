@@ -120,8 +120,36 @@ public class ArticleDao {
         return null;
     }
 
-    //검색용.
-    public List<Article> getArticleLsit() {
+    /*검색용*/
+    public List<Article> getArticleList(int categoryId, int start, int limit, String searchType, String searchWord) {
+        searchWord = "%" + searchWord + "%";
+        RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
+        String sql = "SELECT art.id,art.title, art.hit,art.nick_name, art.group_id, art.depth_level, art.group_seq, art.regdate, art.upddate, art.category_id, art.ip_address, art.member_id, art.is_deleted, artcon.content FROM article art LEFT OUTER JOIN article_content artcon ON art.id = artcon.article_id  WHERE art.category_id=:categoryId AND ";
+
+        if (searchType.equals("제목")) {
+            sql += "art.title LIKE :searchWord ORDER BY art.group_id DESC, art.group_seq ASC LIMIT :start , :limit";
+        } else if (searchType.equals("내용")) {
+            sql += "artcon.content LIKE :searchWord ORDER BY art.group_id DESC, art.group_seq ASC LIMIT :start , :limit";
+        } else if (searchType.equals("이름")) {
+            sql += "art.nick_name LIKE :searchWord ORDER BY art.group_id DESC, art.group_seq ASC LIMIT :start , :limit";
+        } else if (searchType.equals("제목+내용")) {
+            sql += "art.title LIKE :searchWord OR artcon.content LIKE :searchWord ORDER BY art.group_id DESC, art.group_seq ASC LIMIT :start , :limit";
+        } else {
+            return null;
+        }
+
+        Map<String, Object> params = new HashMap();
+        params.put("categoryId", Integer.valueOf(categoryId));
+        params.put("start", Integer.valueOf(start));
+        params.put("limit", Integer.valueOf(limit));
+        params.put("searchWord", searchWord);
+
+        try {
+            return jdbc.query(sql,params,rowMapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
+
 }
