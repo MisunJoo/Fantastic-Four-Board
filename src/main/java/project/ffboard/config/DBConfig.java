@@ -12,10 +12,11 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 public class DBConfig {
-    private String driverClassName = "org.mariadb.jdbc.Driver";
-    private String url = "jdbc:mariadb://localhost:3306/Test_db";
-    private String username = "siyoon";
-    private String password = "1234";
+    private String driverClassName = "com.mysql.jdbc.Driver";
+    private String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8";
+    private String username = "mysql";
+    private String password = "mysql";
+
 
     @Bean
     public DataSource dataSource() {
@@ -33,3 +34,4 @@ public class DBConfig {
         return new DataSourceTransactionManager(ds);
     }
 }
+
