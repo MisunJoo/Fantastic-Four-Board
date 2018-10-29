@@ -25,6 +25,7 @@ public class ArticleDao {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.originJdbc = new JdbcTemplate(dataSource);
         this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id");
+
     }
 
     public int addArticle(Article article) {
@@ -35,9 +36,10 @@ public class ArticleDao {
         return result;
     }
 
-    public Long addArticleContent(ArticleContent articleContent) {
-        SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
-        return insertAction.executeAndReturnKey(params).longValue();
+    public int addArticleContent(ArticleContent articleContent) {
+        SqlParameterSource params2 = new BeanPropertySqlParameterSource(articleContent);
+        int result = insertAction.withTableName("article_content").execute(params2);
+        return result;
     }
 
     public int updateCount(Long id){
@@ -87,15 +89,13 @@ public class ArticleDao {
         }
     }
 
-<<<<<<< Updated upstream
+
     public JdbcTemplate getOriginJdbc() {
         return originJdbc;
     }
 
-    /*    public List<Article> getArticleList() {
-=======
 /*    public List<Article> getArticleList() {
->>>>>>> Stashed changes
+
 
     }
 

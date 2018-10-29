@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import project.ffboard.config.ApplicationConfig;
 import project.ffboard.dto.Article;
+import project.ffboard.dto.ArticleContent;
 
 import java.util.Date;
 import java.util.List;
@@ -42,11 +43,17 @@ public class ArticleDaoTest {
     }
 
     @Test
-    public void getArticle() throws Exception {
-<<<<<<< Updated upstream
-        Assert.assertEquals(articleDao.getArticle(1L).getCategoryId(),1);
-=======
-        System.out.println(articleDao.getArticle(1L).getTitle());
->>>>>>> Stashed changes
+    public void addArticleContent() throws Exception {
+        ArticleContent articleContent = new ArticleContent(10L, "자바로취업하고싶어요!");
+
+        Assert.assertEquals(articleDao.addArticleContent(articleContent), 1);
     }
+
+    @Test
+    public void getArticle() throws Exception {
+        Assert.assertEquals(articleDao.getArticle(1L).getCategoryId(),1);
+
+    }
+
+
 }
