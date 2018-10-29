@@ -50,11 +50,6 @@ public class ArticleDaoTest {
     }
 
     @Test
-    public void getArticle() throws Exception {
-        Assert.assertEquals(articleDao.getArticle(1L).getCategoryId(),1);
-    }
-
-    @Test
     public void updateCount() {
         Assert.assertEquals(articleDao.updateCount(1L), 1);
     }
@@ -77,6 +72,11 @@ public class ArticleDaoTest {
     public void updateArticleContent() {
         ArticleContent articleContent = new ArticleContent(1L, "수정된 내용");
         Assert.assertEquals(articleDao.updateArticleContent(articleContent), 1);
+    }
+
+    @Test
+    public void getArticle() throws Exception {
+        Assert.assertEquals((Object)articleDao.getArticle(1L).getId(), (Object)1L);
     }
 
     
