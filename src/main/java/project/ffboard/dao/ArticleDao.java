@@ -2,11 +2,13 @@ package project.ffboard.dao;
 
 import org.mariadb.jdbc.BasePrepareStatement;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
@@ -16,20 +18,24 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class ArticleDao {
     private NamedParameterJdbcTemplate jdbc;
+    private JdbcTemplate originJdbc;
     private SimpleJdbcInsert insertAction;
 
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+        this.originJdbc = new JdbcTemplate(dataSource);
         this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id");
     }
 
     public Long addArticle(Article article) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
+        Long result = insertAction.executeAndReturnKey(params).longValue();
         String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
-
-        return insertAction.executeAndReturnKey(params).longValue();
+        originJdbc.execute(sql);
+        return result;
     }
 
     public Long addArticleContent(ArticleContent articleContent) {
@@ -84,12 +90,17 @@ public class ArticleDao {
         }
     }
 
-    public List<Article> getArticleList() {
+    public int getTest() {
+        System.out.println("");
+        return 1;
+    }
+
+/*    public List<Article> getArticleList() {
 
     }
 
     //검색용.
     public List<Article> getArticleLsit() {
 
-    }
+    }*/
 }
