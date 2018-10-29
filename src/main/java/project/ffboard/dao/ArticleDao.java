@@ -94,17 +94,26 @@ public class ArticleDao {
     }
 
 
+//    public List<Article> getArticleList(int categoryId, int start, int limit){
+//        String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
+//                "regdate, upddate, ip_address, member_id, is_deleted FROM comment WHERE article_id=:articleId";
+//        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
+//        RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
+//        List<Comment> comments = jdbc.query(sql, map, rowMapper);
+//
+//        return comments;
+//    }
+
     public List<Article> getArticleList(int categoryId, int start, int limit) {
-        String sql = "SELECT * FROM article WHERE category_id=:categoryId ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
+        String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE category_id=:categoryId ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
         RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
 
-
-        Map<String, Integer> params = new HashMap<String, Integer>();
-        params.put("categoryId", categoryId);
-        params.put("start", start);
-        params.put("limit", limit);
+        Map<String, Integer> params = new HashMap();
+        params.put("categoryId", Integer.valueOf(categoryId));
+        params.put("start", Integer.valueOf(start));
+        params.put("limit", Integer.valueOf(limit));
         try {
-            return jdbc.query(sql, rowMapper, params);
+            return jdbc.query(sql,params,rowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }

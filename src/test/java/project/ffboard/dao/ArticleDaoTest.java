@@ -11,6 +11,7 @@ import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
@@ -81,6 +82,15 @@ public class ArticleDaoTest {
     @Test
     public void getArticleContent() {
         Assert.assertEquals(articleDao.getArticleContent(1L).getArticleId(), (Object)1L);
+    }
+
+    @Test
+    public void getArticleList() {
+        List<Article> articleList = articleDao.getArticleList(1, 0, 5);
+        Assert.assertEquals(articleList.size(),5);
+        for (Article article : articleList) {
+            System.out.println(article.getTitle());
+        }
     }
 
 }
