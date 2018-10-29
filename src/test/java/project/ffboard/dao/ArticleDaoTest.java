@@ -58,4 +58,9 @@ public class ArticleDaoTest {
     public void updateCount() {
         Assert.assertEquals(articleDao.updateCount(1L), 1);
     }
+
+    @Test
+    public void deleteArticle() {
+        Assert.assertEquals(articleDao.deleteArticle(1L), 1);
+    }
 }
