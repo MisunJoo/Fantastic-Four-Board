@@ -15,12 +15,12 @@ public class Article {
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
-    private String content;
+    // private String content;
 
     public Article() {
     }
 
-    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId, String content) {
+    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId) {
         this.title = title;
         this.nickName = nickName;
         this.groupId = groupId;
@@ -30,7 +30,6 @@ public class Article {
         this.categoryId = categoryId;
         this.ipAddress = ipAddress;
         this.memberId = memberId;
-        this.content = content;
     }
 
     public Long getId() {
@@ -129,12 +128,5 @@ public class Article {
         isDeleted = deleted;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }
 
