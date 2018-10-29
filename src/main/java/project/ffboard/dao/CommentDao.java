@@ -1,6 +1,7 @@
 package project.ffboard.dao;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -19,17 +20,23 @@ import java.util.Map;
 public class CommentDao {
     private NamedParameterJdbcTemplate jdbc;
     private SimpleJdbcInsert insertAction;
+    private JdbcTemplate jdbcTemplate;
 
     public CommentDao(DataSource dataSource){
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.insertAction=new SimpleJdbcInsert(dataSource)
                 .withTableName("comment").usingGeneratedKeyColumns("id","is_deleted");
+        this.jdbcTemplate=new JdbcTemplate(dataSource);
     }
 
     public Long addComment(Comment comment){
         SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
-        System.out.println(comment.getContent());
-        return insertAction.executeAndReturnKey(params).longValue();
+        Long id= insertAction.executeAndReturnKey(params).longValue();
+
+        String sql = "UPDATE comment SET group_id=(SELECT LAST_INSERT_ID()) " +
+                "WHERE id=(SELECT LAST_INSERT_ID())";
+        jdbcTemplate.execute(sql);
+        return id;
     }
     public int deleteComment(Long id){
         String sql = "UPDATE comment SET is_deleted=:idDeleted WHERE id=:id";
@@ -48,7 +55,7 @@ public class CommentDao {
     }
     public List<Comment> getCommentList(Long articleId){
         String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
-                "regdate, upddate, ip_address, member_id FROM comment WHERE article_id=:articleId";
+                "regdate, upddate, ip_address, member_id, is_deleted FROM comment WHERE article_id=:articleId";
         Map<String, Object> map = Collections.singletonMap("articleId", articleId);
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);

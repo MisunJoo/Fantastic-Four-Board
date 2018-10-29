@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Controller
 public class CommentTest {
     private static CommentService commentService;
 
@@ -32,7 +31,6 @@ public class CommentTest {
         CommentDao commentDao = new CommentDao(ds);
         CommentService commentService = new CommentServiceImpl(commentDao);
         Comment comment = new Comment();
-
 
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
