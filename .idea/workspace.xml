@@ -7,6 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db2f6dfe-ae2f-483c-aa8c-163814116446" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -64,7 +66,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="3302" />
+          <entry key="java" value="3743" />
           <entry key="sql" value="8" />
           <entry key="txt" value="11" />
           <entry key="xml" value="6" />
@@ -72,7 +74,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="3302" />
+          <entry key="JAVA" value="3743" />
           <entry key="PLAIN_TEXT" value="11" />
           <entry key="SQL" value="4" />
           <entry key="Scratch" value="4" />
@@ -88,8 +90,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="386">
-                  <caret line="63" column="28" lean-forward="true" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+                <state relative-caret-position="437">
+                  <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="e#1799#1800#0" expanded="true" />
@@ -108,8 +110,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="44" column="23" lean-forward="true" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+                <state relative-caret-position="408">
+                  <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -120,8 +122,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7d434bb4-26ee-4600-afcb-48e7b08c07e3/console.sql">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="286">
-                  <caret line="199" column="56" selection-start-line="199" selection-start-column="56" selection-end-line="199" selection-end-column="56" />
+                <state relative-caret-position="218">
+                  <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
                 </state>
               </provider>
             </entry>
@@ -322,7 +324,7 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540801094607" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1540801800620" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -343,23 +345,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ArticleDaoTest.deleteArticle">
-    <configuration name="ArticleDaoTest.addArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Fantastic-Four-Board" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="project.ffboard.dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="project.ffboard.dao" />
-      <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
-      <option name="METHOD_NAME" value="addArticle" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.ArticleDaoTest.updateArticle">
     <configuration name="ArticleDaoTest.addArticleContent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Fantastic-Four-Board" />
       <extension name="coverage">
@@ -403,6 +389,22 @@
       <option name="PACKAGE_NAME" value="project.ffboard.dao" />
       <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
       <option name="METHOD_NAME" value="getArticle" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ArticleDaoTest.updateArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Fantastic-Four-Board" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project.ffboard.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="project.ffboard.dao" />
+      <option name="MAIN_CLASS_NAME" value="project.ffboard.dao.ArticleDaoTest" />
+      <option name="METHOD_NAME" value="updateArticle" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -498,19 +500,19 @@
     </configuration>
     <list>
       <item itemvalue="Tomcat Server.server" />
-      <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
       <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
       <item itemvalue="JUnit.ArticleDaoTest.addArticleContent" />
       <item itemvalue="JUnit.ArticleDaoTest.updateCount" />
       <item itemvalue="JUnit.ArticleDaoTest.deleteArticle" />
+      <item itemvalue="JUnit.ArticleDaoTest.updateArticle" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ArticleDaoTest.updateArticle" />
         <item itemvalue="JUnit.ArticleDaoTest.deleteArticle" />
         <item itemvalue="JUnit.ArticleDaoTest.updateCount" />
         <item itemvalue="JUnit.ArticleDaoTest.addArticleContent" />
         <item itemvalue="JUnit.ArticleDaoTest.getArticle" />
-        <item itemvalue="JUnit.ArticleDaoTest.addArticle" />
       </list>
     </recent_temporary>
   </component>
@@ -526,23 +528,11 @@
       <updated>1540519794026</updated>
       <workItem from="1540519795747" duration="2387000" />
       <workItem from="1540777257703" duration="7137000" />
-      <workItem from="1540799673527" duration="1421000" />
+      <workItem from="1540799673527" duration="2127000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ArticleDaoTest_addArticleContent - 2018.10.29 at 17h 04m 02s.xml">
-      <configuration name="ArticleDaoTest.addArticleContent" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 17h 06m 37s.xml">
-      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_getArticle - 2018.10.29 at 17h 07m 45s.xml">
-      <configuration name="ArticleDaoTest.getArticle" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ArticleDaoTest_addArticleContent - 2018.10.29 at 17h 07m 58s.xml">
-      <configuration name="ArticleDaoTest.addArticleContent" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ArticleDaoTest_addArticleContent - 2018.10.29 at 17h 08m 36s.xml">
       <configuration name="ArticleDaoTest.addArticleContent" configurationId="JUnit" />
     </history-entry>
@@ -561,9 +551,21 @@
     <history-entry file="ArticleDaoTest_updateCount - 2018.10.29 at 17h 16m 39s.xml">
       <configuration name="ArticleDaoTest.updateCount" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ArticleDaoTest_deleteArticle - 2018.10.29 at 17h 18m 16s.xml">
+      <configuration name="ArticleDaoTest.deleteArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_updateArticle - 2018.10.29 at 17h 25m 23s.xml">
+      <configuration name="ArticleDaoTest.updateArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_updateArticle - 2018.10.29 at 17h 27m 03s.xml">
+      <configuration name="ArticleDaoTest.updateArticle" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleDaoTest_updateArticle - 2018.10.29 at 17h 27m 18s.xml">
+      <configuration name="ArticleDaoTest.updateArticle" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22176000" />
+    <option name="totallyTimeSpent" value="22882000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="28" width="1920" height="1018" extended-state="6" />
@@ -577,10 +579,10 @@
       <window_info id="Favorites" order="5" side_tool="true" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" weight="0.32993197" />
+      <window_info active="true" anchor="bottom" id="Database Console" visible="true" weight="0.32993197" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32993197" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32993197" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -777,15 +779,15 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/7d434bb4-26ee-4600-afcb-48e7b08c07e3/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="199" column="56" selection-start-line="199" selection-start-column="56" selection-end-line="199" selection-end-column="56" />
+        <state relative-caret-position="218">
+          <caret line="192" column="20" selection-start-line="192" selection-start-column="20" selection-end-line="192" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/project/ffboard/dao/ArticleDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="44" column="23" lean-forward="true" selection-start-line="44" selection-start-column="23" selection-end-line="44" selection-end-column="23" />
+        <state relative-caret-position="408">
+          <caret line="66" column="40" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -794,8 +796,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/project/ffboard/dao/ArticleDaoTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="63" column="28" lean-forward="true" selection-start-line="63" selection-start-column="28" selection-end-line="63" selection-end-column="28" />
+        <state relative-caret-position="437">
+          <caret line="75" column="4" selection-start-line="75" selection-start-column="4" selection-end-line="75" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1799#1800#0" expanded="true" />

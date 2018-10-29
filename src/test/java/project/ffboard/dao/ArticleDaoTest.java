@@ -63,4 +63,15 @@ public class ArticleDaoTest {
     public void deleteArticle() {
         Assert.assertEquals(articleDao.deleteArticle(1L), 1);
     }
+
+    @Test
+    public void updateArticle() {
+        Article article = new Article();
+        article.setId(9L);
+        article.setTitle("프로그래밍자바로시작하면어떨까요?");
+        article.setUpddate(new Date());
+        Assert.assertEquals(articleDao.updateArticle(article), 1);
+    }
+
+    
 }

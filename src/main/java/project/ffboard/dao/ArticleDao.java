@@ -55,8 +55,14 @@ public class ArticleDao {
     }
 
     public int updateArticle(Article article) {
-        String sql = "UPDATE article SET nickName = :nickName, title = :title " +
+        String sql = "UPDATE article SET title = :title, upddate = :upddate " +
                 "WHERE id = :id";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(article);
+        return jdbc.update(sql, params);
+    }
+
+    public int updateArticleContent(Article article) {
+        String sql = "UPDATE article_content SET contnet = :content";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         return jdbc.update(sql, params);
     }
