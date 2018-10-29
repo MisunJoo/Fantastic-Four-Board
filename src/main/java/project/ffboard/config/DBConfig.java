@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class DBConfig {
     private String driverClassName = "org.mariadb.jdbc.Driver";
-    private String url = "jdbc:mariadb://localhost:3306/Test_db";
+    private String url = "jdbc:mariadb://localhost:3306/ffboard";
     private String username = "siyoon";
     private String password = "1234";
 

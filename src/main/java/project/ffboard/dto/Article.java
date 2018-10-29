@@ -15,6 +15,7 @@ public class Article {
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
+    private int hit;
     // private String content;
 
     public Article() {
@@ -120,13 +121,20 @@ public class Article {
         this.memberId = memberId;
     }
 
-    public Boolean getDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setIsDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
 }
 

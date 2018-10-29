@@ -13,9 +13,7 @@ import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -30,9 +28,9 @@ public class ArticleDao {
         this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id");
     }
 
-    public Long addArticle(Article article) {
+    public int addArticle(Article article) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        Long result = insertAction.executeAndReturnKey(params).longValue();
+        int result = insertAction.execute(params);
         String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
         originJdbc.execute(sql);
         return result;
@@ -56,7 +54,7 @@ public class ArticleDao {
     }
 
     public int updateArticle(Article article) {
-        String sql = "UPDATE article SET nickName = :nickName, title = :title" +
+        String sql = "UPDATE article SET nickName = :nickName, title = :title " +
                 "WHERE id = :id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         return jdbc.update(sql, params);
@@ -72,7 +70,7 @@ public class ArticleDao {
         String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE id=:id";
         try{
             RowMapper<Article> rowMapper = BeanPropertyRowMapper.newInstance(Article.class);
-            Map<String, ?> params = Collections.singletonMap("id", id);
+            Map<String, Long> params = Collections.singletonMap("id", id);
             return jdbc.queryForObject(sql, params, rowMapper);
         }catch(Exception ex){
             return null;
@@ -90,12 +88,11 @@ public class ArticleDao {
         }
     }
 
-    public int getTest() {
-        System.out.println("");
-        return 1;
+    public JdbcTemplate getOriginJdbc() {
+        return originJdbc;
     }
 
-/*    public List<Article> getArticleList() {
+    /*    public List<Article> getArticleList() {
 
     }
 
