@@ -1,5 +1,6 @@
 package project.ffboard.dao;
 
+import com.sun.javafx.image.IntPixelGetter;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,10 +33,24 @@ public class ArticleDao {
     }
 
     public int addArticle(Article article) {
+        Boolean isReply = article.getGroupId() != null && article.getDepthLevel() > 0 && article.getGroupSeq() > 0;
+
+        if (isReply) {
+            String sql = "UPDATE article SET group_seq = group_seq + 1 WHERE group_id = :groupId AND group_seq >= :groupSeq";
+            Map<String, Number> map = new HashMap<>();
+            map.put("groupId", article.getGroupId());
+            map.put("groupSeq", article.getGroupSeq());
+            jdbc.update(sql, map);
+        }
+
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         int result = insertAction.execute(params);
-        String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
-        originJdbc.execute(sql);
+
+        if (!isReply) {
+            String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
+            originJdbc.execute(sql);
+        }
+
         return result;
     }
 
@@ -44,6 +59,7 @@ public class ArticleDao {
         int result = insertAction.withTableName("article_content").execute(params);
         return result;
     }
+
 
     public int updateCount(Long id){
         String sql = "UPDATE article SET hit = hit + 1 WHERE id = :id";
@@ -94,17 +110,6 @@ public class ArticleDao {
             return null;
         }
     }
-
-
-//    public List<Article> getArticleList(int categoryId, int start, int limit){
-//        String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
-//                "regdate, upddate, ip_address, member_id, is_deleted FROM comment WHERE article_id=:articleId";
-//        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
-//        RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
-//        List<Comment> comments = jdbc.query(sql, map, rowMapper);
-//
-//        return comments;
-//    }
 
     public List<Article> getArticleList(int categoryId, int start, int limit) {
         String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,"

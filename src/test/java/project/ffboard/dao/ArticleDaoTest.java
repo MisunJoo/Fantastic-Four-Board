@@ -34,7 +34,7 @@ public class ArticleDaoTest {
         article.setIpAddress("192.168.0.1");
         article.setMemberId(1L);
         article.setNickName("유어스토리");
-        article.setTitle("제이름은 뭘까요?");
+        article.setTitle("밥먹고합시다/");
         article.setHit(0);
 //        article.setRegdate(new Date());
         article.setIsDeleted(false);
@@ -47,6 +47,22 @@ public class ArticleDaoTest {
         ArticleContent articleContent = new ArticleContent(9L, "사실 정시윤입니다.");
 
         Assert.assertEquals(articleDao.addArticleContent(articleContent), 1);
+    }
+
+    @Test
+    public void addArticleReply() throws Exception {
+        Article article = new Article();
+        article.setCategoryId(1);
+        article.setDepthLevel(1+1);
+        article.setGroupSeq(1+1);
+        article.setIpAddress("192.168.0.1");
+        article.setMemberId(1L);
+        article.setNickName("유어스토리");
+        article.setTitle("짜?");
+        article.setHit(0);
+        article.setGroupId(3L);
+//        Assert.assertEquals(java.util.Optional.ofNullable(test), java.util.Optional.ofNullable(1L));
+        Assert.assertEquals((Object)1,(Object)articleDao.addArticle(article));
     }
 
     @Test
