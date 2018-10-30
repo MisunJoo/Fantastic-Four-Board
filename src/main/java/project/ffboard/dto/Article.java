@@ -21,7 +21,8 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId) {
+    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId,
+                   String ipAddress, Long memberId) {
         this.title = title;
         this.nickName = nickName;
         this.groupId = groupId;
