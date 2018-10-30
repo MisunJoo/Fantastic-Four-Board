@@ -10,8 +10,8 @@ public class Comment {
     private Long groupId;
     private int depthLevel;
     private int groupSeq;
-    private String regdate;
-    private String upddate;
+    private Date regdate;
+    private Date upddate;
     private String ipAddress;
     private Long memberId;
         private Boolean isDeleted;
@@ -101,19 +101,19 @@ public class Comment {
         isDeleted = deleted;
     }
 
-    public String getRegdate() {
+    public Date getRegdate() {
         return regdate;
     }
 
-    public void setRegdate(String regdate) {
+    public void setRegdate(Date regdate) {
         this.regdate = regdate;
     }
 
-    public String getUpddate() {
+    public Date getUpddate() {
         return upddate;
     }
 
-    public void setUpddate(String upddate) {
+    public void setUpddate(Date upddate) {
         this.upddate = upddate;
     }
 

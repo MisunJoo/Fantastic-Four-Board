@@ -25,23 +25,24 @@ public class CommentDao {
     public CommentDao(DataSource dataSource){
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.insertAction=new SimpleJdbcInsert(dataSource)
-                .withTableName("comment").usingGeneratedKeyColumns("id","is_deleted");
+                .withTableName("comment")
+                .usingGeneratedKeyColumns("id","is_deleted","regdate");
         this.jdbcTemplate=new JdbcTemplate(dataSource);
     }
 
-    public Long addComment(Comment comment){
+    public int addComment(Comment comment){
         SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
-        Long id= insertAction.executeAndReturnKey(params).longValue();
+        int result= insertAction.execute(params);
 
         String sql = "UPDATE comment SET group_id=(SELECT LAST_INSERT_ID()) " +
                 "WHERE id=(SELECT LAST_INSERT_ID())";
         jdbcTemplate.execute(sql);
-        return id;
+        return result;
     }
     public int deleteComment(Long id){
-        String sql = "UPDATE comment SET is_deleted=:idDeleted WHERE id=:id";
-        Map<String, Long> map = new HashMap<>();
-        map.put("idDeleted", 1L);
+        String sql = "UPDATE comment SET is_deleted=:isDeleted WHERE id=:id";
+        Map<String, Object> map = new HashMap<>();
+        map.put("isDeleted", true);
         map.put("id", id);
         return jdbc.update(sql, map);
     }

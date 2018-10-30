@@ -24,14 +24,13 @@ public class CommentController {
     @GetMapping("/comment/writeform")
     public String writeForm(ModelMap modelMap){
         modelMap.addAttribute("comments", commentService.getCommentList(2L));
+
         return "comment";
     }
 
     @PostMapping("/comment/write")
     public String write(@ModelAttribute Comment comment){
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println("gid="+comment.getGroupId());
-        if(comment.getId()==null){      // 그냥 댓글
+        if(comment.getGroupId()==null){      // 그냥 댓글
             comment.setGroupSeq(0);
             comment.setDepthLevel(0);
         }else{                          // 답글
@@ -40,7 +39,6 @@ public class CommentController {
         }
 
         // 나중에 수정
-        comment.setRegdate(format.format(new Date()));
         comment.setIpAddress("124.2223");
         comment.setMemberId(0L);
         comment.setArticleId(2L);

@@ -15,7 +15,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Long addComment(Comment comment) {
+    public int addComment(Comment comment) {
         return commentDao.addComment(comment);
     }
 
