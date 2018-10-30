@@ -8,18 +8,18 @@
     <title>Title</title>
 </head>
 <body>
-<c:forEach items="${comments}" var="comment ">
+<c:forEach items="${comments}" var="comment">
     <c:if test="${comment.isDeleted==false}">
     ${comment.nickName} ${comment.regdate} <input type="button" value="답글"> <br>
     ${comment.content}<br>
+        <input type="button" value="수정" onclick="window.open('/comment/modifyform?id=${comment.id}&content=${comment.content}',
+                'target','width=570, height=350, resizable = no, scrollbars = no')">
         <input type="button" value="삭제" onclick="window.location.href='/comment/delete?id=${comment.id}'">
-        <input type="button" value="수정">
     </c:if>
     <c:if test="${comment.isDeleted==true}">
         삭제된 글입니다.<br>
     </c:if>
-    <br>${comment.isDeleted}
-    ${comment.content}${comment.content}
+    <br>
 </c:forEach>
 
 
@@ -28,7 +28,6 @@
     content : <input type="<textarea name=" name="content" cols="30" rows="10"></textarea>
     <input type="submit">
 </form>
-
 
 
 </body>

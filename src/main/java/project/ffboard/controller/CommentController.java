@@ -40,7 +40,7 @@ public class CommentController {
 
         // 나중에 수정
         comment.setIpAddress("124.2223");
-        comment.setMemberId(0L);
+        comment.setMemberId(1L);
         comment.setArticleId(2L);
         comment.setNickName("nick");
 
@@ -49,10 +49,17 @@ public class CommentController {
     }
 
     @GetMapping("/comment/delete")
-    public String commentDelete(Long id){
+    public String delete(Long id){
         commentService.deleteComment(id);
 
         return "redirect:/comment/writeform";
+    }
+
+    @GetMapping("/comment/modifyform")
+    public String modifyForm(ModelMap modelMap, @ModelAttribute Comment comment){
+        modelMap.addAttribute("comment", comment);
+
+        return "modifyform";
     }
 
 }
