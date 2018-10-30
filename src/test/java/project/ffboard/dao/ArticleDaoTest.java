@@ -44,14 +44,14 @@ public class ArticleDaoTest {
 
     @Test
     public void addArticleContent() throws Exception {
-        ArticleContent articleContent = new ArticleContent(25L, "사실 정시윤입니다.");
+        ArticleContent articleContent = new ArticleContent(9L, "사실 정시윤입니다.");
 
-//        Assert.assertEquals(articleDao.addArticleContent(articleContent), 1);
+        Assert.assertEquals(articleDao.addArticleContent(articleContent), 1);
     }
 
     @Test
     public void updateCount() {
-        Assert.assertEquals(articleDao.updateCount(1L), 1);
+        Assert.assertEquals(articleDao.updateCount(9L), 1);
     }
 
     @Test

@@ -54,7 +54,7 @@ CREATE TABLE `article` (
 
 CREATE TABLE `comment` (
   `id` BIGINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `articleId` BIGINT(10) UNSIGNED NOT NULL,
+  `article_id` BIGINT(10) UNSIGNED NOT NULL,
   `nick_name` VARCHAR(20) NOT NULL,
   `content` VARCHAR(255) NOT NULL,
   `group_id` BIGINT(10) UNSIGNED,
@@ -75,16 +75,16 @@ CREATE TABLE `article_counting` (
 );
 
 CREATE TABLE `article_content` (
-  `articleId` BIGINT(10) UNSIGNED NOT NULL,
+  `article_id` BIGINT(10) UNSIGNED NOT NULL,
   `content` TEXT NOT NULL,
-  PRIMARY KEY (`articleId`)
+  PRIMARY KEY (`article_id`)
 );
 
 ALTER TABLE `member_permission` ADD FOREIGN KEY (`perm_name`) REFERENCES `permission`(`name`);
 ALTER TABLE `member_permission` ADD FOREIGN KEY (`member_id`) REFERENCES `member`(`id`);
 ALTER TABLE `article` ADD FOREIGN KEY (`category_id`) REFERENCES `category`(`id`);
 ALTER TABLE `article` ADD FOREIGN KEY (`member_id`) REFERENCES `member`(`id`);
-ALTER TABLE `comment` ADD FOREIGN KEY (`articleId`) REFERENCES `article`(`id`);
+ALTER TABLE `comment` ADD FOREIGN KEY (`article_id`) REFERENCES `article`(`id`);
 ALTER TABLE `comment` ADD FOREIGN KEY (`member_id`) REFERENCES `member`(`id`);
 ALTER TABLE `article_counting` ADD FOREIGN KEY (`category_id`) REFERENCES `category`(`id`);
-ALTER TABLE `article_content` ADD FOREIGN KEY (`articleId`) REFERENCES `article`(`id`);
+ALTER TABLE `article_content` ADD FOREIGN KEY (`article_id`) REFERENCES `article`(`id`);

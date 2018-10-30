@@ -27,7 +27,7 @@ public class ArticleDao {
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.originJdbc = new JdbcTemplate(dataSource);
-        this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id");
+        this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id","is_deleted","regdate");
 
     }
 
