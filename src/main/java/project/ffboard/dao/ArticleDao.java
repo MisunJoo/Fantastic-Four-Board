@@ -32,7 +32,7 @@ public class ArticleDao {
 
     }
 
-    public int addArticle(Article article) {
+    public Long addArticle(Article article) {
         Boolean isReply = article.getGroupId() != null && article.getDepthLevel() > 0 && article.getGroupSeq() > 0;
 
         if (isReply) {
@@ -44,7 +44,7 @@ public class ArticleDao {
         }
 
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        int result = insertAction.execute(params);
+        Long result = insertAction.executeAndReturnKey(params).longValue();
 
         if (!isReply) {
             String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
