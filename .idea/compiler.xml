@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Fantastic-Four-Board" />
+        <module name="ffboard" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ffboard" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

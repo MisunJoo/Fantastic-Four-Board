@@ -14,22 +14,11 @@ public class Comment {
     private Date upddate;
     private String ipAddress;
     private Long memberId;
-    private Boolean isDeleted;
+        private Boolean isDeleted;
 
     public Comment() {
     }
 
-    public Comment(Long articleId, String nickName, String content, Long groupId, int depthLevel, int groupSeq, Date regdate, String ipAddress, Long memberId) {
-        this.articleId = articleId;
-        this.nickName = nickName;
-        this.content = content;
-        this.groupId = groupId;
-        this.depthLevel = depthLevel;
-        this.groupSeq = groupSeq;
-        this.regdate = regdate;
-        this.ipAddress = ipAddress;
-        this.memberId = memberId;
-    }
 
     public Long getId() {
         return id;
@@ -87,21 +76,6 @@ public class Comment {
         this.groupSeq = groupSeq;
     }
 
-    public Date getRegdate() {
-        return regdate;
-    }
-
-    public void setRegdate(Date regdate) {
-        this.regdate = regdate;
-    }
-
-    public Date getUpddate() {
-        return upddate;
-    }
-
-    public void setUpddate(Date upddate) {
-        this.upddate = upddate;
-    }
 
     public String getIpAddress() {
         return ipAddress;
@@ -117,6 +91,30 @@ public class Comment {
 
     public void setMemberId(Long memberId) {
         this.memberId = memberId;
+    }
+
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Date getRegdate() {
+        return regdate;
+    }
+
+    public void setRegdate(Date regdate) {
+        this.regdate = regdate;
+    }
+
+    public Date getUpddate() {
+        return upddate;
+    }
+
+    public void setUpddate(Date upddate) {
+        this.upddate = upddate;
     }
 
     public Boolean getDeleted() {

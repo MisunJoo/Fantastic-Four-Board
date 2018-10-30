@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-//@ComponentScan(basePackages = { "examples.daoexam.controller"})
+@ComponentScan(basePackages = { "project.ffboard.controller"})
 public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

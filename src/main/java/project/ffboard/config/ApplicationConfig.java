@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import project.ffboard.config.DBConfig;
 
 @Configuration
-//@ComponentScan(basePackages = { "project.ffboard.dao", "project.ffboard.service"})
+@ComponentScan(basePackages = { "project.ffboard.dao", "project.ffboard.service"})
 @Import({ DBConfig.class})
 public class ApplicationConfig {
 
