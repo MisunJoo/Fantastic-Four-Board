@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DBConnTest {
-
     public static void main(String[] args) {
         ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         DataSource ds = ac.getBean(DataSource.class);   

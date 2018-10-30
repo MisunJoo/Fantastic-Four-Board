@@ -15,12 +15,14 @@ public class Article {
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
-    private String content;
+    private int hit;
+    // private String content;
 
     public Article() {
     }
 
-    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId, String ipAddress, Long memberId, String content) {
+    public Article(String title, String nickName, Long groupId, int depthLevel, int groupSeq, Date regdate, int categoryId,
+                   String ipAddress, Long memberId) {
         this.title = title;
         this.nickName = nickName;
         this.groupId = groupId;
@@ -30,7 +32,6 @@ public class Article {
         this.categoryId = categoryId;
         this.ipAddress = ipAddress;
         this.memberId = memberId;
-        this.content = content;
     }
 
     public Long getId() {
@@ -121,20 +122,20 @@ public class Article {
         this.memberId = memberId;
     }
 
-    public Boolean getDeleted() {
+    public Boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setDeleted(Boolean deleted) {
+    public void setIsDeleted(Boolean deleted) {
         isDeleted = deleted;
     }
 
-    public String getContent() {
-        return content;
+    public int getHit() {
+        return hit;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setHit(int hit) {
+        this.hit = hit;
     }
 }
 
