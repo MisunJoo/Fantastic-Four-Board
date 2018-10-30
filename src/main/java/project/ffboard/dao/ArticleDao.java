@@ -40,8 +40,8 @@ public class ArticleDao {
     }
 
     public int addArticleContent(ArticleContent articleContent) {
-        SqlParameterSource params2 = new BeanPropertySqlParameterSource(articleContent);
-        int result = insertAction.withTableName("article_content").execute(params2);
+        SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
+        int result = insertAction.withTableName("article_content").execute(params);
         return result;
     }
 
@@ -71,7 +71,9 @@ public class ArticleDao {
     }
 
     public Article getArticle(Long id) {
-        String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE id=:id";
+        String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,"
+                +"upddate,category_id,ip_address,member_id,is_deleted "
+                +"FROM article WHERE id=:id";
         try{
             RowMapper<Article> rowMapper = BeanPropertyRowMapper.newInstance(Article.class);
             Map<String, Long> params = Collections.singletonMap("id", id);
@@ -105,7 +107,9 @@ public class ArticleDao {
 //    }
 
     public List<Article> getArticleList(int categoryId, int start, int limit) {
-        String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE category_id=:categoryId ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
+        String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,"
+                +"upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE category_id=:categoryId "
+                +"ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
         RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
 
         Map<String, Integer> params = new HashMap();
@@ -132,7 +136,8 @@ public class ArticleDao {
     public List<Article> getArticleList(int categoryId, int start, int limit, String searchType, String searchWord) {
         searchWord = "%" + searchWord + "%";
         RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
-        String sql = "SELECT art.id,art.title, art.hit,art.nick_name, art.group_id, art.depth_level, art.group_seq, art.regdate, art.upddate, art.category_id, art.ip_address, art.member_id, art.is_deleted, artcon.content "
+        String sql = "SELECT art.id,art.title, art.hit,art.nick_name, art.group_id, art.depth_level, art.group_seq, "
+                +"art.regdate, art.upddate, art.category_id, art.ip_address, art.member_id, art.is_deleted, artcon.content "
                 +"FROM article art LEFT OUTER JOIN article_content artcon ON art.id = artcon.article_id  WHERE art.category_id=:categoryId AND ";
 
         if (searchType.equals("제목")) {
