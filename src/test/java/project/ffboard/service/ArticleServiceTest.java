@@ -13,6 +13,7 @@ import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
@@ -114,6 +115,21 @@ public class ArticleServiceTest {
         Assert.assertEquals(articleContent.getArticleId(),(Object)20L);
 
         System.out.println(articleContent.getContent()+" "+articleContent.getArticleId());
+    }
+
+    @Test
+    public void getArticleList() {
+        int categoryId = 1;
+        int start =0;
+
+        List<Article> articleList =  articleService.getArticleList(categoryId, start);
+
+        //가져온 article의 사이즈
+        Assert.assertEquals(5,articleList.size());
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle()+" " +article.getNickName()+" "+article.getId());
+        }
     }
 }
 

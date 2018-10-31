@@ -62,8 +62,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticleList(int categoryId) {
-        return null;
+    public List<Article> getArticleList(int categoryId, int start) {
+        int limit = 5;
+        return articleDao.getArticleList(categoryId,start,limit);
     }
 
     @Override
