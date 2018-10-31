@@ -131,5 +131,22 @@ public class ArticleServiceTest {
             System.out.println(article.getTitle()+" " +article.getNickName()+" "+article.getId());
         }
     }
+
+    @Test
+    public void getArticleListSearch() {
+        int categoryId = 1;
+        int start =0;
+        String searchType = "제목";
+        String searchWord = "자바";
+
+        List<Article> articleList =  articleService.getArticleList(categoryId, start, searchType, searchWord);
+
+        //가져온 article의 사이즈
+//        Assert.assertEquals(5,articleList.size());
+
+        for (Article article : articleList) {
+            System.out.println(article.getTitle()+" " +article.getNickName()+" "+article.getId());
+        }
+    }
 }
 

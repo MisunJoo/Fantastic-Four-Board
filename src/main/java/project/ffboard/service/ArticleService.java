@@ -15,5 +15,5 @@ public interface ArticleService {
     public Article getArticle(Long id);
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);
-    public List<Article> getArticleList(int categoryId, String searchType, String searchWord);
+    public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord);
 }

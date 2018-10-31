@@ -68,7 +68,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> getArticleList(int categoryId, String searchType, String searchWord) {
-        return null;
+    public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
+        int limit = 5;
+        return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
     }
 }
