@@ -15,14 +15,21 @@
         <br>
 
         <div id="commentModifyForm">
-            <form name="modifyInfo" target="parentForm">
-                <textarea rows="7" cols="70" name="content">${comment.content}</textarea>
+            <form method="post" name="modifyInfo" target="parentForm" onsubmit="modify()" action="/comment/modify">
+                <input type="hidden" name="id" value="${comment.id}">
+                <textarea rows="7" cols="70" name="content"> ${comment.content} </textarea>
                 <br><br>
-                <input type="button" value="등록" onclick="/comment/">
-                <input type="button" value="취소" onclick="">
+                <input type="submit" value="등록" >
+                <input type="button" value="취소" onclick="window.close()">
             </form>
         </div>
     </div>
 
+<script type="text/javascript">
+    function modify(){
+        window.opener.reload();
+        window.close();
+    }
+</script>
 </body>
 </html>

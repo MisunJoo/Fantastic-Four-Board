@@ -58,8 +58,11 @@ public class CommentController {
     @GetMapping("/comment/modifyform")
     public String modifyForm(ModelMap modelMap, @ModelAttribute Comment comment){
         modelMap.addAttribute("comment", comment);
-
         return "modifyform";
+    }
+    @PostMapping("/comment/modify")
+    public void modify(@ModelAttribute Comment comment){
+        commentService.modifyComment(comment);
     }
 
 }

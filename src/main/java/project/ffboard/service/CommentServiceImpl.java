@@ -37,4 +37,9 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getCommentList(Long articleId) {
         return commentDao.getCommentList(articleId);
     }
+
+    @Override
+    public void modifyComment(Comment comment) {
+        commentDao.modifyComment(comment);
+    }
 }
