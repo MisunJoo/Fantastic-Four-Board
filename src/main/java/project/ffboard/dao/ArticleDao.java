@@ -81,7 +81,7 @@ public class ArticleDao {
     }
 
     public int updateArticleContent(ArticleContent articleContent) {
-        String sql = "UPDATE article_content SET content = :content WHERE article_id = :article_id";
+        String sql = "UPDATE article_content SET content = :content WHERE article_id = :articleId";
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
         return jdbc.update(sql, params);
     }

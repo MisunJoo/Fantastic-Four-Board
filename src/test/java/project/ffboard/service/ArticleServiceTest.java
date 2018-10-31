@@ -83,4 +83,14 @@ public class ArticleServiceTest {
         //수정된 건수를 리턴 (1이어야함)
         Assert.assertEquals(1, articleService.updateArticle(article));
     }
+
+    @Test
+    public void updateArticleContent() {
+        ArticleContent articleContent = new ArticleContent();
+        articleContent.setArticleId(20L);
+        articleContent.setContent("안녕안녕~~~");
+        //수정된 건수를 리턴 (1이어야함)
+        Assert.assertEquals(1, articleService.updateArticleContent(articleContent));
+    }
 }
+
