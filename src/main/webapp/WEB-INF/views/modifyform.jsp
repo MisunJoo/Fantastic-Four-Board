@@ -18,7 +18,7 @@
             <form name="modifyInfo" target="parentForm">
                 <textarea rows="7" cols="70" name="content">${comment.content}</textarea>
                 <br><br>
-                <input type="button" value="등록" onclick="/comment/w">
+                <input type="button" value="등록" onclick="/comment/">
                 <input type="button" value="취소" onclick="">
             </form>
         </div>
