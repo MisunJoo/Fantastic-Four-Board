@@ -74,7 +74,7 @@ public class ArticleDao {
     }
 
     public int updateArticle(Article article) {
-        String sql = "UPDATE article SET title = :title, upddate = :upddate " +
+        String sql = "UPDATE article SET title = :title, nick_name=:nickName, upddate = :upddate, ip_address = :ipAddress " +
                 "WHERE id = :id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         return jdbc.update(sql, params);

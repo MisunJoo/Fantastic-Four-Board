@@ -12,6 +12,8 @@ import project.ffboard.config.ApplicationConfig;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
+import java.util.Date;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
 @Component
@@ -60,5 +62,25 @@ public class ArticleServiceTest {
 
         //update된 건수를 리턴 (1이어야함)
         Assert.assertEquals(1,articleService.updateCount(articleId));
+    }
+
+    @Test
+    public void deleteArticle() {
+        Long articleId=12L;
+
+        //삭제된(isDeleted가 1이된) 건수를 리턴 (1이어야함)
+        Assert.assertEquals(1,articleService.deleteArticle(articleId));
+    }
+
+    @Test
+    public void updateArticle() {
+        Article article = new Article();
+        article.setTitle("수정을 한 제목");
+        article.setIpAddress("168.1.123.1");
+        article.setUpddate(new Date());
+        article.setNickName("푸르");
+        article.setId(12L);
+        //수정된 건수를 리턴 (1이어야함)
+        Assert.assertEquals(1, articleService.updateArticle(article));
     }
 }

@@ -37,18 +37,18 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int deleteArticle(Article article) {
-        return 0;
+    public int deleteArticle(Long id) {
+        return articleDao.deleteArticle(id);
     }
 
     @Override
     public int updateArticle(Article article) {
-        return 0;
+        return articleDao.updateArticle(article);
     }
 
     @Override
     public int updateArticleContent(ArticleContent articleContent) {
-        return 0;
+        return articleDao.updateArticleContent(articleContent);
     }
 
     @Override
