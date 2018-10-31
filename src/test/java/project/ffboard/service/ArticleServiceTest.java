@@ -98,9 +98,22 @@ public class ArticleServiceTest {
         Long id = 20L;
 
         Article article = articleService.getArticle(id);
+        //가져온 id
         Assert.assertEquals(article.getId(),(Object)20L);
 
         System.out.println(article.getTitle()+" "+article.getNickName());
+    }
+
+    @Test
+    public void getArticleContent() {
+        Long id = 20L;
+
+        ArticleContent articleContent = articleService.getArticleContent(id);
+
+        //가져온 articleId
+        Assert.assertEquals(articleContent.getArticleId(),(Object)20L);
+
+        System.out.println(articleContent.getContent()+" "+articleContent.getArticleId());
     }
 }
 
