@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Comment;
 import project.ffboard.service.CommentService;
 
@@ -22,8 +23,13 @@ public class CommentController {
     }
 
     @GetMapping("/comment/writeform")
-    public String writeForm(ModelMap modelMap){
+    public String writeForm(ModelMap modelMap, @RequestParam(value="check", defaultValue = "false") String check,
+                            @RequestParam(value = "commentId",defaultValue = "-100") Long commentId){
         modelMap.addAttribute("comments", commentService.getCommentList(2L));
+        if(check.equals("true")) {
+            modelMap.addAttribute("check", check);
+            modelMap.addAttribute("commentId", commentId);
+        }
 
         return "comment";
     }
@@ -55,14 +61,14 @@ public class CommentController {
         return "redirect:/comment/writeform";
     }
 
-    @GetMapping("/comment/modifyform")
-    public String modifyForm(ModelMap modelMap, @ModelAttribute Comment comment){
-        modelMap.addAttribute("comment", comment);
-        return "modifyform";
-    }
     @PostMapping("/comment/modify")
-    public void modify(@ModelAttribute Comment comment){
+    public String modify(@ModelAttribute Comment comment){
         commentService.modifyComment(comment);
+        return "redirect:/comment/writeform";
+    }
+    @GetMapping("/comment/modifyform")
+    public String modifyForm(@ModelAttribute Comment comment){
+        return "redirect:/comment/writeform?check=true&commentId="+comment.getId();
     }
 
 }
