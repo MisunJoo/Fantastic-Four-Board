@@ -8,7 +8,7 @@ import java.util.List;
 public interface ArticleService {
     public Long addArticle(Article article);
     public int addArticleContent(ArticleContent articleContent);
-    public int updateCount(Article article);
+    public int updateCount(Long id);
     public int deleteArticle(Article article);
     public int updateArticle(Article article);
     public int updateArticleContent(ArticleContent articleContent);

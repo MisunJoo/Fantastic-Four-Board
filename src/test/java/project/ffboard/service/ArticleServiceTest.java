@@ -53,4 +53,12 @@ public class ArticleServiceTest {
         //insert 된 건수가 리턴 (1이여야함)
         Assert.assertEquals(1,articleService.addArticleContent(articleContent));
     }
+
+    @Test
+    public void updateCount() {
+        Long articleId = 20L;
+
+        //update된 건수를 리턴 (1이어야함)
+        Assert.assertEquals(1,articleService.updateCount(articleId));
+    }
 }
