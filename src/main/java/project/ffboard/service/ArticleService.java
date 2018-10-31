@@ -12,8 +12,8 @@ public interface ArticleService {
     public int deleteArticle(Long id);
     public int updateArticle(Article article);
     public int updateArticleContent(ArticleContent articleContent);
-    public int getArticle(Article article);
-    public int getArticleContent(ArticleContent articleContent);
+    public Article getArticle(Long id);
+    public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId);
     public List<Article> getArticleList(int categoryId, String searchType, String searchWord);
 }

@@ -92,5 +92,15 @@ public class ArticleServiceTest {
         //수정된 건수를 리턴 (1이어야함)
         Assert.assertEquals(1, articleService.updateArticleContent(articleContent));
     }
+
+    @Test
+    public void getArticle() {
+        Long id = 20L;
+
+        Article article = articleService.getArticle(id);
+        Assert.assertEquals(article.getId(),(Object)20L);
+
+        System.out.println(article.getTitle()+" "+article.getNickName());
+    }
 }
 

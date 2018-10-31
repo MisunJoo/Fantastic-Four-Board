@@ -52,13 +52,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public int getArticle(Article article) {
-        return 0;
+    public Article getArticle(Long id) {
+        return articleDao.getArticle(id);
     }
 
     @Override
-    public int getArticleContent(ArticleContent articleContent) {
-        return 0;
+    public ArticleContent getArticleContent(Long id) {
+        return null;
     }
 
     @Override
