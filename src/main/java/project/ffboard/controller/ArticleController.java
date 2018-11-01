@@ -48,11 +48,11 @@ public class ArticleController {
         article.setDepthLevel(0);
         article.setHit(0);
 
+        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);
         article.setNickName("관리자");
 
-        articleContent.setArticleId(articleService.addArticle(article));
-        articleService.addArticleContent(articleContent);
+        articleService.addArticle(article,articleContent);
         return "redirect:/";
     }
 }
