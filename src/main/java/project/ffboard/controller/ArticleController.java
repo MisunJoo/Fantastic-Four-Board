@@ -21,6 +21,7 @@ public class ArticleController {
         this.articleService = articleService;
     }
 
+    //게시판 글 목록 가져오기
     @GetMapping("/article/list")
     public String list(@RequestParam("categoryid")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start, Model model) {
         model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
@@ -28,13 +29,15 @@ public class ArticleController {
         return "/article/list";
     }
 
+    //게시판 글 읽기
     @GetMapping("/article/read")
-    public String read(@RequestParam("id") Long id, Model model){
+    public String read(@RequestParam("id")Long id, Model model){
         model.addAttribute("article", articleService.getArticle(id));
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/read";
     }
 
+    //게시판 글 쓰기
     @GetMapping("/article/write")
     public String write(@RequestParam("categoryid") int categoryId, Model model) {
         model.addAttribute("categoryId", categoryId);
@@ -58,10 +61,24 @@ public class ArticleController {
         return "redirect:/article/list";
     }
 
+    //게시판 글 수정
     @GetMapping("/article/update")
     public String update(@RequestParam("id")Long id, Model model) {
         model.addAttribute("article",articleService.getArticle(id));
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/update";
+    }
+
+    @PostMapping("/article/update")
+    public String update(Article article, ArticleContent articleContent, HttpServletRequest request, Model model) {
+        article.setIpAddress(request.getRemoteAddr());
+
+        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
+        article.setNickName("관리자");
+
+        articleService.updateArticle(article, articleContent);
+
+        model.addAttribute("id", article.getId());
+        return "redirect:/article/read";
     }
 }

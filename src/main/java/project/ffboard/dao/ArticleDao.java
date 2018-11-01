@@ -73,11 +73,12 @@ public class ArticleDao {
         return jdbc.update(sql, map);
     }
 
-    public int updateArticle(Article article) {
+    public Long updateArticle(Article article) {
         String sql = "UPDATE article SET title = :title, nick_name=:nickName, upddate = :upddate, ip_address = :ipAddress " +
                 "WHERE id = :id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        return jdbc.update(sql, params);
+        jdbc.update(sql, params);
+        return article.getId();
     }
 
     public int updateArticleContent(ArticleContent articleContent) {

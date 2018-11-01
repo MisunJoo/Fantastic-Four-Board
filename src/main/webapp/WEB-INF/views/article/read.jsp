@@ -6,8 +6,9 @@
 </head>
 <body>
 게시판읽기페이지<br>
-${article.title} <br><br>
-${articleContent.content}
+글번호 : ${article.id}<br>
+글제목 : ${article.title} <br><br>
+글내용<br>${articleContent.content}
 <a href="/article/update?id=${article.id}">수정이</a>
 </body>
 </html>
