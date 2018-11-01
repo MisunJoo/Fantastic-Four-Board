@@ -4,11 +4,11 @@ import org.springframework.stereotype.Service;
 import project.ffboard.dao.ArticleDao;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+
 import java.util.List;
-
-
 @Service
 public class ArticleServiceImpl implements ArticleService {
+    private int limit = 5;
     private ArticleDao articleDao;
 
     public ArticleServiceImpl(ArticleDao articleDao) {
@@ -63,13 +63,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> getArticleList(int categoryId, int start) {
-        int limit = 5;
         return articleDao.getArticleList(categoryId,start,limit);
     }
 
     @Override
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
-        int limit = 5;
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
     }
 }

@@ -63,4 +63,12 @@ public class CommentDao {
 
         return comments;
     }
+
+    public void modifyComment(Comment comment) {
+        String sql = "UPDATE comment SET content=:content, upddate=now() " +
+                "WHERE id=:id";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
+
+        jdbc.update(sql,params);
+    }
 }

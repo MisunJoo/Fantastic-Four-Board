@@ -8,7 +8,7 @@
     </context-param>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>examples.daoexam.config.ApplicationConfig</param-value>
+        <param-value>project.ffboard.config.ApplicationConfig</param-value>
     </context-param>
 
     <listener>
@@ -24,7 +24,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>examples.daoexam.config.WebMvcContextConfiguration</param-value>
+            <param-value>project.ffboard.config.WebMvcContextConfiguration</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
