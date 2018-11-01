@@ -29,6 +29,15 @@ public class ArticleController {
         return "/article/list";
     }
 
+    //게시판 검색된 글 목록 가져오기
+    @PostMapping("/article/search")
+    public String list(@RequestParam("categoryId")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start,
+                       @RequestParam("searchType") String searchType, @RequestParam("searchWord") String searchWord, Model model) {
+        model.addAttribute("articleList", articleService.getArticleList(categoryId,start,searchType,searchWord));
+        model.addAttribute("categoryId", categoryId);
+        return "/article/list";
+    }
+
     //게시판 글 읽기
     @GetMapping("/article/read")
     public String read(@RequestParam("id")Long id, Model model){
