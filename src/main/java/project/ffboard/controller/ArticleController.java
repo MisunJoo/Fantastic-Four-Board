@@ -53,6 +53,15 @@ public class ArticleController {
         article.setNickName("관리자");
 
         articleService.addArticle(article,articleContent);
-        return "redirect:/";
+
+        model.addAttribute("categoryid", article.getCategoryId());
+        return "redirect:/article/list";
+    }
+
+    @GetMapping("/article/update")
+    public String update(@RequestParam("id")Long id, Model model) {
+        model.addAttribute("article",articleService.getArticle(id));
+        model.addAttribute("articleContent", articleService.getArticleContent(id));
+        return "/article/update";
     }
 }

@@ -9,7 +9,7 @@
 <body>
 <c:forEach items="${comments}" var="comment">
     <c:if test="${comment.isDeleted==false}">
-        ${comment.nickName} ${comment.regdate} <input type="button" value="답글"> <br>
+        ${comment.nickName} ${comment.regdate} <input type="button" value="답글" > <br>
         <c:choose>
             <c:when test="${(comment.id == commentId) and (modication=='true')}">
                 <form method="post" action="/comment/modify">

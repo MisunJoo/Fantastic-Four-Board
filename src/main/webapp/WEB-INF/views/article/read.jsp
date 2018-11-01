@@ -8,5 +8,6 @@
 게시판읽기페이지<br>
 ${article.title} <br><br>
 ${articleContent.content}
+<a href="/article/update?id=${article.id}">수정이</a>
 </body>
 </html>

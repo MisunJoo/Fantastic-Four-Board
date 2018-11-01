@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-헬롱~
+헬롱~<br>
 <c:forEach items="${articleList}" var="article">
-    ${article.title}</br>
+    <a href="/article/read?id=${article.id}">${article.title} </a><br>
 </c:forEach>
 <a href="/article/write?categoryid=${categoryId}">글쓰기</a>
 </body>
