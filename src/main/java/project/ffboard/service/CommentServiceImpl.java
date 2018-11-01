@@ -17,7 +17,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public int addComment(Comment comment) {
+    public Long addComment(Comment comment) {
         return commentDao.addComment(comment);
     }
 
