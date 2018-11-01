@@ -23,11 +23,11 @@ public class CommentController {
     }
 
     @GetMapping("/comment/writeform")
-    public String writeForm(ModelMap modelMap, @RequestParam(value="check", defaultValue = "false") String check,
-                            @RequestParam(value = "commentId",defaultValue = "-100") Long commentId){
+    public String writeForm(ModelMap modelMap, @RequestParam(value="modication", defaultValue = "false") String modication,
+                            @RequestParam(value = "commentId",defaultValue = "") Long commentId){
         modelMap.addAttribute("comments", commentService.getCommentList(2L));
-        if(check.equals("true")) {
-            modelMap.addAttribute("check", check);
+        if(modication.equals("true")) {
+            modelMap.addAttribute("modication", modication);
             modelMap.addAttribute("commentId", commentId);
         }
 
@@ -62,9 +62,9 @@ public class CommentController {
     }
 
     @PostMapping("/comment/modify")
-    public String modify(@ModelAttribute Comment comment){
-        commentService.modifyComment(comment);
-        return "redirect:/comment/writeform";
+        public String modify(@ModelAttribute Comment comment){
+            commentService.modifyComment(comment);
+            return "redirect:/comment/writeform";
     }
     @GetMapping("/comment/modifyform")
     public String modifyForm(@ModelAttribute Comment comment){
