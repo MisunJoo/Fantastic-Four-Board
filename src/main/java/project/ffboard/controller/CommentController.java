@@ -23,11 +23,12 @@ public class CommentController {
     }
 
     @GetMapping("/comment/writeform")
-    public String writeForm(ModelMap modelMap, @RequestParam(value="modication", defaultValue = "false") String modication,
-                            @RequestParam(value = "commentId",defaultValue = "") Long commentId){
-        modelMap.addAttribute("comments", commentService.getCommentList(2L));
-        if(modication.equals("true")) {
-            modelMap.addAttribute("modication", modication);
+    public String writeForm(ModelMap modelMap, @RequestParam(value="modification", defaultValue = "false") String modification,
+                            @RequestParam(value = "commentId",defaultValue = "") Long commentId,
+                            @RequestParam(value = "articleId", defaultValue = "1")String articleId){
+        modelMap.addAttribute("comments", commentService.getCommentList(Long.parseLong(articleId)));
+        if(modification.equals("true")) {
+            modelMap.addAttribute("modification", modification);
             modelMap.addAttribute("commentId", commentId);
         }
 
@@ -47,7 +48,7 @@ public class CommentController {
         // 나중에 수정
         comment.setIpAddress("124.2223");
         comment.setMemberId(1L);
-        comment.setArticleId(2L);
+        comment.setArticleId(1L);
         comment.setNickName("nick");
 
         commentService.addComment(comment);
@@ -68,7 +69,7 @@ public class CommentController {
     }
     @GetMapping("/comment/modifyform")
     public String modifyForm(@ModelAttribute Comment comment){
-        return "redirect:/comment/writeform?check=true&commentId="+comment.getId();
+        return "redirect:/comment/writeform?modification=true&commentId="+comment.getId();
     }
 
 }

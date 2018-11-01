@@ -11,11 +11,11 @@
     <c:if test="${comment.isDeleted==false}">
         ${comment.nickName} ${comment.regdate} <input type="button" value="답글"> <br>
         <c:choose>
-            <c:when test="${(comment.id == commentId) and (modication=='true')}">
+            <c:when test="${(comment.id == commentId) and (modification=='true')}">
                 <form method="post" action="/comment/modify">
                     <input type="hidden" name="id" value="${comment.id}">
                     content : <textarea autofocus name="content" cols="150" rows="10"> ${comment.content}</textarea>
-                    <input type="submit">
+                    <input type="button" value="수정 취소" onclick="window.location.href='/comment/writeform'"> <input type="submit">
                 </form>
             </c:when>
             <c:otherwise>
