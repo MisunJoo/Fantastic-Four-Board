@@ -3,6 +3,7 @@ package project.ffboard.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Article;
@@ -10,6 +11,7 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 @Controller
 public class ArticleController {
@@ -35,15 +37,22 @@ public class ArticleController {
 
     @GetMapping("/article/write")
     public String write(@RequestParam("categoryid") int categoryId, Model model) {
-        model.addAttribute("categoryid", categoryId);
+        model.addAttribute("categoryId", categoryId);
         return "/article/write";
     }
 
     @PostMapping("/article/write")
-    public String write(@RequestParam("categoryid") int categoryid,Article article, ArticleContent articleContent, Model model) {
-        article.setCategoryId(categoryid);
+    public String write(Article article, ArticleContent articleContent, HttpServletRequest request, Model model) {
+        article.setIpAddress(request.getRemoteAddr());
+        article.setGroupSeq(0);
+        article.setDepthLevel(0);
+        article.setHit(0);
 
+        article.setMemberId(1L);
+        article.setNickName("관리자");
 
-        return "redirect:/article/list";
+        articleContent.setArticleId(articleService.addArticle(article));
+        articleService.addArticleContent(articleContent);
+        return "redirect:/";
     }
 }
