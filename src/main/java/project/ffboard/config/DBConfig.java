@@ -19,8 +19,8 @@ public class DBConfig {
 //    private String url = "jdbc:mariadb://localhost:3306/ffboard";
     private String driverClassName = "com.mysql.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/ffboard?useUnicode=true&characterEncoding=utf8";
-    private String username = "root";
-    private String password = "root";
+    private String username = "mysql";
+    private String password = "mysql";
 
     @Bean
     public DataSource dataSource() {
