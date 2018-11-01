@@ -10,5 +10,6 @@
 글제목 : ${article.title} <br><br>
 글내용<br>${articleContent.content}
 <a href="/article/update?id=${article.id}">수정이</a>
+<a href="/article/delete?id=${article.id}&categoryid=${article.categoryId}">삭제</a>
 </body>
 </html>

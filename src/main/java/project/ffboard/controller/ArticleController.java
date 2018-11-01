@@ -81,4 +81,12 @@ public class ArticleController {
         model.addAttribute("id", article.getId());
         return "redirect:/article/read";
     }
+
+    //게시판 글 삭제
+    @GetMapping("/article/delete")
+    public String delete(@RequestParam("id") Long id,@RequestParam("categoryid")int categoryId, Model model) {
+        articleService.deleteArticle(id);
+        model.addAttribute("categoryid", categoryId);
+        return "redirect:/article/list";
+    }
 }
