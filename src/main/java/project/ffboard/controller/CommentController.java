@@ -84,7 +84,4 @@ public class CommentController {
     public String modifyForm(@ModelAttribute Comment comment){
         return "redirect:/comment/list?modification=true&commentId="+comment.getId();
     }
-
-
-
 }
