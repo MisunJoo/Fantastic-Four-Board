@@ -15,9 +15,10 @@
 <br>
 
 <form method="post" action="/article/read">
-    name : 세션에서받아온다.
+    name : 세션에서받아온다.<br>
     title : <input type="text" name="title"><br>
     content : <textarea name="content" col="50" rows="6"></textarea><br>
+    <input type="hidden" name="categoryid" value="${categoryid}">
     <input type="submit">
 </form>
 

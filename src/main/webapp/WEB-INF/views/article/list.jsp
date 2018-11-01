@@ -9,5 +9,6 @@
 <c:forEach items="${articleList}" var="article">
     ${article.title}</br>
 </c:forEach>
+<a href="/article/write?categoryid=${categoryId}">글쓰기</a>
 </body>
 </html>
