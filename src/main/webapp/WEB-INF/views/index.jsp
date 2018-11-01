@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>Hello World!</h1>
+<a href="/article/list?categoryid=1">자바게시판바로가기</a>
 </body>
 </html>

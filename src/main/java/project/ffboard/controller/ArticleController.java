@@ -17,18 +17,20 @@ public class ArticleController {
     }
 
     @GetMapping("/article/list")
-    public String articleList(@RequestParam("categoryid")int categoryId, @RequestParam("start")int start, Model model) {
-        System.out.println(categoryId);
-        System.out.println(start);
+    public String list(@RequestParam("categoryid")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start, Model model) {
         model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
         return "/article/list";
     }
 
-//    @GetMapping("/article/list")
-//    public String articleList(HttpServletRequest request, Model model) {
-//        System.out.println(request.getParameter("categoryid"));
-//        System.out.println(request.getParameter("start"));
-//        //model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
-//        return "/article/list";
-//    }
+    @GetMapping("/article/read")
+    public String read(@RequestParam("id") Long id, Model model){
+        model.addAttribute("article", articleService.getArticle(id));
+        model.addAttribute("articleContent", articleService.getArticleContent(id));
+        return "/article/read";
+    }
+
+    @GetMapping("/article/write")
+    public String write() {
+        return "/article/write";
+    }
 }
