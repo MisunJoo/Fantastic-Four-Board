@@ -20,7 +20,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public int addArticle(Article article, ArticleContent articleContent) {
         //지금 쓰는 글이 답글인가
-        if (article.getGroupId() != null && article.getDepthLevel() > 0 && article.getGroupSeq() > 0) {
+        if (article.getGroupId() != null) {
             if(article.getDepthLevel() < 2) article.setDepthLevel(article.getDepthLevel()+1);
             article.setGroupSeq(article.getGroupSeq()+1);
         }

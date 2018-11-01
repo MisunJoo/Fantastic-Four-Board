@@ -3,7 +3,6 @@ package project.ffboard.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Article;
@@ -11,7 +10,6 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 
 @Controller
 public class ArticleController {
@@ -54,10 +52,11 @@ public class ArticleController {
     }
 
     @PostMapping("/article/write")
-    public String write(Article article, ArticleContent articleContent, HttpServletRequest request, Model model) {
-        article.setIpAddress(request.getRemoteAddr());
+    public String write(Article article, ArticleContent articleContent,
+                        HttpServletRequest request, Model model) {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
+        article.setIpAddress(request.getRemoteAddr());
         article.setHit(0);
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
@@ -66,6 +65,36 @@ public class ArticleController {
 
         articleService.addArticle(article,articleContent);
 
+        model.addAttribute("categoryid", article.getCategoryId());
+        return "redirect:/article/list";
+    }
+
+    //게시판 답글달기
+    @GetMapping("/article/reply")
+    public String reply(@RequestParam("id")Long id,Model model) {
+        model.addAttribute("parentId", id);
+        //model.addAttribute("categoryid", categoryId);
+        return "/article/reply";
+    }
+
+    @PostMapping("/article/reply")
+    public String reply(Article article, ArticleContent articleContent,
+                        @RequestParam("parentId")Long parentId, HttpServletRequest request, Model model) {
+        //계층형을 위한 처리, 부모의 groupId를받고, groupseq와 depthlevel을 부모보다 1크게한다.
+        Article parentArticle = articleService.getArticle(parentId);
+        article.setGroupId(parentArticle.getGroupId());
+        article.setGroupSeq(parentArticle.getGroupSeq());
+        article.setDepthLevel(parentArticle.getDepthLevel());
+
+        article.setCategoryId(parentArticle.getCategoryId());
+        article.setIpAddress(request.getRemoteAddr());
+        article.setHit(0);
+
+        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
+        article.setMemberId(1L);
+        article.setNickName("관리자");
+
+        articleService.addArticle(article,articleContent);
         model.addAttribute("categoryid", article.getCategoryId());
         return "redirect:/article/list";
     }

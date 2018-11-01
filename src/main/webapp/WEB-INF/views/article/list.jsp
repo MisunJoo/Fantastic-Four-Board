@@ -7,7 +7,7 @@
 <body>
 헬롱~<br>
 <c:forEach items="${articleList}" var="article">
-    <a href="/article/read?id=${article.id}">${article.title} </a> ${article.nickName}<br>
+    <c:forEach begin="1" end="${article.depthLevel}" step="1">ㄴ</c:forEach> <a href="/article/read?id=${article.id}">${article.title} </a> ${article.nickName}<br>
 </c:forEach>
 <a href="/article/write?categoryid=${categoryId}">글쓰기</a>
 <form method="post" action="/article/search">
