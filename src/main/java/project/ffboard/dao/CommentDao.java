@@ -80,13 +80,13 @@ public class CommentDao {
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
 
         return comments;
-    }
+}
 
-    public void modifyComment(Comment comment) {
+    public int modifyComment(Comment comment) {
         String sql = "UPDATE comment SET content=:content, upddate=now() " +
                 "WHERE id=:id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
 
-        jdbc.update(sql,params);
+        return jdbc.update(sql,params);
     }
 }

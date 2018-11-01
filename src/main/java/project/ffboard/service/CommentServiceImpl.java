@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void modifyComment(Comment comment) {
-        commentDao.modifyComment(comment);
+    public int modifyComment(Comment comment) {
+        return commentDao.modifyComment(comment);
     }
 }
