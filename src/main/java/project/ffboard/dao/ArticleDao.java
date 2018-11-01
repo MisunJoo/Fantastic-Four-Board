@@ -74,14 +74,14 @@ public class ArticleDao {
     }
 
     public int updateArticle(Article article) {
-        String sql = "UPDATE article SET title = :title, upddate = :upddate " +
+        String sql = "UPDATE article SET title = :title, nick_name=:nickName, upddate = :upddate, ip_address = :ipAddress " +
                 "WHERE id = :id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
         return jdbc.update(sql, params);
     }
 
     public int updateArticleContent(ArticleContent articleContent) {
-        String sql = "UPDATE article_content SET content = :content WHERE article_id = :article_id";
+        String sql = "UPDATE article_content SET content = :content WHERE article_id = :articleId";
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
         return jdbc.update(sql, params);
     }
@@ -130,7 +130,7 @@ public class ArticleDao {
     }
 
     /**
-     *
+     * 검색어를 적용한 게시판 리스트
      * @param categoryId 검색을 원하는 카테고리의 index id
      * @param start 검색을 시작할 인덱스
      * @param limit 검색 리스트의 한도 갯수

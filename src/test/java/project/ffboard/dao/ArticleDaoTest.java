@@ -34,7 +34,7 @@ public class ArticleDaoTest {
         article.setIpAddress("192.168.0.1");
         article.setMemberId(1L);
         article.setNickName("유어스토리");
-        article.setTitle("밥먹고합시다/");
+        article.setTitle("444밥먹고합시다1231234");
         article.setHit(0);
 //        article.setRegdate(new Date());
         article.setIsDeleted(false);
