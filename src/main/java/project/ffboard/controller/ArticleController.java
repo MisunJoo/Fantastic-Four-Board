@@ -15,7 +15,9 @@ public class ArticleController {
     }
 
     @GetMapping("/article/list")
-    public String articleList(@RequestParam(name="categoryId")int categoryId, @RequestParam(name="start")int start, Model model) {
+    public String articleList(@RequestParam("categoryId")int categoryId, @RequestParam("start")int start, Model model) {
+        System.out.println(categoryId);
+        System.out.println(start);
         model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
         return "/article/list";
     }
