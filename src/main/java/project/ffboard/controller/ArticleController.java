@@ -65,8 +65,8 @@ public class ArticleController {
 
         articleService.addArticle(article,articleContent);
 
-        model.addAttribute("categoryid", article.getCategoryId());
-        return "redirect:/article/list";
+        //model.addAttribute("categoryid", article.getCategoryId());
+        return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 
     //게시판 답글달기
@@ -95,8 +95,8 @@ public class ArticleController {
         article.setNickName("관리자");
 
         articleService.addArticle(article,articleContent);
-        model.addAttribute("categoryid", article.getCategoryId());
-        return "redirect:/article/list";
+//        model.addAttribute("categoryid", article.getCategoryId());
+        return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 
     //게시판 글 수정
@@ -116,15 +116,13 @@ public class ArticleController {
 
         articleService.updateArticle(article, articleContent);
 
-        model.addAttribute("id", article.getId());
-        return "redirect:/article/read";
+        return "redirect:/article/read?id="+article.getId();
     }
 
     //게시판 글 삭제
     @GetMapping("/article/delete")
     public String delete(@RequestParam("id") Long id,@RequestParam("categoryid")int categoryId, Model model) {
         articleService.deleteArticle(id);
-        model.addAttribute("categoryid", categoryId);
-        return "redirect:/article/list";
+        return "redirect:/article/list?categoryid="+categoryId;
     }
 }
