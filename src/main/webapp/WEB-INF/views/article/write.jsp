@@ -4,6 +4,7 @@
 <head>
     <jsp:include page="../head/head.jsp"/>
     <title>게시판 - 글쓰기</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
 <br>
@@ -29,8 +30,12 @@
                 </button>
             </div>
 
-        </div>
-    </form>
-</div>
+<form method="post" action="/article/write">
+    title : <input type="text" name="title"><br>
+    content : <textarea name="content" col="50" rows="6"></textarea><br>
+    <input type="hidden" name="categoryId" value="${categoryid}">
+    <input type="submit">
+</form>
+
 </body>
 </html>

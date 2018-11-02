@@ -5,11 +5,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 @Controller
 public class ArticleController {
@@ -53,6 +61,7 @@ public class ArticleController {
 
     @PostMapping("/article/write")
     public String write(Article article, ArticleContent articleContent,
+                        @RequestParam("file") MultipartFile file,
                         HttpServletRequest request, Model model) {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
@@ -65,7 +74,42 @@ public class ArticleController {
 
         articleService.addArticle(article,articleContent);
 
-        //model.addAttribute("categoryid", article.getCategoryId());
+        //file upload
+        UUID uuid = UUID.randomUUID();
+        String uuidStr = uuid.toString();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dataStr = simpleDateFormat.format(new Date());
+
+        String baseDir = "/home/jycs/tmp";
+        String saveDir = baseDir + "/" + dataStr;
+        String saveFile = saveDir + "/" + uuidStr;
+
+
+        File fileObj = new File(saveDir);
+        fileObj.mkdirs();
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try{
+            in = file.getInputStream();
+            out = new FileOutputStream(saveFile);
+            byte[] buffer = new byte[1024];
+            int readCount = 0;
+            while((readCount = in.read(buffer)) != -1) {
+                out.write(buffer, 0, readCount);
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            if(in != null) {
+                try {in.close();} catch (Exception e) {}
+            }
+            if(out != null) {
+                try {out.close();} catch (Exception e) {}
+            }//file upload
+        }
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 

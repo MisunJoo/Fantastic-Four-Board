@@ -168,6 +168,8 @@ public class ArticleDao {
             e.printStackTrace();
             return null;
         }
-    }
+    } // getArticleList
+
+
 
 }
