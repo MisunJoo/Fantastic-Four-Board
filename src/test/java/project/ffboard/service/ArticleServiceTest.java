@@ -46,16 +46,16 @@ public class ArticleServiceTest {
         // Assert.assertEquals((Object)20L, articleService.addArticle(article));
     }
 
-    @Test
-    public void addArticleContent() {
-        ArticleContent articleContent = new ArticleContent();
-
-        articleContent.setArticleId(10L);
-        articleContent.setContent("hihi");
-
-        //insert 된 건수가 리턴 (1이여야함)
-        Assert.assertEquals(1,articleService.addArticleContent(articleContent));
-    }
+//    @Test
+//    public void addArticleContent() {
+//        ArticleContent articleContent = new ArticleContent();
+//
+//        articleContent.setArticleId(10L);
+//        articleContent.setContent("hihi");
+//
+//        //insert 된 건수가 리턴 (1이여야함)
+//        Assert.assertEquals(1,articleService.addArticleContent(articleContent));
+//    }
 
     @Test
     public void updateCount() {
@@ -73,26 +73,26 @@ public class ArticleServiceTest {
         Assert.assertEquals(1,articleService.deleteArticle(articleId));
     }
 
-    @Test
-    public void updateArticle() {
-        Article article = new Article();
-        article.setTitle("수정을 한 제목");
-        article.setIpAddress("168.1.123.1");
-        article.setUpddate(new Date());
-        article.setNickName("푸르");
-        article.setId(8L);
-        //수정된 건수를 리턴 (1이어야함)
-        Assert.assertEquals(1, articleService.updateArticle(article));
-    }
-
-    @Test
-    public void updateArticleContent() {
-        ArticleContent articleContent = new ArticleContent();
-        articleContent.setArticleId(8L);
-        articleContent.setContent("안녕안녕~~~");
-        //수정된 건수를 리턴 (1이어야함)
-        Assert.assertEquals(1, articleService.updateArticleContent(articleContent));
-    }
+//    @Test
+//    public void updateArticle() {
+//        Article article = new Article();
+//        article.setTitle("수정을 한 제목");
+//        article.setIpAddress("168.1.123.1");
+//        article.setUpddate(new Date());
+//        article.setNickName("푸르");
+//        article.setId(8L);
+//        //수정된 건수를 리턴 (1이어야함)
+//        Assert.assertEquals(1, articleService.updateArticle(article));
+//    }
+//
+//    @Test
+//    public void updateArticleContent() {
+//        ArticleContent articleContent = new ArticleContent();
+//        articleContent.setArticleId(8L);
+//        articleContent.setContent("안녕안녕~~~");
+//        //수정된 건수를 리턴 (1이어야함)
+//        Assert.assertEquals(1, articleService.updateArticleContent(articleContent));
+//    }
 
     @Test
     public void getArticle() {

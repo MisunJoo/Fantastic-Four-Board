@@ -6,12 +6,10 @@ import project.ffboard.dto.ArticleContent;
 import java.util.List;
 
 public interface ArticleService {
-    public Long addArticle(Article article);
-    public int addArticleContent(ArticleContent articleContent);
+    public int addArticle(Article article,ArticleContent articleContent);
     public int updateCount(Long id);
     public int deleteArticle(Long id);
-    public int updateArticle(Article article);
-    public int updateArticleContent(ArticleContent articleContent);
+    public int updateArticle(Article article,ArticleContent articleContent);
     public Article getArticle(Long id);
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);
