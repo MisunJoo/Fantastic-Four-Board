@@ -30,15 +30,28 @@ public class CommentDao {
         this.jdbcTemplate=new JdbcTemplate(dataSource);
     }
 
-    public int addComment(Comment comment){
-        SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
-        int result= insertAction.execute(params);
+    public Long addComment(Comment comment){
+        Boolean isReply = comment.getGroupId() != null && comment.getDepthLevel() > 0 && comment.getGroupSeq() > 0;
 
-        String sql = "UPDATE comment SET group_id=(SELECT LAST_INSERT_ID()) " +
-                "WHERE id=(SELECT LAST_INSERT_ID())";
-        jdbcTemplate.execute(sql);
+        if (isReply) {
+            String sql = "UPDATE comment SET group_seq = group_seq + 1 WHERE group_id = :groupId AND group_seq >= :groupSeq";
+            Map<String, Number> map = new HashMap<>();
+            map.put("groupId", comment.getGroupId());
+            map.put("groupSeq", comment.getGroupSeq());
+            jdbc.update(sql, map);
+        }
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
+        Long result = insertAction.executeAndReturnKey(params).longValue();
+
+        if (!isReply) {
+            String sql = "UPDATE comment SET group_id=(SELECT LAST_INSERT_ID()) " +
+                    "WHERE id=(SELECT LAST_INSERT_ID())";
+            jdbcTemplate.execute(sql);
+        }
         return result;
     }
+
     public int deleteComment(Long id){
         String sql = "UPDATE comment SET is_deleted=:isDeleted WHERE id=:id";
         Map<String, Object> map = new HashMap<>();
@@ -46,6 +59,7 @@ public class CommentDao {
         map.put("id", id);
         return jdbc.update(sql, map);
     }
+
     public int updateComment(Comment comment){
         String sql = "UPDATE comment" + " SET content=:content," + "upddate=now()"+
                 " WHERE id=:id";
@@ -54,21 +68,25 @@ public class CommentDao {
         map.put("content", comment.getContent());
         return jdbc.update(sql, map);
     }
+
     public List<Comment> getCommentList(Long articleId){
         String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
-                "regdate, upddate, ip_address, member_id, is_deleted FROM comment WHERE article_id=:articleId";
+                "regdate, upddate, ip_address, member_id, is_deleted " +
+                "FROM comment WHERE article_id=:articleId " +
+                "ORDER By group_id DESC, group_seq ASC";
+
         Map<String, Object> map = Collections.singletonMap("articleId", articleId);
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
 
         return comments;
-    }
+}
 
-    public void modifyComment(Comment comment) {
+    public int modifyComment(Comment comment) {
         String sql = "UPDATE comment SET content=:content, upddate=now() " +
                 "WHERE id=:id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
 
-        jdbc.update(sql,params);
+        return jdbc.update(sql,params);
     }
 }
