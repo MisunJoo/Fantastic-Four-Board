@@ -41,7 +41,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public int updateCount(Long id) {
-        return articleDao.updateCount(id);
+        return articleDao.increaseHitCount(id);
     }
 
     @Override
