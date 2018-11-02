@@ -11,7 +11,7 @@ public interface ArticleService {
     public int addArticle(Article article, ArticleContent articleContent, MultipartFile file);
     public int updateCount(Long id);
     public int deleteArticle(Long id);
-    public int updateArticle(Article article,ArticleContent articleContent);
+    public int updateArticle(Article article,ArticleContent articleContent, MultipartFile file);
     public Article getArticle(Long id);
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);

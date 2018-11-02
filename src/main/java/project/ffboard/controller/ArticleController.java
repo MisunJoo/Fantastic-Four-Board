@@ -106,13 +106,15 @@ public class ArticleController {
     }
 
     @PostMapping("/article/update")
-    public String update(Article article, ArticleContent articleContent, HttpServletRequest request, Model model) {
+    public String update(Article article, ArticleContent articleContent,
+                         @RequestParam("file") MultipartFile file,
+                         HttpServletRequest request, Model model) {
         article.setIpAddress(request.getRemoteAddr());
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setNickName("관리자");
 
-        articleService.updateArticle(article, articleContent);
+        articleService.updateArticle(article, articleContent, file);
 
         return "redirect:/article/read?id="+article.getId();
     }

@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
         String dataStr = simpleDateFormat.format(new Date());
 
         //baseDir 프로퍼티로 구현할것
-        String baseDir = "/home/siyoon/tmp";
+        String baseDir = "/home/jycs/tmp";
         String saveDir = baseDir + "/" + dataStr;
         String saveFile = saveDir + "/" + uuidStr;
 
@@ -114,8 +114,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public int updateArticle(Article article, ArticleContent articleContent) {
+    public int updateArticle(Article article, ArticleContent articleContent, MultipartFile file) {
         articleContent.setArticleId(articleDao.updateArticle(article));
+
+        if (!file.isEmpty()) {
+            uploadFile(file, articleDao.insertArticle(article));
+        }
         return articleDao.updateArticleContent(articleContent);
     }
 
