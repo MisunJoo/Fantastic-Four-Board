@@ -20,7 +20,7 @@ public class DBConfig {
     private String driverClassName = "com.mysql.jdbc.Driver";
     private String url = "jdbc:mysql://localhost:3306/ffboard?useUnicode=true&characterEncoding=utf8";
     private String username = "root";
-    private String password = "root";
+    private String password = "1234";
 
     @Bean
     public DataSource dataSource() {

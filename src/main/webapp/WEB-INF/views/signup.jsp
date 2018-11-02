@@ -30,7 +30,7 @@
 
         //이메일 입력 유무 체크
         if(email.value == '') {
-            window.alert("아이디를 입력하시오");
+            window.alert("이메일을 입력하세오");
             email.focus();
             return false; //submit event 중지
         } else if (!(email.value.length >= 3 && email.value.length <= 100)){

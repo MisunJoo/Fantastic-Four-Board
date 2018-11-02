@@ -35,7 +35,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/signup")
-    public String signUp(@ModelAttribute Member member)throws DataAccessException {
+    public String signUp(@ModelAttribute Member member) {
         Long result = memberService.signUp(member);
         // -1L은 이메일중복
         // -2L은 닉네임중복
@@ -47,6 +47,26 @@ public class MemberController {
             return "redirect:/main";
         }
     }
+
+    @GetMapping("/login")
+    public String loginForm(ModelMap modelMap, @ModelAttribute Member member){
+        modelMap.addAttribute("email", member.getEmail());
+        modelMap.addAttribute("password", member.getPassword());
+
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute Member member){
+        Member memberResult = memberService.login(member);
+        if(memberResult == null){
+            return "redirect:/login?loginCheck=true";
+        }
+        else{
+            return "redirect:/main";
+        }
+    }
+
 
 
 }

@@ -9,6 +9,8 @@ import project.ffboard.dao.MemberDao;
 import project.ffboard.dto.Member;
 import project.ffboard.exception.FFException;
 
+import javax.xml.crypto.Data;
+
 @Service
 public class MemberServiceImpl implements MemberService {
     private MemberDao memberDao;
@@ -36,8 +38,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    public int login(Member member) {
-        return 0;
+    public Member login(Member member) {
+        try{
+             return memberDao.login(member);
+        }catch (DataAccessException dae){
+            daoException.printLog(dae.toString());
+            return null;
+        }
     }
 
     @Override

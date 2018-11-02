@@ -14,7 +14,7 @@ public class Comment {
     private Date upddate;
     private String ipAddress;
     private Long memberId;
-        private Boolean isDeleted;
+    private Boolean isDeleted;
 
     public Comment() {
     }
