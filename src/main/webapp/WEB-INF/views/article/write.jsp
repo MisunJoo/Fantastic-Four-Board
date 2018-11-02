@@ -30,10 +30,12 @@
                 </button>
             </div>
 
-<form method="post" action="/article/write">
+<form method="post" action="/article/write" enctype="multipart/form-data">
     title : <input type="text" name="title"><br>
     content : <textarea name="content" col="50" rows="6"></textarea><br>
     <input type="hidden" name="categoryId" value="${categoryid}">
+    <input type="file" name="file"/>
+    <br>
     <input type="submit">
 </form>
 
