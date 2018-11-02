@@ -11,13 +11,6 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 @Controller
 public class ArticleController {
@@ -66,7 +59,6 @@ public class ArticleController {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
         article.setIpAddress(request.getRemoteAddr());
-//        article.setHit(0);
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);
@@ -81,7 +73,6 @@ public class ArticleController {
     @GetMapping("/article/reply")
     public String reply(@RequestParam("id")Long id,Model model) {
         model.addAttribute("parentId", id);
-        //model.addAttribute("categoryid", categoryId);
         return "/article/reply";
     }
 
@@ -97,14 +88,12 @@ public class ArticleController {
 
         article.setCategoryId(parentArticle.getCategoryId());
         article.setIpAddress(request.getRemoteAddr());
-//        article.setHit(0);
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);
         article.setNickName("관리자");
 
         articleService.addArticle(article,articleContent,file);
-//        model.addAttribute("categoryid", article.getCategoryId());
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 

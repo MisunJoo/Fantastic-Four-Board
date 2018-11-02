@@ -46,7 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (!file.isEmpty()) {
             uploadFile(file, articleId);
         }
-        
+
         return articleDao.insertArticleContent(articleContent);
     }
 
