@@ -5,10 +5,12 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 
@@ -24,6 +26,7 @@ public class ArticleDao {
     private JdbcTemplate originJdbc;
     private SimpleJdbcInsert insertActionArticle;
     private SimpleJdbcInsert insertActionArticleContent;
+    private SimpleJdbcInsert insertActionFile;
 
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -31,6 +34,7 @@ public class ArticleDao {
         this.insertActionArticle = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id")
                 .usingColumns("title","nick_name","group_id","depth_level","group_seq","category_id", "ip_address","member_id");
         this.insertActionArticleContent = new SimpleJdbcInsert(dataSource).withTableName("article_content");
+        this.insertActionFile = new SimpleJdbcInsert(dataSource).withTableName("file");
     }
 
     public int arrangeGroupSeq(Long groupId, int groupSeq){
@@ -53,8 +57,12 @@ public class ArticleDao {
 
     public int insertArticleContent(ArticleContent articleContent) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
-        int result = insertActionArticleContent.execute(params);
-        return result;
+        return insertActionArticleContent.execute(params);
+    }
+
+    public int insertFileInfo(Map<String, Object> fileInfo) {
+        SqlParameterSource params = new MapSqlParameterSource(fileInfo);
+        return insertActionFile.execute(params);
     }
 
     public int increaseHitCount(Long id){

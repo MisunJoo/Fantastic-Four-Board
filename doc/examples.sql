@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS `article`;
 DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `article_counting`;
 DROP TABLE IF EXISTS `article_content`;
+DROP TABLE IF EXISTS `file`;
 SET FOREIGN_KEY_CHECKS = 1;
 
 #CREATE TABLE
@@ -78,6 +79,15 @@ CREATE TABLE `article_content` (
   `article_id` BIGINT(10) UNSIGNED NOT NULL,
   `content` TEXT NOT NULL,
   PRIMARY KEY (`article_id`)
+);
+
+CREATE TABLE `file` (
+  `article_id` BIGINT(10) UNSIGNED NOT NULL,
+  `origin_name` VARCHAR(50) NOT NULL,
+  `stored_name` VARCHAR(100) NOT NULL,
+  `content_type` VARCHAR(20) NOT NULL,
+  `size` BIGINT(10),
+  `path` VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE `member_permission` ADD FOREIGN KEY (`perm_name`) REFERENCES `permission`(`name`);

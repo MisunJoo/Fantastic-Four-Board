@@ -72,44 +72,8 @@ public class ArticleController {
         article.setMemberId(1L);
         article.setNickName("관리자");
 
-        articleService.addArticle(article,articleContent);
+        articleService.addArticle(article,articleContent,file);
 
-        //file upload
-        UUID uuid = UUID.randomUUID();
-        String uuidStr = uuid.toString();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String dataStr = simpleDateFormat.format(new Date());
-
-        String baseDir = "/home/jycs/tmp";
-        String saveDir = baseDir + "/" + dataStr;
-        String saveFile = saveDir + "/" + uuidStr;
-
-
-        File fileObj = new File(saveDir);
-        fileObj.mkdirs();
-
-        InputStream in = null;
-        OutputStream out = null;
-
-        try{
-            in = file.getInputStream();
-            out = new FileOutputStream(saveFile);
-            byte[] buffer = new byte[1024];
-            int readCount = 0;
-            while((readCount = in.read(buffer)) != -1) {
-                out.write(buffer, 0, readCount);
-            }
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-            if(in != null) {
-                try {in.close();} catch (Exception e) {}
-            }
-            if(out != null) {
-                try {out.close();} catch (Exception e) {}
-            }//file upload
-        }
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 
@@ -123,6 +87,7 @@ public class ArticleController {
 
     @PostMapping("/article/reply")
     public String reply(Article article, ArticleContent articleContent,
+                        @RequestParam("file") MultipartFile file,
                         @RequestParam("parentId")Long parentId, HttpServletRequest request, Model model) {
         //계층형을 위한 처리, 부모의 groupId를받고, groupseq와 depthlevel을 부모보다 1크게한다.
         Article parentArticle = articleService.getArticle(parentId);
@@ -138,7 +103,7 @@ public class ArticleController {
         article.setMemberId(1L);
         article.setNickName("관리자");
 
-        articleService.addArticle(article,articleContent);
+        articleService.addArticle(article,articleContent,file);
 //        model.addAttribute("categoryid", article.getCategoryId());
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }

@@ -12,9 +12,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -27,7 +25,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public int addArticle(Article article, ArticleContent articleContent) {
+    public int addArticle(Article article, ArticleContent articleContent,MultipartFile file) {
         //지금 쓰는 글이 답글인경우 groupSeq를 알맞게 조정
         if (article.getGroupId() != null) {
             if(article.getDepthLevel() < 2) article.setDepthLevel(article.getDepthLevel()+1);
@@ -36,14 +34,69 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         //article의 기본정보 삽입.
-        articleContent.setArticleId(articleDao.insertArticle(article));
+        Long articleId =articleDao.insertArticle(article);
+        articleContent.setArticleId(articleId);
 
         //article이 원글일 경우 GroupId가 null이므로, 삽입해주는 과정.
         if (article.getGroupId() == null) {
             articleDao.insertGroupId();
         }
 
+        //파일이 존재한다면 파일업로드를 진행
+        if (!file.isEmpty()) {
+            uploadFile(file, articleId);
+        }
+        
         return articleDao.insertArticleContent(articleContent);
+    }
+
+    public int uploadFile(MultipartFile file, Long articleId) {
+        UUID uuid = UUID.randomUUID();
+        String uuidStr = uuid.toString();
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dataStr = simpleDateFormat.format(new Date());
+
+        //baseDir 프로퍼티로 구현할것
+        String baseDir = "/home/siyoon/tmp";
+        String saveDir = baseDir + "/" + dataStr;
+        String saveFile = saveDir + "/" + uuidStr;
+
+
+        File fileObj = new File(saveDir);
+        fileObj.mkdirs();
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try{
+            in = file.getInputStream();
+            out = new FileOutputStream(saveFile);
+            byte[] buffer = new byte[1024];
+            int readCount = 0;
+            while((readCount = in.read(buffer)) != -1) {
+                out.write(buffer, 0, readCount);
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            if(in != null) {
+                try {in.close();} catch (Exception e) {}
+            }
+            if(out != null) {
+                try {out.close();} catch (Exception e) {}
+            }
+        }
+
+        Map<String,Object> fileInfo = new HashMap<>();
+        fileInfo.put("article_id", articleId);
+        fileInfo.put("origin_name", file.getOriginalFilename());
+        fileInfo.put("stored_name", uuidStr);
+        fileInfo.put("content_type", file.getContentType());
+        fileInfo.put("size", file.getSize());
+        fileInfo.put("path", saveDir);
+
+        return articleDao.insertFileInfo(fileInfo);
     }
 
 
@@ -89,46 +142,5 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
-    }
-
-    public int upload(MultipartFile file, Long articleId) {
-
-        //file upload
-        UUID uuid = UUID.randomUUID();
-        String uuidStr = uuid.toString();
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        String dataStr = simpleDateFormat.format(new Date());
-
-        String baseDir = "/home/jycs/tmp";
-        String saveDir = baseDir + "/" + dataStr;
-        String saveFile = saveDir + "/" + uuidStr;
-
-
-        File fileObj = new File(saveDir);
-        fileObj.mkdirs();
-
-        InputStream in = null;
-        OutputStream out = null;
-
-        try{
-            in = file.getInputStream();
-            out = new FileOutputStream(saveFile);
-            byte[] buffer = new byte[1024];
-            int readCount = 0;
-            while((readCount = in.read(buffer)) != -1) {
-                out.write(buffer, 0, readCount);
-            }
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }finally {
-            if(in != null) {
-                try {in.close();} catch (Exception e) {}
-            }
-            if(out != null) {
-                try {out.close();} catch (Exception e) {}
-            }//file upload
-        }
-        return ;
     }
 }
