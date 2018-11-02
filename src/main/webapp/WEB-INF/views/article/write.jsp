@@ -2,18 +2,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>게시판쓰기페이지</title>
+    <jsp:include page="../head/head.jsp"/>
+    <title>게시판 - 글쓰기</title>
 </head>
 <body>
-<h1>게시판쓰기페이지</h1>
 <br>
+<div class="ui container">
+    <form class="ui form" method="post" action="/article/write" >
+        <div class="ui equal width form">
+            <div class="field">
+                <label>제목</label>
+                <input type="text" placeholder="제목을 입력해주세요." name="title" required>
+            </div>
+            <div class="field">
+                <label>내용</label>
+                <textarea placeholder="내용을 입력해주세요." name="content" required></textarea>
+            </div>
+            <input type="hidden" name="categoryId" value="${categoryId}">
+            <div>
+                <button type="submit" class="right floated ui primary button">
+                    <i class="icon edit"></i>
+                    등록
+                </button>
+                <button type="button" onclick="window.location.href='/article/list?categoryid=${categoryId}'" class="right floated ui button">
+                    취소
+                </button>
+            </div>
 
-<form method="post" action="/article/write">
-    title : <input type="text" name="title"><br>
-    content : <textarea name="content" col="50" rows="6"></textarea><br>
-    <input type="hidden" name="categoryId" value="${categoryId}">
-    <input type="submit">
-</form>
-
+        </div>
+    </form>
+</div>
 </body>
 </html>
