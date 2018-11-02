@@ -57,7 +57,7 @@ public class ArticleController {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
         article.setIpAddress(request.getRemoteAddr());
-        article.setHit(0);
+//        article.setHit(0);
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);
@@ -88,7 +88,7 @@ public class ArticleController {
 
         article.setCategoryId(parentArticle.getCategoryId());
         article.setIpAddress(request.getRemoteAddr());
-        article.setHit(0);
+//        article.setHit(0);
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);

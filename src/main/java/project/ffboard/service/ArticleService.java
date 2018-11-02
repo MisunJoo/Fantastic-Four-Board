@@ -5,6 +5,7 @@ import project.ffboard.dto.ArticleContent;
 
 import java.util.List;
 
+//TODO : 인터페이스에 대한 철학을 정해야 할 것 같다.
 public interface ArticleService {
     public int addArticle(Article article,ArticleContent articleContent);
     public int updateCount(Long id);
