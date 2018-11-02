@@ -57,8 +57,7 @@ public class ArticleDao {
         return result;
     }
 
-
-    public int updateCount(Long id){
+    public int increaseHitCount(Long id){
         String sql = "UPDATE article SET hit = hit + 1 WHERE id = :id";
         Map<String, Long> map = Collections.singletonMap("id", id);
         return jdbc.update(sql, map);
@@ -167,8 +166,8 @@ public class ArticleDao {
             return jdbc.query(sql,params,rowMapper);
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 }
