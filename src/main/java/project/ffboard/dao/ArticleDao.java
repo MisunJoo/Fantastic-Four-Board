@@ -1,6 +1,5 @@
 package project.ffboard.dao;
 
-import com.sun.javafx.image.IntPixelGetter;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,13 +22,14 @@ import java.util.Map;
 public class ArticleDao {
     private NamedParameterJdbcTemplate jdbc;
     private JdbcTemplate originJdbc;
-    private SimpleJdbcInsert insertAction;
+    private SimpleJdbcInsert insertActionArticle;
+    private SimpleJdbcInsert insertActionArticleContent;
 
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.originJdbc = new JdbcTemplate(dataSource);
-        this.insertAction = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id","is_deleted","regdate");
-
+        this.insertActionArticle = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id","is_deleted","regdate");
+        this.insertActionArticleContent = new SimpleJdbcInsert(dataSource).withTableName("article_content");
     }
 
     public Long addArticle(Article article) {
@@ -44,7 +44,7 @@ public class ArticleDao {
         }
 
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        Long result = insertAction.executeAndReturnKey(params).longValue();
+        Long result = insertActionArticle.executeAndReturnKey(params).longValue();
 
         if (!isReply) {
             String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
@@ -56,7 +56,7 @@ public class ArticleDao {
 
     public int addArticleContent(ArticleContent articleContent) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
-        int result = insertAction.withTableName("article_content").execute(params);
+        int result = insertActionArticleContent.execute(params);
         return result;
     }
 
@@ -73,11 +73,12 @@ public class ArticleDao {
         return jdbc.update(sql, map);
     }
 
-    public int updateArticle(Article article) {
+    public Long updateArticle(Article article) {
         String sql = "UPDATE article SET title = :title, nick_name=:nickName, upddate = :upddate, ip_address = :ipAddress " +
                 "WHERE id = :id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        return jdbc.update(sql, params);
+        jdbc.update(sql, params);
+        return article.getId();
     }
 
     public int updateArticleContent(ArticleContent articleContent) {
