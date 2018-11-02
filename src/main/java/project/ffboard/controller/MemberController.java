@@ -1,5 +1,6 @@
 package project.ffboard.controller;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/signup")
-    public String signUp(@ModelAttribute Member member){
+    public String signUp(@ModelAttribute Member member)throws DataAccessException {
         Long result = memberService.signUp(member);
         // -1L은 이메일중복
         // -2L은 닉네임중복

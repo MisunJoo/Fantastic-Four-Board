@@ -1,5 +1,6 @@
 package project.ffboard.dao;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import project.ffboard.dto.Member;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.*;
 
 @Repository
@@ -27,7 +29,7 @@ public class MemberDao {
         this.jdbcTemplate=new JdbcTemplate(datasource);
     }
 
-    public Long signUp(Member member) {
+    public Long signUp(Member member) throws DataAccessException {
         String sql = "SELECT * FROM member WHERE email=:email OR nick_name=:nickName";
         Map<String, Object> map = new HashMap<>();
         map.put("email", member.getEmail());
