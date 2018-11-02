@@ -28,33 +28,30 @@ public class ArticleDao {
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         this.originJdbc = new JdbcTemplate(dataSource);
-        this.insertActionArticle = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id","is_deleted","regdate");
+        this.insertActionArticle = new SimpleJdbcInsert(dataSource).withTableName("article").usingGeneratedKeyColumns("id")
+                .usingColumns("title","nick_name","group_id","depth_level","group_seq","category_id", "ip_address","member_id");
         this.insertActionArticleContent = new SimpleJdbcInsert(dataSource).withTableName("article_content");
     }
 
-    public Long addArticle(Article article) {
-        Boolean isReply = article.getGroupId() != null && article.getDepthLevel() > 0 && article.getGroupSeq() > 0;
-
-        if (isReply) {
-            String sql = "UPDATE article SET group_seq = group_seq + 1 WHERE group_id = :groupId AND group_seq >= :groupSeq";
-            Map<String, Number> map = new HashMap<>();
-            map.put("groupId", article.getGroupId());
-            map.put("groupSeq", article.getGroupSeq());
-            jdbc.update(sql, map);
-        }
-
-        SqlParameterSource params = new BeanPropertySqlParameterSource(article);
-        Long result = insertActionArticle.executeAndReturnKey(params).longValue();
-
-        if (!isReply) {
-            String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
-            originJdbc.execute(sql);
-        }
-
-        return result;
+    public int arrangeGroupSeq(Long groupId, int groupSeq){
+        String sql = "UPDATE article SET group_seq = group_seq + 1 WHERE group_id = :groupId AND group_seq >= :groupSeq";
+        Map<String, Number> map = new HashMap<>();
+        map.put("groupId", groupId);
+        map.put("groupSeq", groupSeq);
+        return jdbc.update(sql, map);
     }
 
-    public int addArticleContent(ArticleContent articleContent) {
+    public Long insertArticle(Article article) {
+        SqlParameterSource params = new BeanPropertySqlParameterSource(article);
+        return insertActionArticle.executeAndReturnKey(params).longValue();
+    }
+
+    public void insertGroupId() {
+        String sql = "UPDATE article SET group_id=(SELECT LAST_INSERT_ID()) WHERE id=(SELECT LAST_INSERT_ID())";
+        originJdbc.execute(sql);
+    }
+
+    public int insertArticleContent(ArticleContent articleContent) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
         int result = insertActionArticleContent.execute(params);
         return result;
