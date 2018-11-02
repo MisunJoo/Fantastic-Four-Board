@@ -60,23 +60,24 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Article getArticle(Long id) {
+        articleDao.increaseHitCount(id);
         return articleDao.getArticle(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public ArticleContent getArticleContent(Long id) {
         return articleDao.getArticleContent(id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start) {
         return articleDao.getArticleList(categoryId,start,limit);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
     }
