@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -63,6 +64,18 @@ public class ArticleDao {
     public int insertFileInfo(Map<String, Object> fileInfo) {
         SqlParameterSource params = new MapSqlParameterSource(fileInfo);
         return insertActionFile.execute(params);
+    }
+
+    public ArticleFile extractFileInfo(Long articleId) {
+        String sql = "SELECT article_id, stored_name, origin_name, content_type, size, path FROM file " +
+                "WHERE article_id = :articleId";
+        try{
+            RowMapper<ArticleFile> rowMapper = BeanPropertyRowMapper.newInstance(ArticleFile.class);
+            Map<String, Long> params = Collections.singletonMap("articleId", articleId);
+            return jdbc.queryForObject(sql, params, rowMapper);
+        }catch (DataAccessException e) {
+            return null;
+        }
     }
 
     public int increaseHitCount(Long id){

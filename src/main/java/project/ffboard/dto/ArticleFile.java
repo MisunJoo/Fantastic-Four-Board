@@ -10,6 +10,6 @@ public class ArticleFile {
     private String originName;
     private String storedName;
     private String contentType;
-    private Long size;
+    private long size;
     private String path;
 }

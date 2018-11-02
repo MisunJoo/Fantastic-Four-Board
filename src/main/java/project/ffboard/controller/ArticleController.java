@@ -2,15 +2,14 @@ package project.ffboard.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class ArticleController {
@@ -43,6 +42,14 @@ public class ArticleController {
         model.addAttribute("article", articleService.getArticle(id));
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/read";
+    }
+
+    //download
+    @GetMapping("/article/download?id={id}")
+    @ResponseBody
+    public void download(@PathVariable("id") Long id,
+                         Model model) {
+        model.addAttribute("id", id);
     }
 
     //게시판 글 쓰기

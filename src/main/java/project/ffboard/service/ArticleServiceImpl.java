@@ -6,11 +6,11 @@ import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dao.ArticleDao;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -97,6 +97,40 @@ public class ArticleServiceImpl implements ArticleService {
         fileInfo.put("path", saveDir);
 
         return articleDao.insertFileInfo(fileInfo);
+    }
+
+    public void downloadFile(HttpServletResponse response, Long articleId) {
+        ArticleFile articleFile = new ArticleFile();
+
+        response.setContentLength((int)articleFile.getSize());
+        response.setContentType(articleFile.getContentType());
+
+        try{
+            URLDecoder.decode(articleFile.getOriginName(), "ISO8859_1");
+        } catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+
+        InputStream in = null;
+        OutputStream out = null;
+        try{
+            in = new FileInputStream(articleFile.getPath()+"/"+articleFile.getStoredName());
+            out = response.getOutputStream();
+            byte[] buffer = new byte[1024];
+            int readCount = 0;
+            while ((readCount = in.read(buffer)) != -1) {
+                out.write(buffer, 0, readCount);
+            }
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            if(in != null) {
+                try{ in.close(); } catch (Exception e) {}
+            }
+            if(out != null) {
+                try{ out.close(); } catch (Exception e) {}
+            }
+        }
     }
 
 
