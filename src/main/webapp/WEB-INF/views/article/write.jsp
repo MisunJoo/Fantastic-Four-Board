@@ -11,9 +11,7 @@
 <form method="post" action="/article/write">
     title : <input type="text" name="title"><br>
     content : <textarea name="content" col="50" rows="6"></textarea><br>
-
-    <input type="hidden" name="categoryId" value="${categoryId}">
-
+    <input type="hidden" name="categoryId" value="${categoryid}">
     <input type="submit">
 </form>
 
