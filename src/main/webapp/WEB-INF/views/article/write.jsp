@@ -9,7 +9,7 @@
 <body>
 <br>
 <div class="ui container">
-    <form class="ui form" method="post" action="/article/write" >
+    <form class="ui form" method="post" action="/article/write" enctype="multipart/form-data">
         <div class="ui equal width form">
             <div class="field">
                 <label>제목</label>
@@ -19,6 +19,7 @@
                 <label>내용</label>
                 <textarea placeholder="내용을 입력해주세요." name="content" required></textarea>
             </div>
+            <input type="file" name="file"/>
             <input type="hidden" name="categoryId" value="${categoryId}">
             <div>
                 <button type="submit" class="right floated ui primary button">
@@ -29,15 +30,10 @@
                     취소
                 </button>
             </div>
+        </div>
+    </form>
+</div>
 
-<form method="post" action="/article/write" enctype="multipart/form-data">
-    title : <input type="text" name="title"><br>
-    content : <textarea name="content" col="50" rows="6"></textarea><br>
-    <input type="hidden" name="categoryId" value="${categoryid}">
-    <input type="file" name="file"/>
-    <br>
-    <input type="submit">
-</form>
 
 </body>
 </html>
