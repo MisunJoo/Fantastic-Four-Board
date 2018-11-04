@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import project.ffboard.dto.Member;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class AdminDao {
         this.insertAction = new SimpleJdbcInsert(ds).withTableName("memberPermission").usingGeneratedKeyColumns("id");
     }
 
-    public List<Member> getList(int pg, String email, int limit) throws DataAccessException{
+    public List<Member> getMembers(int pg, String email, int limit) throws DataAccessException{
         String sql;
         RowMapper<Member> rowMapper = new BeanPropertyRowMapper<>().newInstance(Member.class);
         Map<String,Object> params = new HashMap<>();
@@ -38,5 +40,15 @@ public class AdminDao {
             params.put("limit",pg*limit);
         }
         return jdbc.query(sql, params, rowMapper);
+    }
+
+    public List<String> getPermissions(){
+        String sql = "SELECT name FROM permission";
+        return jdbc.query(sql, new RowMapper<String>() {
+            @Override
+            public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getString("name");
+            }
+        });
     }
 }

@@ -24,14 +24,28 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     @Transactional(readOnly=true)
-    public List<Member> getList(String pg, String email, int limit) {
+    public List<Member> getMembers(String pg, String email, int limit) {
         List<Member> result = null;
 
         try {
-            result = adminDao.getList(Integer.parseInt(pg), email, limit);
+            result = adminDao.getMembers(Integer.parseInt(pg), email, limit);
         } catch (DataAccessException dae) {
             daoException.printLog(dae.toString());
         } finally {
+            return result;
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> getPermissions(){
+        List<String> result = null;
+
+        try{
+            result=adminDao.getPermissions();
+        }catch (DataAccessException dae){
+            daoException.printLog(dae.toString());
+        }finally {
             return result;
         }
     }

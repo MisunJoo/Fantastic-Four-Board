@@ -8,28 +8,30 @@
 
 <table border="1">
     <thead>
-        <tr>
-            <th rowspan="3">id</th>
-            <th rowspan="3">이메일</th>
-            <th rowspan="3">닉네임</th>
-        </tr>
-        <tr>
-            <th colspan="3">권한</th>
-        </tr>
-        <tr>
-            <th>Read</th>
-            <th>Write</th>
-        </tr>
+    <tr>
+        <th rowspan="3">id</th>
+        <th rowspan="3">이메일</th>
+        <th rowspan="3">닉네임</th>
+    </tr>
+    <tr>
+        <th colspan="${permSize}">권한</th>
+    </tr>
+    <tr>
+        <c:forEach items="${permissions}" var="permission">
+        <th>${permission}</th>
+        </c:forEach>
+    </tr>
     </thead>
-<c:forEach items="${members}" var="member">
+    <c:forEach items="${members}" var="member">
     <tr>
         <th>${member.id}</th>
         <th>${member.email}</th>
         <th>${member.nickName}</th>
-        <th><input type="checkbox" name="read"> </th>
-        <th><input type="checkbox" name="write"></th>
+        <c:forEach begin="1" step="1" end="${permSize}">
+        <th><input type="checkbox" name=""></th>
+        </c:forEach>
+    </c:forEach>
     </tr>
-</c:forEach>
 </table>
 
 <form method="get" action="/admin/list">

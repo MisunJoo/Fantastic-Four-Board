@@ -1,12 +1,12 @@
 package project.ffboard.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.service.AdminService;
+
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -26,8 +26,10 @@ public class AdminController {
         // pg가 숫자외의 값이 입력되었을 때
         if(!pg.equals("(^[0-9]*$)"))
             pg="1";
-
-        modelMap.addAttribute("members",adminService.getList(pg,email, LIMIT));
+        List<String> permissions = adminService.getPermissions();
+        modelMap.addAttribute("permissions",permissions);
+        modelMap.addAttribute("permSize",permissions.size());
+        modelMap.addAttribute("members",adminService.getMembers(pg,email, LIMIT));
         return "admin/list";
     }
 
