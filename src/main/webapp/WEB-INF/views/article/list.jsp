@@ -25,12 +25,22 @@
         <c:forEach items="${articleList}" var="article">
             <tr>
                 <td class="center aligned">${article.id}</td>
-                <td><a href="/article/read?id=${article.id}">
+            <c:choose>
+                <c:when test="${article.isDeleted == true}">
+                    <td>삭제된 글입니다.</td>
+                    <td class="center aligned"> - </td>
+                    <td class="center aligned"> - </td>
+                    <td class="center aligned"> - </td>
+                </c:when>
+                <c:otherwise>
+                    <td><a href="/article/read?id=${article.id}">
                         <c:forEach begin="1" end="${article.depthLevel}" step="1">└</c:forEach>
-                        ${article.title}</a></td>
-                <td class="center aligned">${article.nickName}</td>
-                <td class="center aligned">${article.hit}</td>
-                <td class="center aligned">${article.regdate}</td>
+                            ${article.title}</a></td>
+                    <td class="center aligned">${article.nickName}</td>
+                    <td class="center aligned">${article.hit}</td>
+                    <td class="center aligned">${article.regdate}</td>
+                </c:otherwise>
+            </c:choose>
             </tr>
         </c:forEach>
 

@@ -42,7 +42,14 @@ public class ArticleController {
     @GetMapping("/article/read")
     public String read(@RequestParam("id")Long id, Model model){
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
-        model.addAttribute("article", articleService.getArticle(id));
+        Article article = articleService.getArticle(id);
+
+        //만약 삭제된 글에 비정상적으로 접근할 시에 바로 목록으로 리다이렉트
+        if (article.getIsDeleted() == true) {
+            return "redirect:/article/list?categoryid="+article.getCategoryId();
+        }
+
+        model.addAttribute("article", article);
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/read";
     }
