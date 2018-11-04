@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
         String dataStr = simpleDateFormat.format(new Date());
 
         //baseDir 프로퍼티로 구현할것
-        String baseDir = "/home/jycs/tmp";
+        String baseDir = "/home/siyoon/tmp";
         String saveDir = baseDir + "/" + dataStr;
         String saveFile = saveDir + "/" + uuidStr;
 

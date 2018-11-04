@@ -6,6 +6,19 @@
     <title>게시판 - 목록</title>
 </head>
 <body>
+<div class="dimmed pusher">
+<div class="ui visible sidebar vertical menu"> <!--네이게이션용 사이드바 div-->
+    <a class="item">
+        1
+    </a>
+    <a class="item">
+        2
+    </a>
+    <a class="item">
+        3
+    </a>
+</div>
+<div class="article" style="margin-left: 210px; padding: 30px;"> <!--메인 컨텐츠용 div-->
 <h2 class="ui header"> 게시판 목록 </h2>
 <div id="list">
     <table class="ui selectable blue striped celled padded table">
@@ -52,6 +65,7 @@
         <button type="submit">검색</button>
     </form>
 </div>
-
+</div> <!--메인 컨텐츠용 /div-->
+</div>
 </body>
 </html>
