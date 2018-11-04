@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.ffboard.dao.CommentDao;
 import project.ffboard.dto.Comment;
+import project.ffboard.dto.CommentCounting;
 import project.ffboard.exception.FFException;
 
 import java.sql.SQLException;
@@ -26,13 +27,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Long addComment(Comment comment) {
+    public Long addComment(Comment comment, CommentCounting commentCounting) {
         Long result = null;
 
         // 예외처리 Controller or Service 어디가 좋을지?
         // Service에 해주면 Controller에서 if문으로 체크를 한번 더 해줘야함.
         try {
-            result = commentDao.addComment(comment);
+            commentCounting.setArticleId(comment.getArticleId());
+            System.out.println("ArticleId가 잘 넘어왔나요? " + comment.getArticleId() );
+            result = commentDao.addComment(comment, commentCounting);
         } catch (DataAccessException dae) {
             daoException.printLog(dae.toString());
         } finally {

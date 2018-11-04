@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Comment;
+import project.ffboard.dto.CommentCounting;
 import project.ffboard.service.CommentService;
 
 import java.text.DateFormat;
@@ -54,7 +55,7 @@ public class CommentController {
 
 
     @PostMapping("/comment/write")
-    public String write(@ModelAttribute Comment comment) {
+    public String write(@ModelAttribute Comment comment, @ModelAttribute CommentCounting commentCounting) {
         if(comment.getGroupId()==null){      // 그냥 댓글
             comment.setGroupSeq(0);
             comment.setDepthLevel(0);
@@ -70,7 +71,9 @@ public class CommentController {
         comment.setNickName("nick");
         //
 
-        commentService.addComment(comment);
+        commentCounting.setArticleId(1L);
+
+        commentService.addComment(comment, commentCounting);
         return "redirect:/comment/list";
     }
 

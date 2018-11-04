@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import project.ffboard.dto.Comment;
+import project.ffboard.dto.CommentCounting;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
@@ -32,8 +33,9 @@ public class CommentDao {
         this.jdbcTemplate=new JdbcTemplate(dataSource);
     }
 
-    public Long addComment(Comment comment) throws DataAccessException {
+    public Long addComment(Comment comment, CommentCounting commentCounting) throws DataAccessException {
         Boolean isReply = comment.getGroupId() != null && comment.getDepthLevel() > 0 && comment.getGroupSeq() > 0;
+        System.out.println("Welcome to the Dao");
 
         // 나중에 시윤이형네꺼 카피
         if (isReply) {
@@ -54,12 +56,13 @@ public class CommentDao {
         }
 
         //Table comment_counting
-        String sql = "UPDATE comment_counting SET counting =:counting WHERE article_id =:articleId";
-        Map<String, Number> countMap = new HashMap<>();
-        countMap.put("counting", comment.getCounting()+1);
-        countMap.put("articleId", comment.getArticleId());
 
-        jdbc.update(sql, countMap);
+        SqlParameterSource countingParams = new BeanPropertySqlParameterSource(commentCounting);
+        Long countingId = insertAction.executeAndReturnKey(countingParams).longValue();
+
+        String countingSql = "UPDATE comment_counting SET counting = counting +1 WHERE article_id = :articleId";
+        Map<String, Long> map = Collections.singletonMap("articleId", countingId);
+        jdbc.update(countingSql, map);
 
         return result;
     }
