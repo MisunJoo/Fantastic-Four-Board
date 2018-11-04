@@ -1,8 +1,11 @@
 package project.ffboard.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -13,22 +16,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
+@PropertySource("classpath:jdbc.properties")
 @EnableTransactionManagement
 public class DBConfig {
-    private String driverClassName = "org.mariadb.jdbc.Driver";
-    private String url = "jdbc:mariadb://localhost:3306/ffboard";
-//    private String driverClassName = "com.mysql.jdbc.Driver";
-//    private String url = "jdbc:mysql://localhost:3306/ffboard?useUnicode=true&characterEncoding=utf8";
-    private String username = "siyoon";
-    private String password = "1234";
+
+    @Autowired
+    private Environment environment;
+
 
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(driverClassName);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
+        dataSource.setDriverClassName(environment.getProperty("driverClassName"));
+        dataSource.setUrl(environment.getProperty("url"));
+        dataSource.setUsername(environment.getProperty("username"));
+        dataSource.setPassword(environment.getProperty("password"));
         return dataSource;
     }
 
