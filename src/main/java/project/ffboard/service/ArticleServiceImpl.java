@@ -7,10 +7,12 @@ import project.ffboard.dao.ArticleDao;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Category;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -160,7 +162,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Article getArticle(Long id) {
+        //조회수 증가 시키기
         articleDao.increaseHitCount(id);
+
+        //article 정보 가져오기
         return articleDao.getArticle(id);
     }
 
@@ -180,5 +185,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Category> getCategoryList() {
+        return articleDao.getCategoryList();
     }
 }

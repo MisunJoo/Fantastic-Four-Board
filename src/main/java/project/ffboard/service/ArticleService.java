@@ -3,6 +3,7 @@ package project.ffboard.service;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.Category;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public interface ArticleService {
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord);
+    public List<Category> getCategoryList();
 }

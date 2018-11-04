@@ -5,30 +5,20 @@
     <jsp:include page="../head/head.jsp"/>
     <title>게시판 - 목록</title>
 </head>
-<body>
-<div class="dimmed pusher">
-<div class="ui visible sidebar vertical menu"> <!--네이게이션용 사이드바 div-->
-    <a class="item">
-        1
-    </a>
-    <a class="item">
-        2
-    </a>
-    <a class="item">
-        3
-    </a>
-</div>
-<div class="article" style="margin-left: 210px; padding: 30px;"> <!--메인 컨텐츠용 div-->
-<h2 class="ui header"> 게시판 목록 </h2>
+<body class="ui grid">
+
+    <jsp:include page="../nav/nav.jsp"/>
+<div class="ui container twelve wide column" style="padding:50px 0px"> <!--메인 컨텐츠용 div-->
+    <h2 class="ui header"> <a href="/article/list?categoryid=${categoryId}">${categoryList.get(categoryId-1).name} 게시판</a></h2>
 <div id="list">
-    <table class="ui selectable blue striped celled padded table">
+    <table class="ui selectable black striped celled padded table">
         <thead>
         <tr>
             <th class="one wide center aligned">번호</th>
-            <th class="nine wide center aligned">제목</th>
+            <th class="eight wide center aligned">제목</th>
             <th class="three wide center aligned">글쓴이</th>
             <th class="one wide center aligned">조회</th>
-            <th class="two wide center aligned">날짜</th>
+            <th class="three wide center aligned">날짜</th>
         </tr>
         </thead>
         <tbody>
@@ -48,7 +38,7 @@
 
     </table>
 
-    <button style="text-align: center" type="button" onclick="window.location.href='/article/write?categoryid=${categoryId}'" class="ui two wide column right floated primary button">
+    <button style="text-align: center" type="button" onclick="window.location.href='/article/write?categoryid=${categoryId}'" class="ui two wide column right floated secondary button">
         <i class="icon edit"></i>
         글쓰기
     </button>
@@ -66,6 +56,6 @@
     </form>
 </div>
 </div> <!--메인 컨텐츠용 /div-->
-</div>
+
 </body>
 </html>

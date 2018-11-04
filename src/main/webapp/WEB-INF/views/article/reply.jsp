@@ -5,7 +5,9 @@
     <jsp:include page="../head/head.jsp"/>
     <title>게시판 - 답글 쓰기</title>
 </head>
-<body>
+<body class="ui grid">
+<jsp:include page="../nav/nav.jsp"/>
+<div class="ui container twelve wide column" style="padding:50px 0px"> <!--메인 컨텐츠용 div-->
 <form class="ui form" method="post" action="/article/reply" >
     <div class="ui equal width form">
         <div class="field">
@@ -19,7 +21,7 @@
         <%--<input type="hidden" name="categoryId" value="${categoryId}">--%>
         <input type="hidden" name="parentId" value="${parentId}">
         <div>
-            <button type="submit" class="right floated ui primary button">
+            <button type="submit" class="right floated ui secondary button">
                 <i class="icon edit"></i>
                 등록
             </button>
@@ -30,6 +32,7 @@
 
     </div>
 </form>
+</div>
 
 </body>
 </html>

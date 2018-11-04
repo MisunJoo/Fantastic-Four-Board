@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Category;
 
 import javax.sql.DataSource;
 import java.util.Collections;
@@ -190,6 +191,18 @@ public class ArticleDao {
             return null;
         }
     } // getArticleList
+
+    //게시판 네비게이션을 위한 카테고리 목록 가져오기
+    public List<Category> getCategoryList() {
+        String sql = "SELECT id,name FROM category";
+
+        try{
+            RowMapper<Category> rowMapper =  BeanPropertyRowMapper.newInstance(Category.class);
+            return jdbc.query(sql,rowMapper);
+        }catch(DataAccessException e){
+            return null;
+        }
+    }
 
 
 
