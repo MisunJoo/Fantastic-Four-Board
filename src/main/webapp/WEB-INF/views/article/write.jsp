@@ -20,7 +20,9 @@
                 <label>내용</label>
                 <textarea placeholder="내용을 입력해주세요." name="content" required></textarea>
             </div>
-            <input type="file" name="file"/>
+            <div class="field">
+                <input type="file" name="file"/>
+            </div>
             <input type="hidden" name="categoryId" value="${categoryId}">
             <div>
                 <button type="submit" class="right floated ui secondary button">

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -102,9 +103,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public void downloadFile(HttpServletResponse response, Long articleId) {
-        ArticleFile articleFile = new ArticleFile();
+        ArticleFile articleFile = articleDao.extractFileInfo(articleId);
 
-        response.setContentLength((int)articleFile.getSize());
+        response.setContentLengthLong(articleFile.getSize());
         response.setContentType(articleFile.getContentType());
 
         try{
@@ -112,6 +113,7 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }
+        response.setHeader("Content-disposition", "attachment; filename="+ articleFile.getOriginName());
 
         InputStream in = null;
         OutputStream out = null;
@@ -178,7 +180,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start) {
-        return articleDao.getArticleList(categoryId,start,limit);
+        List<Article> articleList = articleDao.getArticleList(categoryId, start, limit);
+        return articleList;
     }
 
     @Override
@@ -187,6 +190,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<Category> getCategoryList() {
         return articleDao.getCategoryList();

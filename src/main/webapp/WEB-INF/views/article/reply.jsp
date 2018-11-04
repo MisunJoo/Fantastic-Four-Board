@@ -20,6 +20,9 @@
         </div>
         <%--<input type="hidden" name="categoryId" value="${categoryId}">--%>
         <input type="hidden" name="parentId" value="${parentId}">
+        <div class="field">
+            <input type="file" name="file"/>
+        </div>
         <div>
             <button type="submit" class="right floated ui secondary button">
                 <i class="icon edit"></i>

@@ -55,11 +55,11 @@ public class ArticleController {
     }
 
     //download
-    @GetMapping("/article/download?id={id}")
+    @GetMapping("/article/download/{id}")
     @ResponseBody
     public void download(@PathVariable("id") Long id,
-                         Model model) {
-        model.addAttribute("id", id);
+                         HttpServletResponse response) {
+        articleService.downloadFile(response,id);
     }
 
     //게시판 글 쓰기
