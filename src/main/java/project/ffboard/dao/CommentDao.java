@@ -52,6 +52,15 @@ public class CommentDao {
                     "WHERE id=(SELECT LAST_INSERT_ID())";
             jdbcTemplate.execute(sql);
         }
+
+        //Table comment_counting
+        String sql = "UPDATE comment_counting SET counting =:counting WHERE article_id =:articleId";
+        Map<String, Number> countMap = new HashMap<>();
+        countMap.put("counting", comment.getCounting()+1);
+        countMap.put("articleId", comment.getArticleId());
+
+        jdbc.update(sql, countMap);
+
         return result;
     }
 
@@ -81,13 +90,20 @@ public class CommentDao {
 
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);
-        map.put("page", page*posts-(posts-1));
-        map.put("posts", page*posts);
+        map.put("page", page * posts - (posts - 1));
+        map.put("posts", page * posts);
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
 
         return comments;
-}
+    }
+
+//    public int getCount(Long articleId) throws DataAccessException{
+//        String sql = "SELECT counting FROM comment_counting WHERE article_id=:articleId";
+//        int counting = jdbc.;
+//
+//        return
+//    }
 
     public int modifyComment(Comment comment) throws DataAccessException {
         String sql = "UPDATE comment SET content=:content, upddate=now() " +

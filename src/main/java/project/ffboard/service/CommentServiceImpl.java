@@ -64,8 +64,10 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public List<Comment> getCommentList(Long articleId, int page, int posts) {
         List<Comment> result = null;
+        int count = 0;
         try {
             result = commentDao.getCommentList(articleId, page, posts);
+
         } catch (DataAccessException dae) {
             daoException.printLog(dae.toString());
         } finally {
