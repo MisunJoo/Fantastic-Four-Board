@@ -49,9 +49,11 @@ public class MemberController {
     }
 
     @GetMapping("/login")
-    public String loginForm(ModelMap modelMap, @ModelAttribute Member member){
+    public String loginForm(ModelMap modelMap, @ModelAttribute Member member,
+                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck){
         modelMap.addAttribute("email", member.getEmail());
         modelMap.addAttribute("password", member.getPassword());
+        modelMap.addAttribute("loginCheck", loginCheck);
 
         return "login";
     }
@@ -60,7 +62,7 @@ public class MemberController {
     public String login(@ModelAttribute Member member){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-            return "redirect:/login?loginCheck=true";
+            return "redirect:/login?loginCheck=problem";
         }
         else{
             return "redirect:/main";
