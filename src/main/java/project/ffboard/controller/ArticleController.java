@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,11 +46,13 @@ public class ArticleController {
     }
 
     //download
-    @GetMapping("/article/download?id={id}")
-    @ResponseBody
-    public void download(@PathVariable("id") Long id,
-                         Model model) {
+    @GetMapping("/article/download/{id}")
+
+    public String download(@RequestParam(value="id") Long id,
+                                Model model) {
+
         model.addAttribute("id", id);
+        return
     }
 
     //게시판 글 쓰기

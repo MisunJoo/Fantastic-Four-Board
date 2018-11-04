@@ -9,6 +9,7 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
@@ -99,7 +100,8 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.insertFileInfo(fileInfo);
     }
 
-    public void downloadFile(HttpServletResponse response, Long articleId) {
+    public void downloadFile(Long articleId) {
+        HttpServletResponse response = new HttpServletResponseWrapper();
         ArticleFile articleFile = new ArticleFile();
 
         response.setContentLength((int)articleFile.getSize());
