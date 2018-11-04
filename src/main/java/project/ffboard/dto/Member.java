@@ -2,8 +2,7 @@ package project.ffboard.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,5 +11,5 @@ public class Member {
     private String nickName;
     private String password;
     private String email;
-    private Map<String, String> permMap;
+    private Set<String> perms;
 }
