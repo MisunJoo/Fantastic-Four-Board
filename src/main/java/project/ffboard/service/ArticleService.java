@@ -3,6 +3,7 @@ package project.ffboard.service;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
 import project.ffboard.dto.Category;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,4 +21,5 @@ public interface ArticleService {
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord);
     public List<Category> getCategoryList();
     public void downloadFile(HttpServletResponse response, Long articleId);
+    public ArticleFile isExistFile(Long articleId);
 }

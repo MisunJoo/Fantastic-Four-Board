@@ -25,10 +25,16 @@
             ${article.title}
         </div>
     </div>
-    <div class="ui message" style="min-height: 150px">
-        <p>${articleContent.content}</p>
-    </div>
 
+        <div class="ui message" style="min-height: 150px">
+            <p>${articleContent.content}</p>
+        </div>
+
+    <c:if test="${fileInfo != null}">
+        <div class="ui message">
+            <p><a href="/article/download/${fileInfo.articleId}"> ${fileInfo.originName} - ${fileInfo.size}B</a></p>
+        </div>
+    </c:if>
     <div>
         <div>
             <button type="submit" onclick="window.location.href='/article/list?categoryid=${article.categoryId}'" class="left floated ui secondary button">
@@ -47,7 +53,7 @@
             <button type="button" onclick="window.location.href='/article/update?id=${article.id}'" class="right floated ui button">
                 수정
             </button>
-            <button type="button" onclick="window.location.href='/article/delete?id=${article.id}'" class="right floated ui button">
+            <button type="button" onclick="window.location.href='/article/delete?id=${article.id}&categoryid=${article.categoryId}'" class="right floated ui button">
                 삭제
             </button>
         </div>

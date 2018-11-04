@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
 import project.ffboard.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +43,18 @@ public class ArticleController {
     @GetMapping("/article/read")
     public String read(@RequestParam("id")Long id, Model model){
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
+
         Article article = articleService.getArticle(id);
 
         //만약 삭제된 글에 비정상적으로 접근할 시에 바로 목록으로 리다이렉트
         if (article.getIsDeleted() == true) {
             return "redirect:/article/list?categoryid="+article.getCategoryId();
+        }
+
+        //만약 파일이 존재한다면, 파일관련 정보도 추가
+        ArticleFile file = articleService.isExistFile(id);
+        if (file!=null) {
+            model.addAttribute("fileInfo", file);
         }
 
         model.addAttribute("article", article);

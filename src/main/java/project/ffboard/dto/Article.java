@@ -21,7 +21,5 @@ public class Article {
     private Long memberId;
     private Boolean isDeleted;
     private int hit;
-
-    public Article() {}
 }
 

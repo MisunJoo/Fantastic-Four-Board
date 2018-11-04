@@ -102,6 +102,10 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.insertFileInfo(fileInfo);
     }
 
+    public ArticleFile isExistFile(Long articleId){
+        return articleDao.extractFileInfo(articleId);
+    }
+
     public void downloadFile(HttpServletResponse response, Long articleId) {
         ArticleFile articleFile = articleDao.extractFileInfo(articleId);
 
