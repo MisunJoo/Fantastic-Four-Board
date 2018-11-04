@@ -8,6 +8,6 @@ public interface CommentService {
     public Long addComment(Comment comment);
     public int deleteComment(Long id);
     public int updateComment(Comment comment);
-    public List<Comment> getCommentList(Long articleId);
+    public List<Comment> getCommentList(Long articleId, int page, int posts);
     public int modifyComment(Comment comment);
 }

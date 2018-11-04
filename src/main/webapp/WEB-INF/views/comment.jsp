@@ -18,7 +18,7 @@
             ㄴ
         </c:if>
         <div style="display: inline;">
-                ${comment.nickName} ${comment.updDate} ip:${comment.ipAddress}
+                ${comment.nickName} ${comment.upddate} ip:${comment.ipAddress}
             <input type="button" value="답글"
                    onclick="window.location.href='/comment/write?id=${comment.id}'"><br>
 

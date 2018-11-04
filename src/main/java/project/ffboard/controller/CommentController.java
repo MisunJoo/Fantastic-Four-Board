@@ -26,8 +26,13 @@ public class CommentController {
     public String getList(ModelMap modelMap, @RequestParam(value="modification", defaultValue = "false") String modification,
                             @RequestParam(value = "commentId",defaultValue = "") Long commentId,
                             @RequestParam(value = "articleId", defaultValue = "1")String articleId,
-                            @RequestParam(value="addChild", defaultValue = "false")String addChild){
-        modelMap.addAttribute("comments", commentService.getCommentList(Long.parseLong(articleId)));
+                            @RequestParam(value="addChild", defaultValue = "false")String addChild,
+                            @RequestParam(value = "page", defaultValue = "1")String page,
+                            @RequestParam(value = "posts", defaultValue = "5")String posts){
+
+        modelMap.addAttribute("comments",
+                commentService.getCommentList(Long.parseLong(articleId), Integer.parseInt(page), Integer.parseInt(posts)));
+
         if(modification.equals("true")) {
             modelMap.addAttribute("modification", modification);
         }
@@ -35,6 +40,8 @@ public class CommentController {
             modelMap.addAttribute("addChild", addChild);
         }
         modelMap.addAttribute("commentId", commentId);
+        modelMap.addAttribute("page", page);
+        modelMap.addAttribute("posts", posts);
 
         return "comment";
     }

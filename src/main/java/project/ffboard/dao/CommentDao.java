@@ -72,13 +72,17 @@ public class CommentDao {
         return jdbc.update(sql, map);
     }
 
-    public List<Comment> getCommentList(Long articleId)throws DataAccessException {
+    public List<Comment> getCommentList(Long articleId, int page, int posts)throws DataAccessException {
         String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
                 "regdate, upddate, ip_address, member_id, is_deleted " +
                 "FROM comment WHERE article_id=:articleId " +
-                "ORDER By group_id DESC, group_seq ASC";
+                "ORDER By group_id DESC, group_seq ASC " +
+                "LIMIT :page, :posts ";
 
-        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("articleId", articleId);
+        map.put("page", page*posts-(posts-1));
+        map.put("posts", page*posts);
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
 
