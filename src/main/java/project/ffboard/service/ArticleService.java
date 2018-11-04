@@ -3,7 +3,10 @@ package project.ffboard.service;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Category;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 //TODO : 인터페이스에 대한 철학을 정해야 할 것 같다.
@@ -16,4 +19,7 @@ public interface ArticleService {
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord);
+    public List<Category> getCategoryList();
+    public void downloadFile(HttpServletResponse response, Long articleId);
+    public ArticleFile isExistFile(Long articleId);
 }

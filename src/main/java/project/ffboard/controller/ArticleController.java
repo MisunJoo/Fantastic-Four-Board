@@ -23,6 +23,7 @@ public class ArticleController {
     //게시판 글 목록 가져오기
     @GetMapping("/article/list")
     public String list(@RequestParam("categoryid")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start, Model model) {
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
         model.addAttribute("categoryId", categoryId);
         return "/article/list";
@@ -32,6 +33,7 @@ public class ArticleController {
     @PostMapping("/article/search")
     public String list(@RequestParam("categoryId")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start,
                        @RequestParam("searchType") String searchType, @RequestParam("searchWord") String searchWord, Model model) {
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("articleList", articleService.getArticleList(categoryId,start,searchType,searchWord));
         model.addAttribute("categoryId", categoryId);
         return "/article/list";
@@ -40,24 +42,47 @@ public class ArticleController {
     //게시판 글 읽기
     @GetMapping("/article/read")
     public String read(@RequestParam("id")Long id, Model model){
-        model.addAttribute("article", articleService.getArticle(id));
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
+
+        Article article = articleService.getArticle(id);
+
+        //만약 삭제된 글에 비정상적으로 접근할 시에 바로 목록으로 리다이렉트
+        if (article.getIsDeleted() == true) {
+            return "redirect:/article/list?categoryid="+article.getCategoryId();
+        }
+
+        //만약 파일이 존재한다면, 파일관련 정보도 추가
+        ArticleFile file = articleService.isExistFile(id);
+        if (file!=null) {
+            model.addAttribute("fileInfo", file);
+        }
+
+        model.addAttribute("article", article);
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/read";
     }
 
     //download
     @GetMapping("/article/download/{id}")
+<<<<<<< HEAD
 
     public String download(@RequestParam(value="id") Long id,
                                 Model model) {
 
         model.addAttribute("id", id);
         return
+=======
+    @ResponseBody
+    public void download(@PathVariable("id") Long id,
+                         HttpServletResponse response) {
+        articleService.downloadFile(response,id);
+>>>>>>> View-nav
     }
 
     //게시판 글 쓰기
     @GetMapping("/article/write")
     public String write(@RequestParam("categoryid") int categoryId, Model model) {
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("categoryId", categoryId);
         return "/article/write";
     }
@@ -82,6 +107,7 @@ public class ArticleController {
     //게시판 답글달기
     @GetMapping("/article/reply")
     public String reply(@RequestParam("id")Long id,Model model) {
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("parentId", id);
         return "/article/reply";
     }
@@ -110,6 +136,7 @@ public class ArticleController {
     //게시판 글 수정
     @GetMapping("/article/update")
     public String update(@RequestParam("id")Long id, Model model) {
+        getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("article",articleService.getArticle(id));
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/update";
@@ -134,5 +161,10 @@ public class ArticleController {
     public String delete(@RequestParam("id") Long id,@RequestParam("categoryid")int categoryId, Model model) {
         articleService.deleteArticle(id);
         return "redirect:/article/list?categoryid="+categoryId;
+    }
+
+    //게시판 네비게이션 카테고리 목록 자겨오기
+    public void getCategoryList(Model model) {
+        model.addAttribute("categoryList", articleService.getCategoryList());
     }
 }

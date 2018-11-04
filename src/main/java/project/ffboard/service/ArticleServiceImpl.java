@@ -7,11 +7,14 @@ import project.ffboard.dao.ArticleDao;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Category;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 import java.net.URLDecoder;
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -59,7 +62,7 @@ public class ArticleServiceImpl implements ArticleService {
         String dataStr = simpleDateFormat.format(new Date());
 
         //baseDir 프로퍼티로 구현할것
-        String baseDir = "/home/jycs/tmp";
+        String baseDir = "/home/siyoon/tmp";
         String saveDir = baseDir + "/" + dataStr;
         String saveFile = saveDir + "/" + uuidStr;
 
@@ -100,11 +103,20 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.insertFileInfo(fileInfo);
     }
 
+<<<<<<< HEAD
     public void downloadFile(Long articleId) {
         HttpServletResponse response = new HttpServletResponseWrapper();
         ArticleFile articleFile = new ArticleFile();
+=======
+    public ArticleFile isExistFile(Long articleId){
+        return articleDao.extractFileInfo(articleId);
+    }
 
-        response.setContentLength((int)articleFile.getSize());
+    public void downloadFile(HttpServletResponse response, Long articleId) {
+        ArticleFile articleFile = articleDao.extractFileInfo(articleId);
+>>>>>>> View-nav
+
+        response.setContentLengthLong(articleFile.getSize());
         response.setContentType(articleFile.getContentType());
 
         try{
@@ -112,6 +124,7 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (UnsupportedEncodingException e){
             e.printStackTrace();
         }
+        response.setHeader("Content-disposition", "attachment; filename="+ articleFile.getOriginName());
 
         InputStream in = null;
         OutputStream out = null;
@@ -162,7 +175,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Article getArticle(Long id) {
+        //조회수 증가 시키기
         articleDao.increaseHitCount(id);
+
+        //article 정보 가져오기
         return articleDao.getArticle(id);
     }
 
@@ -175,12 +191,19 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start) {
-        return articleDao.getArticleList(categoryId,start,limit);
+        List<Article> articleList = articleDao.getArticleList(categoryId, start, limit);
+        return articleList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
         return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Category> getCategoryList() {
+        return articleDao.getCategoryList();
     }
 }

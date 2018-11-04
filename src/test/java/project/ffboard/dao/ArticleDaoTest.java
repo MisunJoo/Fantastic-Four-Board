@@ -161,4 +161,9 @@ public class ArticleDaoTest {
         System.out.println(articleDao.extractFileInfo(10L).getOriginName()+" "+articleDao.extractFileInfo(10L).getSize());
     }
 
+    @Test
+    public void isExistFile() {
+//        articleDao.isExistFile(14L);
+    }
+
 }

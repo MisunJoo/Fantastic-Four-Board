@@ -6,9 +6,10 @@
     <title>수정페이지</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
-<body>
+<body class="ui grid">
 <br>
-<div class="ui container">
+<jsp:include page="../nav/nav.jsp"/>
+<div class="ui container twelve wide column" style="padding:50px 0px"> <!--메인 컨텐츠용 div-->
     <form class="ui form" method="post" action="/article/update" enctype="multipart/form-data">
         <div class="ui equal width form">
             <div class="field">
@@ -19,10 +20,12 @@
                 <label>내용</label>
                 <textarea placeholder="내용을 입력해주세요." name="content" required>${articleContent.content}</textarea>
             </div>
-            <input type="file" name="file"/>
+            <div class="field">
+                <input type="file" name="file"/>
+            </div>
             <input type="hidden" name="id" value="${article.id}">
             <div>
-                <button type="submit" class="right floated ui primary button">
+                <button type="submit" class="right floated ui secondary button">
                     <i class="icon edit"></i>
                     등록
                 </button>
