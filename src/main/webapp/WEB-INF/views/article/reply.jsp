@@ -8,7 +8,7 @@
 <body class="ui grid">
 <jsp:include page="../nav/nav.jsp"/>
 <div class="ui container twelve wide column" style="padding:50px 0px"> <!--메인 컨텐츠용 div-->
-<form class="ui form" method="post" action="/article/reply" >
+<form class="ui form" method="post" action="/article/reply" enctype="multipart/form-data">
     <div class="ui equal width form">
         <div class="field">
             <label>제목</label>

@@ -8,6 +8,7 @@ import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
 import project.ffboard.service.ArticleService;
+import project.ffboard.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class ArticleController {
     private ArticleService articleService;
+    private CommentService commentService;
 
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, CommentService commentService) {
         this.articleService = articleService;
+        this.commentService = commentService;
     }
 
     //게시판 글 목록 가져오기
@@ -41,7 +44,11 @@ public class ArticleController {
 
     //게시판 글 읽기
     @GetMapping("/article/read")
-    public String read(@RequestParam("id")Long id, Model model){
+    public String read(@RequestParam("id")Long id,
+                       @RequestParam(value="modification", defaultValue = "false") String modification,
+                       @RequestParam(value = "commentId", defaultValue = "") Long commentId,
+                       @RequestParam(value="addChild", defaultValue = "false")String addChild,
+                       Model model){
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
 
         Article article = articleService.getArticle(id);
@@ -59,6 +66,18 @@ public class ArticleController {
 
         model.addAttribute("article", article);
         model.addAttribute("articleContent", articleService.getArticleContent(id));
+
+        //댓글 삽입코드 시작
+        model.addAttribute("comments", commentService.getCommentList(id));
+        if(modification.equals("true")) {
+            model.addAttribute("modification", modification);
+        }
+        if(addChild.equals("true")) {
+            model.addAttribute("addChild", addChild);
+        }
+        model.addAttribute("commentId", commentId);
+        //댓글 삽입 끝
+
         return "/article/read";
     }
 
@@ -106,7 +125,8 @@ public class ArticleController {
     @PostMapping("/article/reply")
     public String reply(Article article, ArticleContent articleContent,
                         @RequestParam("file") MultipartFile file,
-                        @RequestParam("parentId")Long parentId, HttpServletRequest request, Model model) {
+                        @RequestParam("parentId")Long parentId, HttpServletRequest request,
+                        Model model) {
         //계층형을 위한 처리, 부모의 groupId를받고, groupseq와 depthlevel을 부모보다 1크게한다.
         Article parentArticle = articleService.getArticle(parentId);
         article.setGroupId(parentArticle.getGroupId());

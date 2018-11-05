@@ -59,12 +59,11 @@ public class CommentController {
         // 나중에 수정
         comment.setIpAddress("124.2223");
         comment.setMemberId(1L);
-        comment.setArticleId(1L);
         comment.setNickName("nick");
         //
 
         commentService.addComment(comment);
-        return "redirect:/comment/list";
+            return "redirect:/article/read?id="+comment.getArticleId();
     }
 
     @GetMapping("/comment/delete")

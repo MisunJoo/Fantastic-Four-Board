@@ -6,8 +6,7 @@
     <title>게시판 - 목록</title>
 </head>
 <body class="ui grid">
-
-    <jsp:include page="../nav/nav.jsp"/>
+<jsp:include page="../nav/nav.jsp"/>
 <div class="ui container twelve wide column" style="padding:50px 0px"> <!--메인 컨텐츠용 div-->
     <h2 class="ui header"> <a href="/article/list?categoryid=${categoryId}">${categoryList.get(categoryId-1).name} 게시판</a></h2>
 <div id="list">
@@ -34,7 +33,7 @@
                 </c:when>
                 <c:otherwise>
                     <td><a href="/article/read?id=${article.id}">
-                        <c:forEach begin="1" end="${article.depthLevel}" step="1">└</c:forEach>
+                        <c:forEach begin="1" end="${article.depthLevel}" step="1">  <b>RE:</b></c:forEach>
                             ${article.title}</a></td>
                     <td class="center aligned">${article.nickName}</td>
                     <td class="center aligned">${article.hit}</td>
@@ -64,6 +63,7 @@
         <input type="hidden" name="categoryId" value="${categoryId}">
         <button type="submit">검색</button>
     </form>
+
 </div>
 </div> <!--메인 컨텐츠용 /div-->
 
