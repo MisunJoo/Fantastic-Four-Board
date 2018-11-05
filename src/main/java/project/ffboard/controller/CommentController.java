@@ -27,7 +27,7 @@ public class CommentController {
     public String getList(ModelMap modelMap, @RequestParam(value="modification", defaultValue = "false") String modification,
                             @RequestParam(value = "commentId",defaultValue = "") Long commentId,
                             @RequestParam(value = "articleId", defaultValue = "1")String articleId,
-                            @RequestParam(value="addChild", defaultValue = "false")String addChild,
+                            @RequestParam(value = "addChild", defaultValue = "false")String addChild,
                             @RequestParam(value = "page", defaultValue = "1")String page,
                             @RequestParam(value = "posts", defaultValue = "5")String posts,
                             @RequestParam(value = "totalPage", defaultValue = "1")String totalPage){
@@ -51,7 +51,6 @@ public class CommentController {
 
     @GetMapping("/comment/write")
     public String writeChild(@ModelAttribute Comment comment){
-
         return "redirect:/comment/list?commentId="+comment.getId() +"&addChild=true";
     }
 
@@ -71,10 +70,7 @@ public class CommentController {
         comment.setMemberId(1L);
         comment.setArticleId(1L);
         comment.setNickName("nick");
-        //
-
         commentCounting.setArticleId(1L);
-
         commentService.addComment(comment, commentCounting);
         return "redirect:/comment/list";
     }
