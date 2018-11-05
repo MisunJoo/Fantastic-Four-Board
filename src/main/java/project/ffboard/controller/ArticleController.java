@@ -98,9 +98,16 @@ public class ArticleController {
 
     //게시판 글 쓰기
     @GetMapping("/article/write")
-    public String write(@RequestParam("categoryid") int categoryId, Model model) {
+    public String write(@RequestParam("categoryid") int categoryId, Model model,
+                        HttpSession session) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("categoryId", categoryId);
+        Member member = (Member)session.getAttribute("member");
+
+        //권한 없는 사람이 직접 입력한 url로 접근할 경우
+        if(!member.getPerms().contains("write")){
+            return "redirect:/";
+        }
         return "/article/write";
     }
 
@@ -143,7 +150,6 @@ public class ArticleController {
         article.setCategoryId(parentArticle.getCategoryId());
         article.setIpAddress(request.getRemoteAddr());
 
-        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         Member member = (Member)session.getAttribute("member");
         article.setMemberId(member.getId());
         article.setNickName(member.getNickName());
