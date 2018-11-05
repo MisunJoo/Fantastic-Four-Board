@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Member;
 import project.ffboard.service.MemberService;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class MemberController {
     private MemberService memberService;
@@ -19,10 +21,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-//    @GetMapping("/main")
-//    public String main(){
-//        return "main";
-//    }
 
     @GetMapping("/member/signup")
     public String signUpForm(ModelMap modelMap,@RequestParam(value = "email", defaultValue = "") String email,
@@ -51,7 +49,11 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(ModelMap modelMap, @ModelAttribute Member member,
-                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck){
+                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck,
+                            HttpSession session){
+        if(session.getAttribute("member")!=null){
+            return "redirect:/";
+        }
         modelMap.addAttribute("email", member.getEmail());
         modelMap.addAttribute("loginCheck", loginCheck);
 
@@ -59,15 +61,22 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute Member member, Model model){
+    public String login(@ModelAttribute Member member, Model model,
+                        HttpSession session){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-//            model.addAttribute("email", member.getEmail());
             return "redirect:/login?loginCheck=invalid&email="+member.getEmail();
         }
         else{
+            session.setAttribute("member",memberResult);
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("member");
+        return "redirect:/";
     }
 
 
