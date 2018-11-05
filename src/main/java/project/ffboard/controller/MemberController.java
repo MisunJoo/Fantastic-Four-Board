@@ -2,6 +2,7 @@ package project.ffboard.controller;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,10 +19,10 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/main")
-    public String main(){
-        return "main";
-    }
+//    @GetMapping("/main")
+//    public String main(){
+//        return "main";
+//    }
 
     @GetMapping("/member/signup")
     public String signUpForm(ModelMap modelMap,@RequestParam(value = "email", defaultValue = "") String email,
@@ -44,7 +45,7 @@ public class MemberController {
         }else if(result==-2L){
             return "redirect:/member/signup?duplication=nickName&nickName="+member.getNickName()+"&email="+member.getEmail();
         }else { // 로그인 성공
-            return "redirect:/main";
+            return "redirect:/";
         }
     }
 
@@ -52,20 +53,20 @@ public class MemberController {
     public String loginForm(ModelMap modelMap, @ModelAttribute Member member,
                             @RequestParam(value="loginCheck", defaultValue="") String loginCheck){
         modelMap.addAttribute("email", member.getEmail());
-        modelMap.addAttribute("password", member.getPassword());
         modelMap.addAttribute("loginCheck", loginCheck);
 
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute Member member){
+    public String login(@ModelAttribute Member member, Model model){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-            return "redirect:/login?loginCheck=invalid";
+//            model.addAttribute("email", member.getEmail());
+            return "redirect:/login?loginCheck=invalid&email="+member.getEmail();
         }
         else{
-            return "redirect:/main";
+            return "redirect:/";
         }
     }
 
