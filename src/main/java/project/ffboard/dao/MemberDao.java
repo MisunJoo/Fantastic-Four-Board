@@ -49,7 +49,7 @@ public class MemberDao {
     }
 
     public Member login(Member member) throws DataAccessException{
-        String sql = "SELECT * FROM member WHERE email=:email AND password=:password";
+        String sql = "SELECT id,email,nick_name  FROM member WHERE email=:email AND password=:password";
         Map<String, String> map = new HashMap<>();
         map.put("email", member.getEmail());
         map.put("password", member.getPassword());

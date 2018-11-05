@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Member;
 import project.ffboard.service.MemberService;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class MemberController {
     private MemberService memberService;
@@ -18,10 +20,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/main")
-    public String main(){
-        return "main";
-    }
 
     @GetMapping("/member/signup")
     public String signUpForm(ModelMap modelMap,@RequestParam(value = "email", defaultValue = "") String email,
@@ -50,7 +48,11 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(ModelMap modelMap, @ModelAttribute Member member,
-                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck){
+                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck,
+                            HttpSession session){
+        if(session.getAttribute("member")!=null){
+            return "redirect:/";
+        }
         modelMap.addAttribute("email", member.getEmail());
         modelMap.addAttribute("password", member.getPassword());
         modelMap.addAttribute("loginCheck", loginCheck);
@@ -59,13 +61,15 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute Member member){
+    public String login(@ModelAttribute Member member,
+                        HttpSession session){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
             return "redirect:/login?loginCheck=invalid";
         }
         else{
-            return "redirect:/main";
+            session.setAttribute("member",memberResult);
+            return "redirect:/";
         }
     }
 
