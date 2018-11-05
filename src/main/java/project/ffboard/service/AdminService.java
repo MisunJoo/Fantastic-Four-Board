@@ -6,5 +6,6 @@ import project.ffboard.dto.Member;
 public interface AdminService {
     public List<Member> getMembers(String pg, String email, int limit);
     public List<String> getPermissions();
-    void update(String id, String[] checkPerm);
+    public void update(String id, String[] checkPerm);
+    public int memberCount();
 }
