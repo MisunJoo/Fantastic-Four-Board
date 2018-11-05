@@ -67,7 +67,7 @@ public class ArticleDao {
         return insertActionFile.execute(params);
     }
 
-    public ArticleFile extractFileInfo(Long articleId) {
+    public ArticleFile getFileInfo(Long articleId) {
         String sql = "SELECT article_id, stored_name, origin_name, content_type, size, path FROM file " +
                 "WHERE article_id = :articleId";
         try{

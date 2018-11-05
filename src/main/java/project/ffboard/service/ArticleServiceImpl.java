@@ -1,9 +1,7 @@
 package project.ffboard.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.mock.env.MockEnvironment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,13 +11,9 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
 import project.ffboard.dto.Category;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
 import java.net.URLDecoder;
-import java.sql.Timestamp;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -111,11 +105,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public ArticleFile isExistFile(Long articleId){
-        return articleDao.extractFileInfo(articleId);
+        return articleDao.getFileInfo(articleId);
     }
 
     public void downloadFile(HttpServletResponse response, Long articleId) {
-        ArticleFile articleFile = articleDao.extractFileInfo(articleId);
+        ArticleFile articleFile = articleDao.getFileInfo(articleId);
 
         response.setContentLengthLong(articleFile.getSize());
         response.setContentType(articleFile.getContentType());

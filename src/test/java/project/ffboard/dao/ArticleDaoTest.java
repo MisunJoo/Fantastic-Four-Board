@@ -1,18 +1,11 @@
 package project.ffboard.dao;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import project.ffboard.config.ApplicationConfig;
-import project.ffboard.dto.Article;
-import project.ffboard.dto.ArticleContent;
-import project.ffboard.dto.ArticleFile;
-
-import java.util.Date;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfig.class)
@@ -158,7 +151,7 @@ public class ArticleDaoTest {
     private ArticleDao articleDao;
     @Test
     public void extractFileInfoTest() {
-        System.out.println(articleDao.extractFileInfo(10L).getOriginName()+" "+articleDao.extractFileInfo(10L).getSize());
+        System.out.println(articleDao.getFileInfo(10L).getOriginName()+" "+articleDao.getFileInfo(10L).getSize());
     }
 
     @Test
