@@ -7,6 +7,7 @@
         <button class="ui facebook button" onclick="window.location.href='/member/signup'">회원가입</button>
         </c:if>
         <c:if test="${sessionScope.member != null}">
+            <button class="ui youtube button"> ${sessionScope.member.nickName} 님</button>
             <button class="ui facebook button" onclick="window.location.href='/logout'">로그아웃</button>
         </c:if>
     </div>
