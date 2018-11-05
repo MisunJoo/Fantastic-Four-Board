@@ -10,8 +10,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import project.ffboard.dto.Comment;
+import project.ffboard.dto.CommentCounting;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,8 +34,9 @@ public class CommentDao {
         this.jdbcTemplate=new JdbcTemplate(dataSource);
     }
 
-    public Long addComment(Comment comment) throws DataAccessException {
+    public Long addComment(Comment comment, CommentCounting commentCounting) throws DataAccessException {
         Boolean isReply = comment.getGroupId() != null && comment.getDepthLevel() > 0 && comment.getGroupSeq() > 0;
+        System.out.println("Welcome to the Dao");
 
         // 나중에 시윤이형네꺼 카피
         if (isReply) {
@@ -52,6 +55,16 @@ public class CommentDao {
                     "WHERE id=(SELECT LAST_INSERT_ID())";
             jdbcTemplate.execute(sql);
         }
+
+        //Table comment_counting
+
+        SqlParameterSource countingParams = new BeanPropertySqlParameterSource(commentCounting);
+        Long countingId = insertAction.executeAndReturnKey(countingParams).longValue();
+
+        String countingSql = "UPDATE comment_counting SET counting = counting +1 WHERE article_id = :articleId";
+        Map<String, Long> map = Collections.singletonMap("articleId", countingId);
+        jdbc.update(countingSql, map);
+
         return result;
     }
 
@@ -72,18 +85,39 @@ public class CommentDao {
         return jdbc.update(sql, map);
     }
 
-    public List<Comment> getCommentList(Long articleId)throws DataAccessException {
+    public List<Comment> getCommentList(Long articleId, int page, int posts)throws DataAccessException {
         String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
                 "regdate, upddate, ip_address, member_id, is_deleted " +
                 "FROM comment WHERE article_id=:articleId " +
-                "ORDER By group_id DESC, group_seq ASC";
+                "ORDER By group_id DESC, group_seq ASC " +
+                "LIMIT :start, :end ";
 
-        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
+        int start = page * posts - (posts - 1);
+        int end = posts;
+        Map<String, Object> map = new HashMap<>();
+        map.put("articleId", articleId);
+        map.put("start", start);
+        map.put("end", end);
+
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
 
+
         return comments;
-}
+    }
+
+    public int getCount(Long articleId) throws DataAccessException {
+        String sql = "SELECT COUNT(*) FROM comment WHERE article_id=:articleId";
+        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
+
+
+        return jdbc.queryForObject(sql, map, new RowMapper<Integer>(){
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt(1);
+            }
+        });
+    }
 
     public int modifyComment(Comment comment) throws DataAccessException {
         String sql = "UPDATE comment SET content=:content, upddate=now() " +

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Comment;
+import project.ffboard.dto.CommentCounting;
 import project.ffboard.service.CommentService;
 
 import java.text.DateFormat;
@@ -26,8 +27,14 @@ public class CommentController {
     public String getList(ModelMap modelMap, @RequestParam(value="modification", defaultValue = "false") String modification,
                             @RequestParam(value = "commentId",defaultValue = "") Long commentId,
                             @RequestParam(value = "articleId", defaultValue = "1")String articleId,
-                            @RequestParam(value="addChild", defaultValue = "false")String addChild){
-        modelMap.addAttribute("comments", commentService.getCommentList(Long.parseLong(articleId)));
+                            @RequestParam(value = "addChild", defaultValue = "false")String addChild,
+                            @RequestParam(value = "page", defaultValue = "1")String page,
+                            @RequestParam(value = "posts", defaultValue = "5")String posts,
+                            @RequestParam(value = "totalPage", defaultValue = "1")String totalPage){
+
+        modelMap.addAttribute("comments",
+                commentService.getCommentList(Long.parseLong(articleId), Integer.parseInt(page), Integer.parseInt(posts)));
+
         if(modification.equals("true")) {
             modelMap.addAttribute("modification", modification);
         }
@@ -35,6 +42,9 @@ public class CommentController {
             modelMap.addAttribute("addChild", addChild);
         }
         modelMap.addAttribute("commentId", commentId);
+        modelMap.addAttribute("page", page);
+        modelMap.addAttribute("posts", posts);
+        modelMap.addAttribute("totalPage", commentService.getCount(Long.parseLong(articleId),Integer.parseInt(totalPage),Integer.parseInt(posts)));
 
         return "comment";
     }
@@ -47,7 +57,7 @@ public class CommentController {
 
 
     @PostMapping("/comment/write")
-    public String write(@ModelAttribute Comment comment) {
+    public String write(@ModelAttribute Comment comment, @ModelAttribute CommentCounting commentCounting) {
         if(comment.getGroupId()==null){      // 그냥 댓글
             comment.setGroupSeq(0);
             comment.setDepthLevel(0);
@@ -60,10 +70,9 @@ public class CommentController {
         comment.setIpAddress("124.2223");
         comment.setMemberId(1L);
         comment.setNickName("nick");
-        //
-
         commentService.addComment(comment);
-            return "redirect:/article/read?id="+comment.getArticleId();
+        return "redirect:/article/read?id="+comment.getArticleId();
+
     }
 
     @GetMapping("/comment/delete")

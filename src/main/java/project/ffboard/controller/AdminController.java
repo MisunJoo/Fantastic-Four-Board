@@ -31,6 +31,7 @@ public class AdminController {
         modelMap.addAttribute("permSize", permissions.size());
         modelMap.addAttribute("email",email);
         modelMap.addAttribute("pg",pg);
+        modelMap.addAttribute("memberCount",adminService.memberCount()/LIMIT+1);
         modelMap.addAttribute("members", adminService.getMembers(pg, email, LIMIT));
         return "admin/list";
     }

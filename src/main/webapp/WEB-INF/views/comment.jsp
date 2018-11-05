@@ -18,7 +18,7 @@
             ㄴ
         </c:if>
         <div style="display: inline;">
-                ${comment.nickName} ${comment.updDate} ip:${comment.ipAddress}
+                ${comment.nickName} ${comment.upddate} ip:${comment.ipAddress}
             <input type="button" value="답글"
                    onclick="window.location.href='/comment/write?id=${comment.id}'"><br>
 
@@ -65,6 +65,10 @@
     content : <textarea name="content" cols="150" rows="10"></textarea>
     <input type="submit" value="등록">
 </form>
+
+<c:forEach begin="1" end="${totalPage}" step="1" var="page">
+    <a href="/comment/list?page=${page}&posts=${posts}"><b>${page}</b></a>
+</c:forEach>
 
 
 </body>

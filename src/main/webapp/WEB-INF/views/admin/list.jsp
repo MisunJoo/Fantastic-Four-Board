@@ -63,6 +63,11 @@
     </select>
     <input type="search" name="email">
     <button type="submit">검색</button>
+</form>
+
+<c:forEach begin="1" step="1" end="${memberCount}" var="page">
+    <a href="/admin/list?pg=${page}" class="btn btn-success"><b>${page}</b></a>
+</c:forEach>
 
 
 </body>

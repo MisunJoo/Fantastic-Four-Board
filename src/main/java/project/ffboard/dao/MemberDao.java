@@ -47,4 +47,14 @@ public class MemberDao {
         SqlParameterSource params = new BeanPropertySqlParameterSource(member);
         return insertAction.executeAndReturnKey(params).longValue();
     }
+
+    public Member login(Member member) throws DataAccessException{
+        String sql = "SELECT * FROM member WHERE email=:email AND password=:password";
+        Map<String, String> map = new HashMap<>();
+        map.put("email", member.getEmail());
+        map.put("password", member.getPassword());
+
+        RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
+        return jdbc.queryForObject(sql, map, rowMapper);
+    }
 }

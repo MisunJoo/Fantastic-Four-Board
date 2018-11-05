@@ -38,7 +38,7 @@ public class AdminDao {
         else {
             sql = "SELECT id, email, nick_name FROM member LIMIT :pg,:limit";
             params.put("pg",pg*limit - limit+1);
-            params.put("limit",pg*limit);
+            params.put("limit",limit);
         }
         return jdbc.query(sql, params, rowMapper);
     }
@@ -85,5 +85,16 @@ public class AdminDao {
             jdbc.update(sql,params);
             params.remove(perm);
         }
+    }
+
+    public int memberCount() throws DataAccessException{
+        String sql = "SELECT COUNT(*) FROM member";
+        Map<String,Object> params = new HashMap<>();
+        return jdbc.queryForObject(sql, params,new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt(1)-1; // 관리자 계정 빼고 계산
+            }
+        });
     }
 }

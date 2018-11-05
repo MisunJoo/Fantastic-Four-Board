@@ -45,6 +45,18 @@ public class AdminServiceImpl implements AdminService{
             return result;
         }
     }
+    @Override
+    @Transactional(readOnly = true)
+    public int memberCount(){
+        int result = -1;
+        try{
+            result = adminDao.memberCount();
+        }catch (DataAccessException dae){
+            daoException.printLog(dae.toString());
+        }finally {
+            return result;
+        }
+    }
 
     @Override
     @Transactional(readOnly = true)
