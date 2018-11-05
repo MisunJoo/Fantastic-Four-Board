@@ -103,18 +103,12 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDao.insertFileInfo(fileInfo);
     }
 
-<<<<<<< HEAD
-    public void downloadFile(Long articleId) {
-        HttpServletResponse response = new HttpServletResponseWrapper();
-        ArticleFile articleFile = new ArticleFile();
-=======
     public ArticleFile isExistFile(Long articleId){
         return articleDao.extractFileInfo(articleId);
     }
 
     public void downloadFile(HttpServletResponse response, Long articleId) {
         ArticleFile articleFile = articleDao.extractFileInfo(articleId);
->>>>>>> View-nav
 
         response.setContentLengthLong(articleFile.getSize());
         response.setContentType(articleFile.getContentType());

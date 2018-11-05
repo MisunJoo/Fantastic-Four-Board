@@ -57,7 +57,6 @@
             <button type="button" onclick="window.location.href='/article/delete?id=${article.id}&categoryid=${article.categoryId}'" class="right floated ui button">
                 삭제
             </button>
-            <a href="/article/download?id=${article.id}">다운로d</a>
         </div>
     </div>
 

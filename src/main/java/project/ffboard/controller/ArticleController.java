@@ -64,19 +64,10 @@ public class ArticleController {
 
     //download
     @GetMapping("/article/download/{id}")
-<<<<<<< HEAD
-
-    public String download(@RequestParam(value="id") Long id,
-                                Model model) {
-
-        model.addAttribute("id", id);
-        return
-=======
     @ResponseBody
     public void download(@PathVariable("id") Long id,
                          HttpServletResponse response) {
         articleService.downloadFile(response,id);
->>>>>>> View-nav
     }
 
     //게시판 글 쓰기
