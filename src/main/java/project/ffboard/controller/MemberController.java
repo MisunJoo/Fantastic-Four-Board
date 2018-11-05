@@ -62,7 +62,7 @@ public class MemberController {
     public String login(@ModelAttribute Member member){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-            return "redirect:/login?loginCheck=problem";
+            return "redirect:/login?loginCheck=invalid";
         }
         else{
             return "redirect:/main";
