@@ -19,6 +19,10 @@
                     alert("글쓰기 권한이 없습니다.")
                     return false;
                 }
+                if (document.reply.checkPerm.value != "true") {
+                    alert("글쓰기 권한이 없습니다.")
+                    return false;
+                }
             } else {
                 alert("로그인 해주세요.");
                 return false;
@@ -83,7 +87,7 @@
             </button>
         </div>
         <div>
-            <form method="get" id="write" name="write" onsubmit="return writeForm(${sessionScope.member.id})"
+            <form method="get" id="reply" name="reply" onsubmit="return writeForm(${sessionScope.member.id})"
                   action="/article/reply">
                 <input type="hidden" name="id" value="${article.id}">
 
@@ -94,7 +98,7 @@
                 <c:if test="${not fn:contains(member.perms, 'write')}">
                     <input type="hidden" name="checkPerm" value="false"/>
                 </c:if>
-                <button type="submit" style="margin-top: 10px 0px"
+                <button type="submit" style="margin-top: 10px"
                         class="right floated ui secondary button">
                     <i class="icon edit"></i>
                     답글 쓰기
@@ -103,7 +107,7 @@
 
             <form method="get" id="write" name="write" onsubmit="return writeForm(${sessionScope.member.id})"
                   action="/article/write">
-                <input type="hidden" name="categoryid" value="${categoryId}">
+                <input type="hidden" name="categoryid" value="${article.categoryId}">
                 <!-- 글쓰기 권한이 없으면 글작성 불가-->
                 <c:if test="${fn:contains(member.perms, 'write')}">
                     <input type="hidden" name="checkPerm" value="true"/>
@@ -111,7 +115,7 @@
                 <c:if test="${not fn:contains(member.perms, 'write')}">
                     <input type="hidden" name="checkPerm" value="false"/>
                 </c:if>
-                <button type="submit" style="margin-top: 10px 0px"
+                <button type="submit" style="margin-top: 10px"
                         class="right floated ui secondary button">
                     <i class="icon edit"></i>
                     글쓰기
@@ -158,7 +162,7 @@
                                     <input type="hidden" name="id" value="${comment.id}">
                                     <textarea autofocus name="content"
                                               style="height:30px"> ${comment.content}</textarea>
-                                    <input type="button" value="수정 취소" onclick="window.location.href='/comment/list'">
+                                    <input type="button" value="수정 취소" onclick="window.location.href='/article/read?id=${article.id}'">
                                     <input type="submit" value="등록">
                                 </form>
                             </c:when>
@@ -195,11 +199,12 @@
                     <c:if test="${(comment.id == commentId) and (addChild=='true')}">
                         <form class="ui form" method="post" action="/comment/write">
                             <input type="hidden" value="${article.id}" name="articleId">
+                            <input type="hidden" value="${article.id}" name="id">
                             <input type="hidden" name="groupId" value="${comment.groupId}">
                             <input type="hidden" name="depthLevel" value="${comment.depthLevel}">
                             <input type="hidden" name="groupSeq" value="${comment.groupSeq}">
                             <textarea autofocus name="content" style="height:30px"> </textarea>
-                            <input type="button" value="취소" onclick="window.location.href='/comment/list'">
+                            <input type="button" value="취소" onclick="window.location.href='/article/read?id=${article.id}'">
                             <input type="submit" value="등록">
                         </form>
                     </c:if>
