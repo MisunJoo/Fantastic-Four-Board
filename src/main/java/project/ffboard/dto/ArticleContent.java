@@ -8,4 +8,6 @@ import lombok.Setter;
 public class ArticleContent {
     private Long articleId;
     private String content;
+
+    public ArticleContent() {}
 }

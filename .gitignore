@@ -60,7 +60,8 @@ cmake-build-release/
 # IntelliJ
 out/
 target/*
-
+resoures/*
+jdbc.properties
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -85,6 +86,10 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+
+# IntelliJ
+out/
+ffboard/src/main/resources/jdbc.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
