@@ -124,12 +124,18 @@
                     </c:if>
                     <div class="ui divider"></div>
                     </c:forEach>
+
+                    <c:forEach begin="1" end="${totalPage}" step="1" var="page">
+                        <a href="/article/read?id=${article.id}&page=${page}&posts=${posts}"><b>${page}</b></a>
+                    </c:forEach>
+
+
                     <!--댓글 쓰는 Form-->
                     <div>
                         <form class="ui form" method="post" action="/comment/write">
                             <input type="hidden" value="${article.id}" name="articleId">
                             <textarea name="content" style="height:30px"></textarea>
-                            <button type="submit" style="margin-top: 10px 0px" class="right floated ui secondary button">
+                            <button type="submit" style="margin-top: 10px" class="right floated ui secondary button">
                                 <i class="icon edit"></i>
                                 댓글 등록
                             </button>

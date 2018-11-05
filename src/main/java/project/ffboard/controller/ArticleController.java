@@ -44,13 +44,13 @@ public class ArticleController {
 
     //게시판 글 읽기
     @GetMapping("/article/read")
-    public String read(@RequestParam("id")Long id,
+    public String read(Model model, @RequestParam("id")Long id,
                        @RequestParam(value="modification", defaultValue = "false") String modification,
                        @RequestParam(value = "commentId", defaultValue = "") Long commentId,
                        @RequestParam(value="addChild", defaultValue = "false")String addChild,
                        @RequestParam(value = "page", defaultValue = "1")String page,
                        @RequestParam(value = "posts", defaultValue = "5")String posts,
-                       Model model){
+                       @RequestParam(value = "totalPage", defaultValue = "1")String totalPage){
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
 
         Article article = articleService.getArticle(id);
@@ -78,6 +78,9 @@ public class ArticleController {
             model.addAttribute("addChild", addChild);
         }
         model.addAttribute("commentId", commentId);
+        model.addAttribute("page", page);
+        model.addAttribute("posts", posts);
+        model.addAttribute("totalPage", commentService.getCount(id,Integer.parseInt(totalPage),Integer.parseInt(posts)));
         //댓글 삽입 끝
 
         return "/article/read";
