@@ -68,7 +68,6 @@
         }else if(${duplication=='email'}){
             alert("이메일 중복입니다.")
         }
-        alert(${duplication});
     };
 
     function checkForm(){
