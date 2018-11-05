@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="three wide column ui container sidebar inverted vertical left menu overlay visible"> <!--네이게이션용 사이드바 div-->
-    <div style="margin-top: 50px;">
+    <h1 style="text-align: center;margin-top: 15px;"><a href="/" style="color:ghostwhite">Fantastic-Four</a></h1>
+    <div style="margin-top: 30px;">
         <div class="ui inverted segment" style="text-align: center">
             <c:if test="${sessionScope.member == null}">
             <button class="ui inverted button" onclick="window.location.href='/login'"><i class="sign-in icon"></i>로그인</button>
