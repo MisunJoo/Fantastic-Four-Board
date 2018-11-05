@@ -36,7 +36,7 @@
             <p><a href="/article/download/${fileInfo.articleId}"> ${fileInfo.originName} - ${fileInfo.size}B</a></p>
         </div>
     </c:if>
-    <div>
+    <div class="ui twelve wide column">
         <div>
             <button type="submit" onclick="window.location.href='/article/list?categoryid=${article.categoryId}'" class="left floated ui secondary button">
                 목록
@@ -60,66 +60,85 @@
         </div>
     </div>
 
-    <div> <!--댓글 부분 div-->
+    <div class="ui container twelve wide column" style="display: inline-block"> <!--댓글 부분 div-->
+        <div class="ui divider" style="border-top: 1px solid rgba(255,255,255,.1);"></div>
+        <c:if test="${comments.size()>0}">
+            <h3 class="ui dividing header">댓글</h3>
+        </c:if>
+        <div class="ui comments">
         <c:forEach items="${comments}" var="comment">
-            <c:if test="${comment.isDeleted==false}">
-                <!-- 답글 출력하는 부분-->
-                <c:if test="${comment.depthLevel > 0}">
-                    <c:forEach begin="0"  step="1" end="${comment.depthLevel}">
-                        &nbsp;&nbsp;&nbsp;
-                    </c:forEach>
-                    ㄴ
-                </c:if>
-                <div style="display: inline;">
-                ${comment.nickName} ${comment.regdate} ip:${comment.ipAddress}
-                <input type="button" value="답글"
-                       onclick="window.location.href='/comment/write?id=${comment.id}'"><br>
-
-                <!-- 댓글을 수정하는 부분 -->
-                <c:choose>
+            <div class="comment">
+                <div class="content">
+                    <c:if test="${comment.isDeleted==false}">
+                    <a class="author">${comment.nickName}</a>
+                    <div class="metadata">
+                        <span class="date">date:${comment.regdate}</span>
+                        <span class="date">ip:${comment.ipAddress}</span>
+                    </div>
+                    <!-- 기본은 댓글 content를 출력하고, 수정버튼을 누르면 수정form이 나옴 -->
+                    <c:choose>
                     <c:when test="${(comment.id == commentId) and (modification=='true')}">
-                        <form method="post" action="/comment/modify">
+                        <form class="ui form" method="post" action="/comment/modify">
+                            <input type="hidden" value="${article.id}" name="articleId">
                             <input type="hidden" name="id" value="${comment.id}">
-                            content : <textarea autofocus name="content" cols="150" rows="10"> ${comment.content}</textarea>
+                            <textarea autofocus name="content" style="height:30px"> ${comment.content}</textarea>
                             <input type="button" value="수정 취소" onclick="window.location.href='/comment/list'">
                             <input type="submit" value="등록">
                         </form>
                     </c:when>
                     <c:otherwise>
-                        content : ${comment.content}<br>
-                        <input type="button" value="수정"
-                               onclick="window.location.href='/comment/modifyform?id=${comment.id}&content=${comment.content}'; return false;">
-                        <input type="button" value="삭제" onclick="window.location.href='/comment/delete?id=${comment.id}'">
+                        <div class="text">
+                            <!-- depthLevel에 따라 들여쓰 출력하는 부분-->
+                            <c:if test="${comment.depthLevel > 0}">
+                                <c:forEach begin="1"  step="1" end="${comment.depthLevel}">
+                                    &nbsp;&nbsp;<b>RE:</b>
+                                </c:forEach>
+                            </c:if>
+                                ${comment.content}
+                        </div>
+                        <div class="actions">
+                            <a class="reply" onclick="window.location.href='/comment/write?id=${comment.id}&articleid=${article.id}'">답글</a>
+                            <a class="reply" onclick="window.location.href='/comment/modifyform?id=${comment.id}&content=${comment.content}&articleid=${article.id}'; return false;">수정</a>
+                            <a class="reply" onclick="window.location.href='/comment/delete?id=${comment.id}&articleid=${article.id}'">삭제</a>
+                        </div>
                     </c:otherwise>
-                </c:choose>
-            </c:if>
+                    </c:choose>
+                    </c:if>
+                    <c:if test="${comment.isDeleted==true}">
+                        <div style="margin: 15px 0px 35px">
+                        삭제된 댓글입니다.
+                        </div>
+                    </c:if>
 
-            <c:if test="${comment.isDeleted==true}">
-                삭제된 글입니다.<br>
-            </c:if>
-            <br>
+                    <!-- 답댓글을 작성하는 부분 -->
+                    <c:if test="${(comment.id == commentId) and (addChild=='true')}">
+                        <form class="ui form" method="post" action="/comment/write">
+                            <input type="hidden" value="${article.id}" name="articleId">
+                            <input type="hidden" name="groupId" value="${comment.groupId}">
+                            <input type="hidden" name="depthLevel" value="${comment.depthLevel}">
+                            <input type="hidden" name="groupSeq" value="${comment.groupSeq}">
+                            <textarea autofocus name="content" style="height:30px"> </textarea>
+                            <input type="button" value="취소" onclick="window.location.href='/comment/list'">
+                            <input type="submit" value="등록">
+                        </form>
+                    </c:if>
+                    <div class="ui divider"></div>
+                    </c:forEach>
+                    <!--댓글 쓰는 Form-->
+                    <div>
+                        <form class="ui form" method="post" action="/comment/write">
+                            <input type="hidden" value="${article.id}" name="articleId">
+                            <textarea name="content" style="height:30px"></textarea>
+                            <button type="submit" style="margin-top: 10px 0px" class="right floated ui secondary button">
+                                <i class="icon edit"></i>
+                                댓글 등록
+                            </button>
+                        </form>
+                    </div>
 
-            <!-- 답댓글을 작성하는 부분 -->
-            <c:if test="${(comment.id == commentId) and (addChild=='true')}">
-                <form method="post" action="/comment/write">
-                    <input type="hidden" name="groupId" value="${comment.groupId}">
-                    <input type="hidden" name="depthLevel" value="${comment.depthLevel}">
-                    <input type="hidden" name="groupSeq" value="${comment.groupSeq}">
-                    content : <textarea autofocus name="content" cols="150" rows="10"> </textarea>
-                    <input type="button" value="취소" onclick="window.location.href='/comment/list'">
-                    <input type="submit" value="등록">
-                </form>
-            </c:if>
+                </div>
+                </div>
             </div>
-        </c:forEach>
-
-        <!--댓글 쓰는 Form-->
-        <form method="post" action="/comment/write">
-            <input type="hidden" value="${article.id}" name="articleId">
-            content : <textarea name="content" cols="150" rows="10"></textarea>
-            <input type="submit" value="등록">
-        </form>
-
     </div> <!--댓글 부분 /div-->
 
 </div>
