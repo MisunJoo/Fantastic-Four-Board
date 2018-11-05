@@ -23,7 +23,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${articleList}" var="article">
+                    <c:forEach items="${articleListHit}" var="article">
                         <tr>
                             <c:choose>
                                 <c:when test="${article.isDeleted == true}">
@@ -53,7 +53,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${articleList}" var="article">
+                    <c:forEach items="${articleListNew}" var="article">
                         <tr>
                             <c:choose>
                                 <c:when test="${article.isDeleted == true}">

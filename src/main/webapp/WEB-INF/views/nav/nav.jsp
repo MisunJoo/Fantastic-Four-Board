@@ -8,8 +8,7 @@
             <button class="ui inverted button" onclick="window.location.href='/member/signup'"><i class="user icon"></i>회원가입</button>
             </c:if>
             <c:if test="${sessionScope.member != null}">
-            <span class="ui inverted button"> ${sessionScope.member.nickName} 님</span>
-            <button class="ui inverted button" onclick="window.location.href='/logout'"><i class="sign-out icon"></i>로그아웃</button>
+            <button class="ui inverted button" onclick="window.location.href='/logout'"><i class="sign-out icon"></i>${sessionScope.member.nickName} 로그아웃</button>
         </c:if>
         </div>
     </div>
