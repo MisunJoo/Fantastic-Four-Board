@@ -199,6 +199,12 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Article> getArticleList(String orderType, int start) {
+        return articleDao.getArticleList(orderType,start,limit);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Category> getCategoryList() {
         return articleDao.getCategoryList();
     }

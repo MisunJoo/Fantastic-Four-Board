@@ -96,7 +96,7 @@ public class CommentDao {
         int end = posts;
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);
-        map.put("start", start);
+        map.put("start", start-1);
         map.put("end", end);
 
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);

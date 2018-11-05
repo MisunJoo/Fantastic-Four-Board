@@ -19,6 +19,7 @@ public interface ArticleService {
     public ArticleContent getArticleContent(Long id);
     public List<Article> getArticleList(int categoryId, int start);
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord);
+    public List<Article> getArticleList(String orderType, int start);
     public List<Category> getCategoryList();
     public void downloadFile(HttpServletResponse response, Long articleId);
     public ArticleFile isExistFile(Long articleId);
