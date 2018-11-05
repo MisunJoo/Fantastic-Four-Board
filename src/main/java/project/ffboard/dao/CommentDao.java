@@ -26,17 +26,16 @@ public class CommentDao {
     private SimpleJdbcInsert insertAction;
     private JdbcTemplate jdbcTemplate;
 
-    public CommentDao(DataSource dataSource){
+    public CommentDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
-        this.insertAction=new SimpleJdbcInsert(dataSource)
+        this.insertAction = new SimpleJdbcInsert(dataSource)
                 .withTableName("comment")
-                .usingGeneratedKeyColumns("id").usingColumns("article_id","nick_name","content", "group_id","depth_level", "group_seq", "ip_address","member_id");
-        this.jdbcTemplate=new JdbcTemplate(dataSource);
+                .usingGeneratedKeyColumns("id").usingColumns("article_id", "nick_name", "content", "group_id", "depth_level", "group_seq", "ip_address", "member_id");
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     public Long addComment(Comment comment, CommentCounting commentCounting) throws DataAccessException {
         Boolean isReply = comment.getGroupId() != null && comment.getDepthLevel() > 0 && comment.getGroupSeq() > 0;
-        System.out.println("Welcome to the Dao");
 
         // 나중에 시윤이형네꺼 카피
         if (isReply) {
@@ -76,16 +75,16 @@ public class CommentDao {
         return jdbc.update(sql, map);
     }
 
-    public int updateComment(Comment comment) throws DataAccessException{
-        String sql = "UPDATE comment" + " SET content=:content," + "upddate=now()"+
+    public int updateComment(Comment comment) throws DataAccessException {
+        String sql = "UPDATE comment" + " SET content=:content," + "upddate=now()" +
                 " WHERE id=:id";
-        Map<String, Object> map = new HashMap<>() ;
+        Map<String, Object> map = new HashMap<>();
         map.put("id", comment.getId());
         map.put("content", comment.getContent());
         return jdbc.update(sql, map);
     }
 
-    public List<Comment> getCommentList(Long articleId, int page, int posts)throws DataAccessException {
+    public List<Comment> getCommentList(Long articleId, int page, int posts) throws DataAccessException {
         String sql = "SELECT id, article_id, nick_name, content, group_id, depth_level, group_seq, " +
                 "regdate, upddate, ip_address, member_id, is_deleted " +
                 "FROM comment WHERE article_id=:articleId " +
@@ -96,7 +95,7 @@ public class CommentDao {
         int end = posts;
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);
-        map.put("start", start-1);
+        map.put("start", start - 1);
         map.put("end", end);
 
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
@@ -111,7 +110,7 @@ public class CommentDao {
         Map<String, Object> map = Collections.singletonMap("articleId", articleId);
 
 
-        return jdbc.queryForObject(sql, map, new RowMapper<Integer>(){
+        return jdbc.queryForObject(sql, map, new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getInt(1);
@@ -124,6 +123,6 @@ public class CommentDao {
                 "WHERE id=:id";
         SqlParameterSource params = new BeanPropertySqlParameterSource(comment);
 
-        return jdbc.update(sql,params);
+        return jdbc.update(sql, params);
     }
 }

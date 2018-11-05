@@ -165,10 +165,7 @@ public class ArticleDao {
         Map<String, Object> params = new HashMap();
         params.put("start", Integer.valueOf(start));
         params.put("limit", Integer.valueOf(limit));
-
-        for (Article article : jdbc.query(sql, params, rowMapper)) {
-            System.out.println(article.getTitle());
-        }
+        
         try {
             return jdbc.query(sql,params,rowMapper);
         } catch (Exception e) {
