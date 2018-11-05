@@ -20,4 +20,5 @@ public class Comment {
     private String ipAddress;
     private Long memberId;
     private Boolean isDeleted;
+    private Long counting;
 }
