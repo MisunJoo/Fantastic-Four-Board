@@ -29,7 +29,7 @@ public class DBConfig {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(environment.getProperty("driverClassName"));
         dataSource.setUrl(environment.getProperty("url"));
-        dataSource.setUsername(environment.getProperty("username"));
+        dataSource.setUsername(environment.getProperty("dbuser"));
         dataSource.setPassword(environment.getProperty("password"));
         return dataSource;
     }
