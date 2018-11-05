@@ -1,5 +1,9 @@
 package project.ffboard.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.mock.env.MockEnvironment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +13,7 @@ import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
 import project.ffboard.dto.Category;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.*;
@@ -19,12 +24,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
+@PropertySource("classpath:jdbc.properties")
 public class ArticleServiceImpl implements ArticleService {
     private int limit = 10; //한페이지에 보여주는 최대 게시글의 갯수
     private ArticleDao articleDao;
+    private Environment environment;
 
-    public ArticleServiceImpl(ArticleDao articleDao) {
+    public ArticleServiceImpl(ArticleDao articleDao, Environment environment) {
         this.articleDao = articleDao;
+        this.environment = environment;
     }
 
     @Override
@@ -61,8 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
         String dataStr = simpleDateFormat.format(new Date());
 
-        //baseDir 프로퍼티로 구현할것
-        String baseDir = "/home/siyoon/tmp";
+        String baseDir = environment.getProperty("baseDir");
         String saveDir = baseDir + "/" + dataStr;
         String saveFile = saveDir + "/" + uuidStr;
 
@@ -112,6 +119,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         response.setContentLengthLong(articleFile.getSize());
         response.setContentType(articleFile.getContentType());
+        response.setContentType("application/x-msdownload");
 
         try{
             URLDecoder.decode(articleFile.getOriginName(), "ISO8859_1");
