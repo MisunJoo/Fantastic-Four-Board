@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MemberPermission {
-    private Long memberId;
-    private String permName;
+public class Category {
+    private int id;
+    private String name;
 }

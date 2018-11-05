@@ -40,9 +40,9 @@ public class CommentController {
     }
 
     @GetMapping("/comment/write")
-    public String writeChild(@ModelAttribute Comment comment){
-
-        return "redirect:/comment/list?commentId="+comment.getId() +"&addChild=true";
+    public String writeChild(@RequestParam("id")Long id,
+                             @RequestParam("articleid")Long articleId){
+        return "redirect:/article/read?id="+articleId+"&commentId="+id+"&addChild=true";
     }
 
 
@@ -59,29 +59,28 @@ public class CommentController {
         // 나중에 수정
         comment.setIpAddress("124.2223");
         comment.setMemberId(1L);
-        comment.setArticleId(1L);
         comment.setNickName("nick");
         //
 
         commentService.addComment(comment);
-        return "redirect:/comment/list";
+            return "redirect:/article/read?id="+comment.getArticleId();
     }
 
     @GetMapping("/comment/delete")
-    public String delete(Long id){
+    public String delete(@RequestParam("id") Long id, @RequestParam("articleid")Long articleId){
         commentService.deleteComment(id);
-
-        return "redirect:/comment/list";
+        return "redirect:/article/read?id="+articleId;
     }
 
     @PostMapping("/comment/modify")
         public String modify(@ModelAttribute Comment comment){
             commentService.modifyComment(comment);
-            return "redirect:/comment/list";
+            return "redirect:/article/read?id="+comment.getArticleId();
     }
 
     @GetMapping("/comment/modifyform")
-    public String modifyForm(@ModelAttribute Comment comment){
-        return "redirect:/comment/list?modification=true&commentId="+comment.getId();
+    public String modifyForm(@RequestParam("id")Long commentId,
+                             @RequestParam("articleid") Long articleId ){
+        return "redirect:/article/read?id="+articleId+"&modification=true&commentId="+commentId;
     }
 }
