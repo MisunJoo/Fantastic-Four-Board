@@ -204,24 +204,25 @@
                         </form>
                     </c:if>
                     <div class="ui divider"></div>
-                    </c:forEach>
+        </c:forEach>
                     <!--댓글 쓰는 Form-->
                     <div>
                         <form class="ui form" method="post" onsubmit="return commentCheck(${sessionScope.member.id})"
                               action="/comment/write">
                             <input type="hidden" value="${article.id}" name="articleId">
                             <textarea name="content" style="height:30px"></textarea>
-                            <button type="submit" style="margin-top: 10px 0px"
-                                    class="right floated ui secondary button">
+
+                            <button type="submit" style="margin-top: 10px" class="right floated ui secondary button">
+
                                 <i class="icon edit"></i>
                                 댓글 등록
                             </button>
                         </form>
                     </div>
-
+                    <div style="color: blue">
+                    </div>
                 </div>
             </div>
-        </div>
     </div> <!--댓글 부분 /div-->
 
 </div>

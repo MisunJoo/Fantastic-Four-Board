@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Comment;
 import project.ffboard.service.ArticleService;
 import project.ffboard.service.CommentService;
 
