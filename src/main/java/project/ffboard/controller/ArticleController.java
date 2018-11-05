@@ -48,6 +48,8 @@ public class ArticleController {
                        @RequestParam(value="modification", defaultValue = "false") String modification,
                        @RequestParam(value = "commentId", defaultValue = "") Long commentId,
                        @RequestParam(value="addChild", defaultValue = "false")String addChild,
+                       @RequestParam(value = "page", defaultValue = "1")String page,
+                       @RequestParam(value = "posts", defaultValue = "5")String posts,
                        Model model){
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
 
@@ -68,7 +70,7 @@ public class ArticleController {
         model.addAttribute("articleContent", articleService.getArticleContent(id));
 
         //댓글 삽입코드 시작
-        model.addAttribute("comments", commentService.getCommentList(id));
+        model.addAttribute("comments", commentService.getCommentList(id, Integer.parseInt(page), Integer.parseInt(posts)));
         if(modification.equals("true")) {
             model.addAttribute("modification", modification);
         }

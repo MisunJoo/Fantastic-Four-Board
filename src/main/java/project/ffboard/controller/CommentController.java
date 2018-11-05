@@ -70,7 +70,7 @@ public class CommentController {
         comment.setIpAddress("124.2223");
         comment.setMemberId(1L);
         comment.setNickName("nick");
-        commentService.addComment(comment);
+        commentService.addComment(comment, commentCounting);
         return "redirect:/article/read?id="+comment.getArticleId();
 
     }
