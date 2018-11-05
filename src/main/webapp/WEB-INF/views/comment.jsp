@@ -66,6 +66,10 @@
     <input type="submit" value="등록">
 </form>
 
+<c:forEach begin="1" end="${totalPage}" step="1" var="page">
+    <a href="/comment/list?page=${page}&posts=${posts}"><b>${page}</b></a>
+</c:forEach>
+
 
 </body>
 </html>

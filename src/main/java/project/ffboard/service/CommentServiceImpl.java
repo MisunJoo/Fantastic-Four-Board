@@ -10,6 +10,7 @@ import project.ffboard.dto.Comment;
 import project.ffboard.dto.CommentCounting;
 import project.ffboard.exception.FFException;
 
+import javax.xml.crypto.Data;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -67,7 +68,6 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(readOnly = true)
     public List<Comment> getCommentList(Long articleId, int page, int posts) {
         List<Comment> result = null;
-        int count = 0;
         try {
             result = commentDao.getCommentList(articleId, page, posts);
 
@@ -77,6 +77,20 @@ public class CommentServiceImpl implements CommentService {
             return result;
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getCount(Long articleId, int totalPage, int posts){
+        try{
+            totalPage = commentDao.getCount(articleId);
+            totalPage = (totalPage - 1) / posts + 1;
+        }catch (DataAccessException dae){
+            daoException.printLog(dae.toString());
+        } finally {
+            return totalPage;
+        }
+    }
+
 
     @Override
     @Transactional

@@ -13,6 +13,7 @@ import project.ffboard.dto.Comment;
 import project.ffboard.dto.CommentCounting;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -89,24 +90,34 @@ public class CommentDao {
                 "regdate, upddate, ip_address, member_id, is_deleted " +
                 "FROM comment WHERE article_id=:articleId " +
                 "ORDER By group_id DESC, group_seq ASC " +
-                "LIMIT :page, :posts ";
+                "LIMIT :start, :end ";
 
+        int start = page * posts - (posts - 1);
+        int end = posts;
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);
-        map.put("page", page * posts - (posts - 1));
-        map.put("posts", page * posts);
+        map.put("start", start);
+        map.put("end", end);
+
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
+
 
         return comments;
     }
 
-//    public int getCount(Long articleId) throws DataAccessException{
-//        String sql = "SELECT counting FROM comment_counting WHERE article_id=:articleId";
-//        int counting = jdbc.;
-//
-//        return
-//    }
+    public int getCount(Long articleId) throws DataAccessException {
+        String sql = "SELECT COUNT(*) FROM comment WHERE article_id=:articleId";
+        Map<String, Object> map = Collections.singletonMap("articleId", articleId);
+
+
+        return jdbc.queryForObject(sql, map, new RowMapper<Integer>(){
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt(1);
+            }
+        });
+    }
 
     public int modifyComment(Comment comment) throws DataAccessException {
         String sql = "UPDATE comment SET content=:content, upddate=now() " +

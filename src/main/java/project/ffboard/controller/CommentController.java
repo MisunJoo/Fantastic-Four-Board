@@ -29,7 +29,8 @@ public class CommentController {
                             @RequestParam(value = "articleId", defaultValue = "1")String articleId,
                             @RequestParam(value="addChild", defaultValue = "false")String addChild,
                             @RequestParam(value = "page", defaultValue = "1")String page,
-                            @RequestParam(value = "posts", defaultValue = "5")String posts){
+                            @RequestParam(value = "posts", defaultValue = "5")String posts,
+                            @RequestParam(value = "totalPage", defaultValue = "1")String totalPage){
 
         modelMap.addAttribute("comments",
                 commentService.getCommentList(Long.parseLong(articleId), Integer.parseInt(page), Integer.parseInt(posts)));
@@ -43,6 +44,7 @@ public class CommentController {
         modelMap.addAttribute("commentId", commentId);
         modelMap.addAttribute("page", page);
         modelMap.addAttribute("posts", posts);
+        modelMap.addAttribute("totalPage", commentService.getCount(Long.parseLong(articleId),Integer.parseInt(totalPage),Integer.parseInt(posts)));
 
         return "comment";
     }

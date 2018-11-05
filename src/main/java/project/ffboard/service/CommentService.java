@@ -10,5 +10,6 @@ public interface CommentService {
     public int deleteComment(Long id);
     public int updateComment(Comment comment);
     public List<Comment> getCommentList(Long articleId, int page, int posts);
+    public int getCount(Long articleId, int totalPage, int posts);
     public int modifyComment(Comment comment);
 }
