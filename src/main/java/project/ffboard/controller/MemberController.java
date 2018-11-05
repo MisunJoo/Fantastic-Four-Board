@@ -2,6 +2,7 @@ package project.ffboard.controller;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,7 +43,7 @@ public class MemberController {
         }else if(result==-2L){
             return "redirect:/member/signup?duplication=nickName&nickName="+member.getNickName()+"&email="+member.getEmail();
         }else { // 로그인 성공
-            return "redirect:/main";
+            return "redirect:/";
         }
     }
 
@@ -54,18 +55,17 @@ public class MemberController {
             return "redirect:/";
         }
         modelMap.addAttribute("email", member.getEmail());
-        modelMap.addAttribute("password", member.getPassword());
         modelMap.addAttribute("loginCheck", loginCheck);
 
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute Member member,
+    public String login(@ModelAttribute Member member, Model model,
                         HttpSession session){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-            return "redirect:/login?loginCheck=invalid";
+            return "redirect:/login?loginCheck=invalid&email="+member.getEmail();
         }
         else{
             session.setAttribute("member",memberResult);
