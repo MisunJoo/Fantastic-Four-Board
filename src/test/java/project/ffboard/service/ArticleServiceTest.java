@@ -148,5 +148,10 @@ public class ArticleServiceTest {
             System.out.println(article.getTitle()+" " +article.getNickName()+" "+article.getId());
         }
     }
+
+    @Test
+    public void downloadFIle() {
+
+    }
 }
 

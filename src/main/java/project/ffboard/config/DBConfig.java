@@ -2,9 +2,11 @@ package project.ffboard.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -13,6 +15,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration
@@ -20,9 +23,8 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 public class DBConfig {
 
-    @Autowired
+    @Resource
     private Environment environment;
-
 
     @Bean
     public DataSource dataSource() {
@@ -33,7 +35,6 @@ public class DBConfig {
         dataSource.setPassword(environment.getProperty("password"));
         return dataSource;
     }
-
 
     @Bean
     public PlatformTransactionManager transactionManger(DataSource ds) {

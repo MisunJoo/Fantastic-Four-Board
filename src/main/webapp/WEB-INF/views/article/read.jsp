@@ -3,6 +3,7 @@
 <html>
 <head>
     <jsp:include page="../head/head.jsp"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>게시판 - 글 읽기</title>
 </head>
 <body class="ui grid">
