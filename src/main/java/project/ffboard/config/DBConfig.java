@@ -22,7 +22,6 @@ import javax.sql.DataSource;
 @PropertySource("classpath:jdbc.properties")
 @EnableTransactionManagement
 public class DBConfig {
-
     @Resource
     private Environment environment;
 
