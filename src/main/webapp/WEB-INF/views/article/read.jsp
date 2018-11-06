@@ -98,7 +98,7 @@
                 <c:if test="${not fn:contains(member.perms, 'write')}">
                     <input type="hidden" name="checkPerm" value="false"/>
                 </c:if>
-                <button type="submit" style="margin-top: 10px"
+                <button type="submit"
                         class="right floated ui secondary button">
                     <i class="icon edit"></i>
                     답글 쓰기
@@ -115,7 +115,7 @@
                 <c:if test="${not fn:contains(member.perms, 'write')}">
                     <input type="hidden" name="checkPerm" value="false"/>
                 </c:if>
-                <button type="submit" style="margin-top: 10px"
+                <button type="submit"
                         class="right floated ui secondary button">
                     <i class="icon edit"></i>
                     글쓰기
