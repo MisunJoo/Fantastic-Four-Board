@@ -122,7 +122,7 @@ public class ArticleServiceTest {
         int categoryId = 1;
         int start =0;
 
-        List<Article> articleList =  articleService.getArticleList(categoryId, start);
+        List<Article> articleList =  articleService.getArticleList(categoryId, start, 5);
 
         //가져온 article의 사이즈
         Assert.assertEquals(5,articleList.size());

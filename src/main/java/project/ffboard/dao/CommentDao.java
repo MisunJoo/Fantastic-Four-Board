@@ -92,7 +92,7 @@ public class CommentDao {
                 "ORDER By group_id DESC, group_seq ASC " +
                 "LIMIT :start, :end ";
 
-        int start = page * posts - (posts - 1);
+        int start = page * posts - (posts - 1) - 1;
         int end = posts;
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);

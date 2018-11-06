@@ -1,11 +1,13 @@
 package project.ffboard.controller;
 
+import jdk.nashorn.internal.objects.annotations.Setter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
+import project.ffboard.dto.ArticleCounting;
 import project.ffboard.dto.ArticleFile;
 import project.ffboard.service.ArticleService;
 import project.ffboard.service.CommentService;
@@ -25,19 +27,31 @@ public class ArticleController {
 
     //게시판 글 목록 가져오기
     @GetMapping("/article/list")
-    public String list(@RequestParam("categoryid")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start, Model model) {
+    public String list(Model model,
+                       @RequestParam("categoryid")int categoryId,
+                       @RequestParam(value = "page", defaultValue = "1")int page,
+                       @RequestParam(value = "posts", defaultValue = "5")int posts,
+                       @RequestParam(value = "totalPage", defaultValue = "1")int totalPage) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
-        model.addAttribute("articleList", articleService.getArticleList(categoryId,start));
+
+        model.addAttribute("articleList", articleService.getArticleList(categoryId,page,posts));
         model.addAttribute("categoryId", categoryId);
+        model.addAttribute("page", page);
+        model.addAttribute("posts", posts);
+        model.addAttribute("totalPage", articleService.getCount(categoryId, totalPage, posts) );
+
         return "/article/list";
     }
 
     //게시판 검색된 글 목록 가져오기
     @PostMapping("/article/search")
-    public String list(@RequestParam("categoryId")int categoryId, @RequestParam(value = "start", defaultValue = "0")int start,
-                       @RequestParam("searchType") String searchType, @RequestParam("searchWord") String searchWord, Model model) {
+    public String list(@RequestParam("categoryId")int categoryId,
+                       @RequestParam(value = "start", defaultValue = "0")int start,
+                       @RequestParam("searchType") String searchType,
+                       @RequestParam("searchWord") String searchWord,
+                       Model model) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
-        model.addAttribute("articleList", articleService.getArticleList(categoryId,start,searchType,searchWord));
+        model.addAttribute("articleList", articleService.getArticleList(categoryId, start, searchType, searchWord));
         model.addAttribute("categoryId", categoryId);
         return "/article/list";
     }
@@ -105,16 +119,17 @@ public class ArticleController {
     @PostMapping("/article/write")
     public String write(Article article, ArticleContent articleContent,
                         @RequestParam("file") MultipartFile file,
-                        HttpServletRequest request, Model model) {
+                        HttpServletRequest request, Model model, ArticleCounting articleCounting) {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
         article.setIpAddress(request.getRemoteAddr());
+        articleCounting.setCategoryId(article.getCategoryId());
 
         //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
         article.setMemberId(1L);
         article.setNickName("관리자");
 
-        articleService.addArticle(article,articleContent,file);
+        articleService.addArticle(article,articleContent,file, articleCounting);
 
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
@@ -128,7 +143,7 @@ public class ArticleController {
     }
 
     @PostMapping("/article/reply")
-    public String reply(Article article, ArticleContent articleContent,
+    public String reply(Article article, ArticleContent articleContent, ArticleCounting articleCounting,
                         @RequestParam("file") MultipartFile file,
                         @RequestParam("parentId")Long parentId, HttpServletRequest request,
                         Model model) {
@@ -145,7 +160,9 @@ public class ArticleController {
         article.setMemberId(1L);
         article.setNickName("관리자");
 
-        articleService.addArticle(article,articleContent,file);
+        articleCounting.setCategoryId(article.getCategoryId());
+
+        articleService.addArticle(article,articleContent,file, articleCounting);
         return "redirect:/article/list?categoryid="+article.getCategoryId();
     }
 

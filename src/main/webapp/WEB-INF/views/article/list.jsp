@@ -64,6 +64,10 @@
         <button type="submit">검색</button>
     </form>
 
+    <c:forEach begin="1" end="${totalPage}" step="1" var="page">
+        <a href="/article/list?categoryid=${categoryId}&page=${page}&posts=${posts}"><b>${page}</b></a>
+    </c:forEach>
+
 </div>
 </div> <!--메인 컨텐츠용 /div-->
 

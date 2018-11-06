@@ -1,6 +1,7 @@
 package project.ffboard.dao;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,12 +12,11 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
-import project.ffboard.dto.Article;
-import project.ffboard.dto.ArticleContent;
-import project.ffboard.dto.ArticleFile;
-import project.ffboard.dto.Category;
+import project.ffboard.dto.*;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +29,7 @@ public class ArticleDao {
     private SimpleJdbcInsert insertActionArticle;
     private SimpleJdbcInsert insertActionArticleContent;
     private SimpleJdbcInsert insertActionFile;
+    private SimpleJdbcInsert insertActionArticleCounting;
 
     public ArticleDao(DataSource dataSource) {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -37,6 +38,7 @@ public class ArticleDao {
                 .usingColumns("title","nick_name","group_id","depth_level","group_seq","category_id", "ip_address","member_id");
         this.insertActionArticleContent = new SimpleJdbcInsert(dataSource).withTableName("article_content");
         this.insertActionFile = new SimpleJdbcInsert(dataSource).withTableName("file");
+        this.insertActionArticleCounting = new SimpleJdbcInsert(dataSource).withTableName("article_counting");
     }
 
     public int arrangeGroupSeq(Long groupId, int groupSeq){
@@ -60,6 +62,11 @@ public class ArticleDao {
     public int insertArticleContent(ArticleContent articleContent) {
         SqlParameterSource params = new BeanPropertySqlParameterSource(articleContent);
         return insertActionArticleContent.execute(params);
+    }
+
+    public int insertArticleCount(ArticleCounting articleCounting){
+        SqlParameterSource params = new BeanPropertySqlParameterSource(articleCounting);
+        return insertActionArticleCounting.execute(params);
     }
 
     public int insertFileInfo(Map<String, Object> fileInfo) {
@@ -105,6 +112,12 @@ public class ArticleDao {
         return jdbc.update(sql, params);
     }
 
+    public int updateArticleCount(ArticleCounting articleCounting){
+        String sql = "UPDATE article_counting SET count = count + 1 WHERE category_id = :categoryId";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(articleCounting);
+        return jdbc.update(sql, params);
+    }
+
     public Article getArticle(Long id) {
         String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,"
                 +"upddate,category_id,ip_address,member_id,is_deleted "
@@ -130,22 +143,48 @@ public class ArticleDao {
         }
     }
 
-    public List<Article> getArticleList(int categoryId, int start, int limit) {
+    public List<Article> getArticleList(int categoryId, int page, int posts) {
         String sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,"
                 +"upddate,category_id,ip_address,member_id,is_deleted FROM article WHERE category_id=:categoryId "
-                +"ORDER BY group_id DESC, group_seq ASC LIMIT :start , :limit";
+                +"ORDER BY group_id DESC, group_seq ASC LIMIT :start , :end";
         RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
 
+        int start = page * posts - (posts - 1) -1;
+        int end = posts;
         Map<String, Integer> params = new HashMap();
-        params.put("categoryId", Integer.valueOf(categoryId));
-        params.put("start", Integer.valueOf(start));
-        params.put("limit", Integer.valueOf(limit));
+        params.put("categoryId", categoryId);
+        params.put("start", start);
+        params.put("end", end);
         try {
             return jdbc.query(sql,params,rowMapper);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    //article_counting의 count 검색
+    public ArticleCounting getCategoryCount(int categoryId){
+        String sql = "SELECT count FROM article_counting WHERE category_id = :categoryId";
+        try {
+            RowMapper<ArticleCounting> rowMapper = BeanPropertyRowMapper.newInstance(ArticleCounting.class);
+            Map<String, Integer> map = Collections.singletonMap("categoryId", categoryId);
+            return jdbc.queryForObject(sql, map, rowMapper);
+        }catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    public int getCount(int categoryId){
+        String sql = "SELECT count FROM article_counting WHERE category_id = :categoryId";
+        Map<String, Integer> map = Collections.singletonMap("categoryId", categoryId);
+
+        return jdbc.queryForObject(sql, map, new RowMapper<Integer>(){
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt(1);
+            }
+        });
     }
 
     /**
@@ -180,6 +219,7 @@ public class ArticleDao {
 
         Map<String, Object> params = new HashMap();
         params.put("categoryId", Integer.valueOf(categoryId));
+
         params.put("start", Integer.valueOf(start));
         params.put("limit", Integer.valueOf(limit));
         params.put("searchWord", searchWord);
@@ -203,6 +243,7 @@ public class ArticleDao {
             return null;
         }
     }
+
 
 
 
