@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
     public int addArticle(Article article, ArticleContent articleContent,MultipartFile file) {
         //지금 쓰는 글이 답글인경우 groupSeq를 알맞게 조정
         if (article.getGroupId() != null) {
-            if(article.getDepthLevel() < 2) article.setDepthLevel(article.getDepthLevel()+1);
+            article.setDepthLevel(article.getDepthLevel()+1);
             article.setGroupSeq(article.getGroupSeq()+1);
             articleDao.arrangeGroupSeq(article.getGroupId(), article.getGroupSeq());
         }

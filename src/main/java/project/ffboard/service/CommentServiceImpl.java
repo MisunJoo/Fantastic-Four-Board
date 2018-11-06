@@ -35,7 +35,6 @@ public class CommentServiceImpl implements CommentService {
         // Service에 해주면 Controller에서 if문으로 체크를 한번 더 해줘야함.
         try {
             commentCounting.setArticleId(comment.getArticleId());
-            System.out.println("ArticleId가 잘 넘어왔나요? " + comment.getArticleId() );
             result = commentDao.addComment(comment, commentCounting);
         } catch (DataAccessException dae) {
             daoException.printLog(dae.toString());

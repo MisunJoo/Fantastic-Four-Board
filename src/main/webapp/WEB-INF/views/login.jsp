@@ -68,7 +68,7 @@
             <div class="ui error message"></div>
         </form>
         <div class="ui message">
-            로그인 아이디가 없으신가요? <a href="#">회원가입</a>
+            로그인 아이디가 없으신가요? <a href="/member/signup">회원가입</a>
         </div>
     </div>
 </div>
