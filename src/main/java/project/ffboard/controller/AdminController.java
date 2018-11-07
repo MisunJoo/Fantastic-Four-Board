@@ -53,4 +53,9 @@ public class AdminController {
         return "redirect:/admin/list?email=" + email+"&pg="+pg;
     }
 
+    @PostMapping("/admin/addCategory")
+    public String addCategory(@RequestParam(value="name") String name){
+        adminService.addCategory(name);
+        return "redirect:/";
+    }
 }

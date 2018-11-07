@@ -97,4 +97,10 @@ public class AdminDao {
             }
         });
     }
+
+    public void addCategory(String name)throws DataAccessException{
+        String sql = "INSERT INTO category(name) VALUES(:name)";
+        Map<String,String> params = Collections.singletonMap("name",name);
+        jdbc.update(sql,params);
+    }
 }

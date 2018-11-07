@@ -126,9 +126,9 @@
 
             <c:if test="${sessionScope.member.nickName == article.nickName}">
                 <button type="button" onclick="window.location.href='/article/update?id=${article.id}'"
-                        class="right floated ui button">
-                    수정
-                </button>
+                                 class="right floated ui button">
+                수정
+            </button>
                 <button type="button"
                         onclick="window.location.href='/article/delete?id=${article.id}&categoryid=${article.categoryId}'"
                         class="right floated ui button">

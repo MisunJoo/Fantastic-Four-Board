@@ -8,4 +8,5 @@ public interface AdminService {
     public List<String> getPermissions();
     public void update(String id, String[] checkPerm);
     public int memberCount();
+    public void addCategory(String name);
 }

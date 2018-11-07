@@ -75,6 +75,14 @@
     <a href="/admin/list?pg=${page}" class="btn btn-success"><b>${page}</b></a>
 </c:forEach>
 
+
+    <form method="post" action="/admin/addCategory">
+        <div>
+        추가하고 싶은 카테고리 이름을 적으세요 : <input type="text" class="text-input" name="name">
+        <button type="submit" class="floated ui secondary button">
+            <i class="icon edit"></i>추가</button>
+        </div>
+    </form>
 </div>
 </body>
 </html>
