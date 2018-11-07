@@ -33,7 +33,7 @@ public class ArticleServiceImpl implements ArticleService {
     public int addArticle(Article article, ArticleContent articleContent, MultipartFile file, ArticleCounting articleCounting) {
         //지금 쓰는 글이 답글인경우 groupSeq를 알맞게 조정
         if (article.getGroupId() != null) {
-            if(article.getDepthLevel() < 2) article.setDepthLevel(article.getDepthLevel()+1);
+            article.setDepthLevel(article.getDepthLevel()+1);
             article.setGroupSeq(article.getGroupSeq()+1);
             articleDao.arrangeGroupSeq(article.getGroupId(), article.getGroupSeq());
         }
@@ -216,6 +216,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
         return articleDao.getArticleList(categoryId, start,limit, searchType,searchWord);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Article> getArticleList(String orderType, int start) {
+        return articleDao.getArticleList(orderType,start,limit);
     }
 
     @Override

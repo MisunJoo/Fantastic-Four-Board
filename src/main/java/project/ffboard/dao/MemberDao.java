@@ -21,12 +21,12 @@ public class MemberDao {
     private SimpleJdbcInsert insertAction;
     private JdbcTemplate jdbcTemplate;
 
-    public MemberDao(DataSource datasource){
+    public MemberDao(DataSource datasource) {
         this.jdbc = new NamedParameterJdbcTemplate(datasource);
-        this.insertAction=new SimpleJdbcInsert(datasource)
+        this.insertAction = new SimpleJdbcInsert(datasource)
                 .withTableName("member")
                 .usingGeneratedKeyColumns("id");
-        this.jdbcTemplate=new JdbcTemplate(datasource);
+        this.jdbcTemplate = new JdbcTemplate(datasource);
     }
 
     public Long signUp(Member member) throws DataAccessException {
@@ -34,7 +34,6 @@ public class MemberDao {
         Map<String, Object> map = new HashMap<>();
         map.put("email", member.getEmail());
         map.put("nickName", member.getNickName());
-        System.out.println(member.getEmail() + "/" + member.getNickName());
         RowMapper<Member> rowMapper = BeanPropertyRowMapper.newInstance(Member.class);
         if (jdbc.query(sql, map, rowMapper).size() > 0) {
             sql = "SELECT * FROM member WHERE email=:email";
@@ -48,8 +47,8 @@ public class MemberDao {
         return insertAction.executeAndReturnKey(params).longValue();
     }
 
-    public Member login(Member member) throws DataAccessException{
-        String sql = "SELECT * FROM member WHERE email=:email AND password=:password";
+    public Member login(Member member) throws DataAccessException {
+        String sql = "SELECT id,email,nick_name  FROM member WHERE email=:email AND password=:password";
         Map<String, String> map = new HashMap<>();
         map.put("email", member.getEmail());
         map.put("password", member.getPassword());

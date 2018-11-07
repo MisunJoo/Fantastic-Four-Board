@@ -2,6 +2,7 @@ package project.ffboard.controller;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Member;
 import project.ffboard.service.MemberService;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
@@ -18,10 +21,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/main")
-    public String main(){
-        return "main";
-    }
 
     @GetMapping("/member/signup")
     public String signUpForm(ModelMap modelMap,@RequestParam(value = "email", defaultValue = "") String email,
@@ -44,29 +43,40 @@ public class MemberController {
         }else if(result==-2L){
             return "redirect:/member/signup?duplication=nickName&nickName="+member.getNickName()+"&email="+member.getEmail();
         }else { // 로그인 성공
-            return "redirect:/main";
+            return "redirect:/";
         }
     }
 
     @GetMapping("/login")
     public String loginForm(ModelMap modelMap, @ModelAttribute Member member,
-                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck){
+                            @RequestParam(value="loginCheck", defaultValue="") String loginCheck,
+                            HttpSession session){
+        if(session.getAttribute("member")!=null){
+            return "redirect:/";
+        }
         modelMap.addAttribute("email", member.getEmail());
-        modelMap.addAttribute("password", member.getPassword());
         modelMap.addAttribute("loginCheck", loginCheck);
 
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute Member member){
+    public String login(@ModelAttribute Member member, Model model,
+                        HttpSession session){
         Member memberResult = memberService.login(member);
         if(memberResult == null){
-            return "redirect:/login?loginCheck=invalid";
+            return "redirect:/login?loginCheck=invalid&email="+member.getEmail();
         }
         else{
-            return "redirect:/main";
+            session.setAttribute("member",memberResult);
+            return "redirect:/";
         }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("member");
+        return "redirect:/";
     }
 
 

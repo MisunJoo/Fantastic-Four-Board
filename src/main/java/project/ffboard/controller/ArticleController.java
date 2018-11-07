@@ -1,6 +1,7 @@
 package project.ffboard.controller;
 
 import jdk.nashorn.internal.objects.annotations.Setter;
+import project.ffboard.dto.Member;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +10,13 @@ import project.ffboard.dto.Article;
 import project.ffboard.dto.ArticleContent;
 import project.ffboard.dto.ArticleCounting;
 import project.ffboard.dto.ArticleFile;
+import project.ffboard.dto.Comment;
 import project.ffboard.service.ArticleService;
 import project.ffboard.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ArticleController {
@@ -71,12 +74,12 @@ public class ArticleController {
 
         //만약 삭제된 글에 비정상적으로 접근할 시에 바로 목록으로 리다이렉트
         if (article.getIsDeleted() == true) {
-            return "redirect:/article/list?categoryid="+article.getCategoryId();
+            return "redirect:/article/list?categoryid=" + article.getCategoryId();
         }
 
         //만약 파일이 존재한다면, 파일관련 정보도 추가
         ArticleFile file = articleService.isExistFile(id);
-        if (file!=null) {
+        if (file != null) {
             model.addAttribute("fileInfo", file);
         }
 
@@ -85,10 +88,10 @@ public class ArticleController {
 
         //댓글 삽입코드 시작
         model.addAttribute("comments", commentService.getCommentList(id, Integer.parseInt(page), Integer.parseInt(posts)));
-        if(modification.equals("true")) {
+        if (modification.equals("true")) {
             model.addAttribute("modification", modification);
         }
-        if(addChild.equals("true")) {
+        if (addChild.equals("true")) {
             model.addAttribute("addChild", addChild);
         }
         model.addAttribute("commentId", commentId);
@@ -105,14 +108,21 @@ public class ArticleController {
     @ResponseBody
     public void download(@PathVariable("id") Long id,
                          HttpServletResponse response) {
-        articleService.downloadFile(response,id);
+        articleService.downloadFile(response, id);
     }
 
     //게시판 글 쓰기
     @GetMapping("/article/write")
-    public String write(@RequestParam("categoryid") int categoryId, Model model) {
+    public String write(@RequestParam("categoryid") int categoryId, Model model,
+                        HttpSession session) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("categoryId", categoryId);
+        Member member = (Member)session.getAttribute("member");
+
+        //권한 없는 사람이 직접 입력한 url로 접근할 경우
+        if(!member.getPerms().contains("write")){
+            return "redirect:/";
+        }
         return "/article/write";
     }
 
@@ -125,18 +135,17 @@ public class ArticleController {
         article.setIpAddress(request.getRemoteAddr());
         articleCounting.setCategoryId(article.getCategoryId());
 
-        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
-        article.setMemberId(1L);
-        article.setNickName("관리자");
-
+        Member member = (Member)session.getAttribute("member");
+        article.setMemberId(member.getId());
+        article.setNickName(member.getNickName());
         articleService.addArticle(article,articleContent,file, articleCounting);
 
-        return "redirect:/article/list?categoryid="+article.getCategoryId();
+        return "redirect:/article/list?categoryid=" + article.getCategoryId();
     }
 
     //게시판 답글달기
     @GetMapping("/article/reply")
-    public String reply(@RequestParam("id")Long id,Model model) {
+    public String reply(@RequestParam("id") Long id, Model model) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
         model.addAttribute("parentId", id);
         return "/article/reply";
@@ -145,8 +154,8 @@ public class ArticleController {
     @PostMapping("/article/reply")
     public String reply(Article article, ArticleContent articleContent, ArticleCounting articleCounting,
                         @RequestParam("file") MultipartFile file,
-                        @RequestParam("parentId")Long parentId, HttpServletRequest request,
-                        Model model) {
+                        @RequestParam("parentId") Long parentId, HttpServletRequest request,
+                        HttpSession session) {
         //계층형을 위한 처리, 부모의 groupId를받고, groupseq와 depthlevel을 부모보다 1크게한다.
         Article parentArticle = articleService.getArticle(parentId);
         article.setGroupId(parentArticle.getGroupId());
@@ -156,21 +165,20 @@ public class ArticleController {
         article.setCategoryId(parentArticle.getCategoryId());
         article.setIpAddress(request.getRemoteAddr());
 
-        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
-        article.setMemberId(1L);
-        article.setNickName("관리자");
-
+        Member member = (Member)session.getAttribute("member");
+        article.setMemberId(member.getId());
+        article.setNickName(member.getNickName());
         articleCounting.setCategoryId(article.getCategoryId());
-
         articleService.addArticle(article,articleContent,file, articleCounting);
         return "redirect:/article/list?categoryid="+article.getCategoryId();
+
     }
 
     //게시판 글 수정
     @GetMapping("/article/update")
-    public String update(@RequestParam("id")Long id, Model model) {
+    public String update(@RequestParam("id") Long id, Model model) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
-        model.addAttribute("article",articleService.getArticle(id));
+        model.addAttribute("article", articleService.getArticle(id));
         model.addAttribute("articleContent", articleService.getArticleContent(id));
         return "/article/update";
     }
@@ -178,22 +186,21 @@ public class ArticleController {
     @PostMapping("/article/update")
     public String update(Article article, ArticleContent articleContent,
                          @RequestParam("file") MultipartFile file,
-                         HttpServletRequest request, Model model) {
+                         HttpServletRequest request, HttpSession session) {
         article.setIpAddress(request.getRemoteAddr());
 
-        //회원정보 관련된 set은 세션을 구현한 후에 넣어주어야 함
-        article.setNickName("관리자");
-
+        Member member = (Member)session.getAttribute("member");
+        article.setNickName(member.getNickName());
         articleService.updateArticle(article, articleContent, file);
 
-        return "redirect:/article/read?id="+article.getId();
+        return "redirect:/article/read?id=" + article.getId();
     }
 
     //게시판 글 삭제
     @GetMapping("/article/delete")
-    public String delete(@RequestParam("id") Long id,@RequestParam("categoryid")int categoryId, Model model) {
+    public String delete(@RequestParam("id") Long id, @RequestParam("categoryid") int categoryId, Model model) {
         articleService.deleteArticle(id);
-        return "redirect:/article/list?categoryid="+categoryId;
+        return "redirect:/article/list?categoryid=" + categoryId;
     }
 
     //게시판 네비게이션 카테고리 목록 자겨오기

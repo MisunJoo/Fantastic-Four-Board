@@ -185,6 +185,31 @@ public class ArticleDao {
                 return resultSet.getInt(1);
             }
         });
+
+    //메인페이지의 인기글과 최신글 출력을 위한 게시판 리스트
+    public List<Article> getArticleList(String orderType, int start, int limit) {
+        String sql = null;
+        //매핑이 안되어서 일단 if문으로 함
+        if (orderType.equals("regdate")) {
+            sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted "
+                    +"FROM article ORDER BY regdate DESC, group_seq ASC LIMIT :start , :limit";
+        } else if (orderType.equals("hit")) {
+            sql = "SELECT id,title,hit,nick_name,group_id,depth_level,group_seq,regdate,upddate,category_id,ip_address,member_id,is_deleted "
+                    +"FROM article ORDER BY hit DESC, group_seq ASC LIMIT :start , :limit";
+        }
+
+        RowMapper<Article> rowMapper =  BeanPropertyRowMapper.newInstance(Article.class);
+
+        Map<String, Object> params = new HashMap();
+        params.put("start", Integer.valueOf(start));
+        params.put("limit", Integer.valueOf(limit));
+        
+        try {
+            return jdbc.query(sql,params,rowMapper);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**

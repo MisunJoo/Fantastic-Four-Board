@@ -8,12 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.ffboard.dto.Comment;
 import project.ffboard.dto.CommentCounting;
+import project.ffboard.dto.Member;
 import project.ffboard.service.CommentService;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class CommentController {
@@ -57,7 +56,9 @@ public class CommentController {
 
 
     @PostMapping("/comment/write")
-    public String write(@ModelAttribute Comment comment, @ModelAttribute CommentCounting commentCounting) {
+    public String write(@ModelAttribute Comment comment,
+                        @ModelAttribute CommentCounting commentCounting,
+                        HttpSession session, HttpServletRequest request) {
         if(comment.getGroupId()==null){      // 그냥 댓글
             comment.setGroupSeq(0);
             comment.setDepthLevel(0);
@@ -66,10 +67,10 @@ public class CommentController {
             comment.setGroupSeq(comment.getGroupSeq()+1);
         }
 
-        // 나중에 수정
-        comment.setIpAddress("124.2223");
-        comment.setMemberId(1L);
-        comment.setNickName("nick");
+        Member member = (Member)session.getAttribute("member");
+        comment.setIpAddress(request.getRemoteAddr());
+        comment.setMemberId(member.getId());
+        comment.setNickName(member.getNickName());
         commentService.addComment(comment, commentCounting);
         return "redirect:/article/read?id="+comment.getArticleId();
 

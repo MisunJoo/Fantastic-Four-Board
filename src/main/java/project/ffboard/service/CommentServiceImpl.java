@@ -69,7 +69,6 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> result = null;
         try {
             result = commentDao.getCommentList(articleId, page, posts);
-
         } catch (DataAccessException dae) {
             daoException.printLog(dae.toString());
         } finally {

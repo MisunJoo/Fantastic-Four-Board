@@ -19,6 +19,8 @@ public class MainController {
 
         //TODO:메인 페이지용 인기글 최신글 미구현상태
         model.addAttribute("articleList",articleService.getArticleList(1, 1, 5));
+        model.addAttribute("articleListNew",articleService.getArticleList("regdate", 0));
+        model.addAttribute("articleListHit",articleService.getArticleList("hit", 0));
         return "index";
     }
 
