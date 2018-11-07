@@ -10,6 +10,9 @@
             </c:if>
             <c:if test="${sessionScope.member != null}">
             <button class="ui inverted button" onclick="window.location.href='/logout'"><i class="sign-out icon"></i>${sessionScope.member.nickName} 로그아웃</button>
+                <c:if test="${sessionScope.member.id ==1}">
+                    <button class="ui inverted button" onclick="window.location.href='/admin/list'"><i class="sign-out icon"></i>관리자페이지</button>
+                </c:if>
             </c:if>
         </div>
     </div>
