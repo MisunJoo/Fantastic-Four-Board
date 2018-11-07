@@ -2,14 +2,13 @@ package project.ffboard.service;
 
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import project.ffboard.dao.ArticleDao;
-import project.ffboard.dto.Article;
-import project.ffboard.dto.ArticleContent;
-import project.ffboard.dto.ArticleFile;
-import project.ffboard.dto.Category;
+import project.ffboard.dto.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -31,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional
-    public int addArticle(Article article, ArticleContent articleContent,MultipartFile file) {
+    public int addArticle(Article article, ArticleContent articleContent, MultipartFile file, ArticleCounting articleCounting) {
         //지금 쓰는 글이 답글인경우 groupSeq를 알맞게 조정
         if (article.getGroupId() != null) {
             article.setDepthLevel(article.getDepthLevel()+1);
@@ -53,9 +52,16 @@ public class ArticleServiceImpl implements ArticleService {
             uploadFile(file, articleId);
         }
 
+        //article_couning 해당 카테고리에 글이 없을 때 => count 0
+        if(articleDao.getCategoryCount(articleCounting.getCategoryId()) == null){
+            articleCounting.setCount(1L);
+            articleDao.insertArticleCount(articleCounting);
+        }else {
+            articleDao.updateArticleCount(articleCounting);
+        }
+
         return articleDao.insertArticleContent(articleContent);
     }
-
     public int uploadFile(MultipartFile file, Long articleId) {
         UUID uuid = UUID.randomUUID();
         String uuidStr = uuid.toString();
@@ -144,6 +150,20 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public int getCount(int categoryId, int totalPage, int posts){
+        try {
+            totalPage = articleDao.getCount(categoryId);
+            totalPage = (totalPage - 1) / posts + 1;
+
+            return totalPage;
+        }catch (EmptyResultDataAccessException e){
+            return 0;
+        }
+
+    }
+
 
     @Override
     @Transactional
@@ -186,15 +206,16 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> getArticleList(int categoryId, int start) {
-        List<Article> articleList = articleDao.getArticleList(categoryId, start, limit);
+    public List<Article> getArticleList(int categoryId, int start, int posts) {
+        System.out.println("categoryId는"+categoryId);
+        List<Article> articleList = articleDao.getArticleList(categoryId, start, posts);
         return articleList;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, String searchType, String searchWord) {
-        return articleDao.getArticleList(categoryId,start,limit,searchType,searchWord);
+        return articleDao.getArticleList(categoryId, start,limit, searchType,searchWord);
     }
 
     @Override

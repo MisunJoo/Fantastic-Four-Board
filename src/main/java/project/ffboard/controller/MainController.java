@@ -17,6 +17,8 @@ public class MainController {
     public String main(Model model) {
         getCategoryList(model); //게시판 네비게이션 목록을 위한 카테고리 목록 가져오기
 
+        //TODO:메인 페이지용 인기글 최신글 미구현상태
+        model.addAttribute("articleList",articleService.getArticleList(1, 1, 5));
         model.addAttribute("articleListNew",articleService.getArticleList("regdate", 0));
         model.addAttribute("articleListHit",articleService.getArticleList("hit", 0));
         return "index";
