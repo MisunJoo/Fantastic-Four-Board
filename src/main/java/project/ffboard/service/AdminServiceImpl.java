@@ -81,4 +81,14 @@ public class AdminServiceImpl implements AdminService{
             daoException.printLog(dae.toString());
         }
     }
+
+    @Override
+    @Transactional
+    public void addCategory(String name) {
+        try {
+            adminDao.addCategory(name);
+        }catch (DataAccessException dae){
+            daoException.printLog(dae.toString());
+        }
+    }
 }
