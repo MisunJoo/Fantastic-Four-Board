@@ -129,7 +129,9 @@ public class ArticleController {
     @PostMapping("/article/write")
     public String write(Article article, ArticleContent articleContent,
                         @RequestParam("file") MultipartFile file,
-                        HttpServletRequest request, Model model, ArticleCounting articleCounting) {
+                        HttpServletRequest request, Model model,
+                        HttpSession session,
+                        ArticleCounting articleCounting) {
         article.setGroupSeq(0);
         article.setDepthLevel(0);
         article.setIpAddress(request.getRemoteAddr());

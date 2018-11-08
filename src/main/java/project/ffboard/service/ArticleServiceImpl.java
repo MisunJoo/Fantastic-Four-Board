@@ -156,7 +156,6 @@ public class ArticleServiceImpl implements ArticleService {
         try {
             totalPage = articleDao.getCount(categoryId);
             totalPage = (totalPage - 1) / posts + 1;
-
             return totalPage;
         }catch (EmptyResultDataAccessException e){
             return 0;
@@ -207,7 +206,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(readOnly = true)
     public List<Article> getArticleList(int categoryId, int start, int posts) {
-        System.out.println("categoryId는"+categoryId);
         List<Article> articleList = articleDao.getArticleList(categoryId, start, posts);
         return articleList;
     }

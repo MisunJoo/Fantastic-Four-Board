@@ -17,6 +17,7 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
     private CommentDao commentDao;
+
     @Autowired
     @Qualifier(value = "DaoException")
     private FFException daoException;

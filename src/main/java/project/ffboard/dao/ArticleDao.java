@@ -175,16 +175,17 @@ public class ArticleDao {
         }
     }
 
-    public int getCount(int categoryId){
+    public int getCount(int categoryId) {
         String sql = "SELECT count FROM article_counting WHERE category_id = :categoryId";
         Map<String, Integer> map = Collections.singletonMap("categoryId", categoryId);
 
-        return jdbc.queryForObject(sql, map, new RowMapper<Integer>(){
+        return jdbc.queryForObject(sql, map, new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getInt(1);
             }
         });
+    }
 
     //메인페이지의 인기글과 최신글 출력을 위한 게시판 리스트
     public List<Article> getArticleList(String orderType, int start, int limit) {

@@ -95,12 +95,11 @@ public class CommentDao {
         int end = posts;
         Map<String, Object> map = new HashMap<>();
         map.put("articleId", articleId);
-        map.put("start", start - 1);
+        map.put("start", start);
         map.put("end", end);
 
         RowMapper<Comment> rowMapper = BeanPropertyRowMapper.newInstance(Comment.class);
         List<Comment> comments = jdbc.query(sql, map, rowMapper);
-
 
         return comments;
     }
